@@ -1,0 +1,96 @@
+body {
+  margin: 0;
+  font-family: "Rubik", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1649px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 993px) and (max-width: 1199px) {
+  body {
+    font-size: 12px;
+  }
+}
+
+code {
+  font-family: "Rubik", sans-serif;
+}
+
+#header-pop .MuiPaper-elevation {
+  top: 65px !important;
+}
+#data .MuiPaginationItem-root {
+  color: #9b9b9b;
+  @media screen and (max-width: 430px) {
+    font-size: 10px;
+    min-width: 22px;
+    height: 22px;
+    align-items: end;
+  }
+}
+#data .MuiPagination-ul {
+  justify-content: center;
+}
+#data .Mui-selected {
+  background-color: #0fae96;
+  color: #fff;
+}
+
+#basic-menu .MuiMenu-paper {
+  left: 205px;
+}
+#basic-menu .MuiMenu-paper {
+  width: 140px;
+}
+
+#slider-wrap {
+  display: flex !important;
+  justify-content: center;
+}
+.slider-container {
+  max-width: 1446px;
+  margin-top: 38px;
+  margin: auto;
+}
+.slick-slide img {
+  width: 93%;
+}
+
+.slick-arrow img {
+  position: absolute;
+  top: -65px;
+  right: 0px;
+  @media screen and (max-width: 430px){
+    top: -44px;
+    right: 11px;
+  }
+}
+
+.slick-arrow-left img {
+  position: absolute;
+  top: -65px;
+  right: 55px;
+  @media screen and (max-width: 430px){
+    top: -44px;
+    /* right: 11px; */
+  }
+}
+
+.MuiSwitch-switchBase.Mui-checked{
+  width: 115%;
+}
+.MuiSwitch-switchBase.Mui-checked:hover{
+background-color: transparent !important;
+}
+
+.MuiFormGroup-root {
+  position: relative !important;
+}
