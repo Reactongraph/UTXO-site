@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Header from "../Header";
 import {
   FormContainer,
   ImageWrapperFile,
@@ -10,7 +9,6 @@ import {
 import { Box, IconButton } from "@mui/material";
 import { HeaderTypography } from "../../components/Common/CommonTypography";
 import { FormFields } from "./constant";
-import Footer from "../Footer";
 import { CommonButton } from "../../components/Common/CommonButton";
 import { useNavigate } from "react-router-dom";
 

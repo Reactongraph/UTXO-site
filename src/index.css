@@ -68,7 +68,7 @@ code {
   position: absolute;
   top: -65px;
   right: 0px;
-  @media screen and (max-width: 430px){
+  @media screen and (max-width: 430px) {
     top: -44px;
     right: 11px;
   }
@@ -78,19 +78,23 @@ code {
   position: absolute;
   top: -65px;
   right: 55px;
-  @media screen and (max-width: 430px){
+  @media screen and (max-width: 430px) {
     top: -44px;
     /* right: 11px; */
   }
 }
 
-.MuiSwitch-switchBase.Mui-checked{
+.MuiSwitch-switchBase.Mui-checked {
   width: 115%;
 }
-.MuiSwitch-switchBase.Mui-checked:hover{
-background-color: transparent !important;
+.MuiSwitch-switchBase.Mui-checked:hover {
+  background-color: transparent !important;
 }
 
 .MuiFormGroup-root {
   position: relative !important;
+}
+.MuiBackdrop-root {
+  background: #010101 !important;
+  opacity: 63% !important;
 }

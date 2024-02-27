@@ -48,3 +48,48 @@ export const FormFields = [
     type: "attach",
   },
 ];
+
+export const FormFieldsEdit = [
+
+    {
+    text: "Fund Amount",
+    inputLine: "",
+    placeholder: "",
+    type: "text",
+    value: "1.0256 BTC"
+  },{
+    text: "BTC Wallet",
+    inputLine: "",
+    placeholder: "",
+    type: "text",
+    value: "bc1q...aw4e"
+  },
+  {
+    text: "Github Wallet",
+    inputLine: "",
+    placeholder: "",
+    type: "text",
+    value: "www.github6789"
+  },
+  {
+    text: "Description",
+    inputLine: "",
+    placeholder: "",
+    type: "text",
+    value: "Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator."
+  },
+  {
+    text: "Additional info",
+    inputLine: "",
+    placeholder: "Description text...",
+    type: "text",
+    value: ""
+  },
+  {
+    text: "Attachments",
+    inputLine: "",
+    placeholder: "",
+    type: "attach",
+    value: "1.0256 BTC"
+  },
+];

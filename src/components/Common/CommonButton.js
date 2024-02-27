@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 
 export const CommonButton = styled(Button)(
   {},
-  ({ fz, bg, fc, pd, brdr, fw, mr }) => ({
+  ({ fz, bg, fc, pd, brdr, fw, mr,mfz }) => ({
     fontFamily: "Rubik, sans-serif",
     width: "fit-content",
     fontWeight: fw || 400,
@@ -21,5 +21,8 @@ export const CommonButton = styled(Button)(
       color: "#fff",
       background: "#0FAE96",
     },
+    "@media screen and (max-width: 756px)":{
+      fontSize: mfz || fz,
+    }
   })
 );

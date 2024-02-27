@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
-import { TextareaAutosize } from "@mui/material";
+import { Box, TextareaAutosize } from "@mui/material";
 
 export const ImageWrapper = styled.img`
   width: 100%;
   margin: 44px 0px 32px;
 `;
 
-export const MainWrapper = styled.div`
+export const MainWrapper = styled(Box)`
   .MuiInputBase-root {
     border-radius: 8px;
   }

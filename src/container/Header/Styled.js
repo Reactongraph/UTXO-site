@@ -16,7 +16,7 @@ export const HeadConatiner = styled.div`
   display: flex;
   gap: 20px;
   flex-direction: column;
-  @media screen and (max-width: 1280px) {
+  @media screen and (max-width: 1351px) {
     display: none;
   }
 `;
