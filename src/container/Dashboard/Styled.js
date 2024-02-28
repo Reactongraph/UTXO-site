@@ -14,10 +14,10 @@ export const TitleWrapper = styled.div`
 export const ProposalWrapper = styled.div`
   padding: 10px 29px;
   display: flex;
+  height: fit-content;
   gap: 30px;
   border: 1px solid #cbcbcb;
-  box-shadow: 0px 4px 4px 0px #00000040;
-
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   width: fit-content;
 `;
@@ -70,14 +70,27 @@ export const ProposalWrapperFilter = styled.div`
   display: flex;
   gap: 30px;
   border: 1px solid #cbcbcb;
-  box-shadow: 0px 4px 4px 0px #00000040;
-
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
+  color: #000;
   width: fit-content;
   @media screen and (max-width: 654px) {
     gap: 10px;
-  padding: 10px;
-
+    padding: 10px;
   }
+`;
 
+export const DisplayGrid = styled.div`
+  background: linear-gradient(
+    91.18deg,
+    #f0fcfb 49.99%,
+    rgba(201, 255, 250, 0) 98.59%
+  );
+  width: 100%;
+  height: 385px;
+  position: absolute;
+  top: -42px;
+  @media screen and (max-width: 1227px) {
+    height: 135%;
+  }
 `;

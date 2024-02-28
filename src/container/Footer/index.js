@@ -10,6 +10,7 @@ import {
 } from "./Styled";
 
 const FooterData = ["utxo.site", "src20utxo.com", "src20utxo.app"];
+const FooterPreData = ["Docs", "Github", "Gitbook"];
 
 const Footer = () => {
   return (
@@ -38,10 +39,21 @@ const Footer = () => {
             Credit by: UTXO.site
           </ResponsiveHeaderTypography>
         </Box>
-        <Box display={"flex"} columnGap={"73px"}>
-          <HiddenOnMobile>
-            <img src="/images/resouce.svg" alt="icon"></img>
-          </HiddenOnMobile>
+        <HiddenOnMobile display={"flex"}>
+          <Box>
+            {/* <img src="/images/resouce.svg" alt="icon"></img> */}
+            <HeaderTypography
+              fz="1.063em"
+              fc="#fff"
+              fw="600"
+              marginBottom={"15px"}
+            >
+              Resource
+            </HeaderTypography>
+            {FooterPreData?.map((item) => {
+              return <WrapperThird>{item}</WrapperThird>;
+            })}
+          </Box>
           <Box>
             <Box
               display={"flex"}
@@ -62,7 +74,7 @@ const Footer = () => {
               return <WrapperThird>{item}</WrapperThird>;
             })}
           </Box>
-        </Box>
+        </HiddenOnMobile>
       </Box>
     </Box>
   );

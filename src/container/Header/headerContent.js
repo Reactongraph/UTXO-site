@@ -2,11 +2,14 @@ import { Box } from "@mui/material";
 import { HeaderTypography } from "../../components/Common/CommonTypography";
 import CommonMenuItem from "../../components/Common/CommonMenuItem";
 import {
+  BoxContent,
+  BoxWrap,
   HeadConatiner,
   LeftConatiner,
   LeftMainConatiner,
   MainWrapper,
   RightWrapper,
+  ToggleWrap,
 } from "./Styled";
 import ToggleButton from "../../components/ToggleButton/toggleButton";
 
@@ -18,25 +21,27 @@ const data = [
   { title: "Holders", percentage: "1,947" },
 ];
 export const HeaderCard = (
-  <Box display="flex" columnGap={"32px"} flexWrap="wrap">
-    {data?.map((item, index) => (
-      <HeadConatiner key={index}>
-        <HeaderTypography fz="1em" fc="#808080">
-          {item.title}
-        </HeaderTypography>
-        <HeaderTypography fw="500" fc="#2B2B2B" fz="1.5em">
-          {item.percentage}
-        </HeaderTypography>
-      </HeadConatiner>
-    ))}
-  </Box>
+  <BoxContent>
+    <BoxWrap display="flex" columnGap={"32px"} flexWrap="wrap">
+      {data?.map((item, index) => (
+        <HeadConatiner key={index}>
+          <HeaderTypography fz="1em" fc="#808080">
+            {item.title}
+          </HeaderTypography>
+          <HeaderTypography fw="500" fc="#2B2B2B" fz="1.5em">
+            {item.percentage}
+          </HeaderTypography>
+        </HeadConatiner>
+      ))}
+    </BoxWrap>
+  </BoxContent>
 );
 const ImgData = ["social", "social-2", "social-3", "social-4"];
 
 export const RightContent = (
   <LeftMainConatiner>
     <MainWrapper>
-      <Box display="flex" alignItems={"center"} flexDirection={"column"}>
+      <ToggleWrap>
         <CommonMenuItem
           butonContent={
             <RightWrapper>
@@ -45,7 +50,7 @@ export const RightContent = (
           }
         />
         <ToggleButton />
-      </Box>
+      </ToggleWrap>
 
       <Box display="flex" alignItems="center" columnGap={"16px"}>
         {ImgData?.map((item) => {

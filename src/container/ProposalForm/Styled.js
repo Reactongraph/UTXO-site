@@ -48,3 +48,46 @@ export const TextAreaWrap = styled(TextareaAutosize)`
   font-size: 1em;
   font-family: Rubik, sans-serif;
 `;
+
+export const TextAreaWrapper = styled(TextareaAutosize)`
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  padding: 19px 16px;
+  overflow: hidden;
+  width: 100%;
+  font-size: 1em;
+  background: #f4f6f8;
+  font-family: Rubik, sans-serif;
+`;
+
+export const Container = styled.div`
+  margin-left: 241px;
+  max-width: 1472px;
+  padding: 30px 20px 0px;
+  overflow: hidden;
+  @media screen and (max-width: 1300px) {
+    margin: auto;
+  }
+  @media screen and (max-width: 717px) {
+    padding: 7 3px 20px 0px;
+  }
+`;
+
+export const MainContainer = styled(Box)`
+  @media screen and (max-width: 830px) {
+    display: flex;
+    width: fit-content;
+    row-gap: 20px;
+    flex-direction: column;
+  }
+`;
+
+export const Wrapper = styled.div`
+  margin-left: 241px;
+  max-width: 1472px;
+  padding: 20px;
+
+  @media screen and (max-width: 1300px) {
+    margin: auto;
+  }
+`;

@@ -31,7 +31,8 @@ export const ResponsiveHeaderTypography = styled(HeaderTypography)`
 `;
 
 export const HiddenOnMobile = styled(Box)`
-@media screen and (max-width: 654px) {
-  display: none;
-}
+  column-gap: 73px;
+  @media screen and (max-width: 510px) {
+    column-gap: 20px;
+  }
 `;

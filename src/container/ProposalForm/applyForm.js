@@ -5,6 +5,7 @@ import {
   Imagecross,
   MainWrapper,
   TextAreaWrap,
+  Wrapper,
 } from "./Styled";
 import { Box, IconButton } from "@mui/material";
 import { HeaderTypography } from "../../components/Common/CommonTypography";
@@ -124,14 +125,14 @@ const ApplyForm = () => {
 
   return (
     <>
-      <Box maxWidth="1472px" margin={"auto"} padding={"20px"}>
+      <Wrapper>
         {/* <ImageWrapper src="/images/edit-screen.svg" /> */}
         <Box
           border={"1px solid #ECF1F0"}
           padding={"25px"}
           borderRadius={"27px"}
           boxShadow={"1px 5px 6px 0px #34333329"}
-          marginBottom={"51px"}
+          marginBottom={"60px"}
           maxWidth={"830px"}
         >
           <HeaderTypography fz="1.5em" fw="700" marginBottom={"4px"}>
@@ -180,10 +181,9 @@ const ApplyForm = () => {
             </CommonButton>
           </Box>
         </Box>
-      </Box>
+      </Wrapper>
     </>
   );
 };
 
 export default ApplyForm;
-

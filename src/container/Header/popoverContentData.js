@@ -20,14 +20,35 @@ const popData = [
 const PopoverContentData = () => {
   return (
     <Box>
-      <Grid backgroundColor={""} padding={"37px 24px 20px 32px"} width={"561px"}>
+      <Grid
+        backgroundColor={""}
+        padding={"37px 24px 20px 32px"}
+        width={"561px"}
+      >
         <Grid display={"flex"} gap={"24px"} marginBottom={"25px"}>
           <img src={"/images/wallet.svg"} alt="img" />
           <Grid>
-            <HeaderTypography fz={"1.75em"} fw="700" fc="#0FAE96">
+            <HeaderTypography
+              fz={"1.75em"}
+              fw="700"
+              fc="#0FAE96"
+              sx={{
+                "@media screen and (max-width: 626px)": {
+                  fontSize: "1.4em",
+                },
+              }}
+            >
               Connect Wallet
             </HeaderTypography>
-            <HeaderTypography fz={"0.938em"} fc="#808080">
+            <HeaderTypography
+              fz={"0.938em"}
+              fc="#808080"
+              sx={{
+                "@media screen and (max-width: 626px)": {
+                  width: "70%",
+                },
+              }}
+            >
               Choose the wallet you want to connect
             </HeaderTypography>
           </Grid>
@@ -37,6 +58,12 @@ const PopoverContentData = () => {
           flexWrap={"wrap"}
           columnGap={"27px"}
           rowGap={"27px"}
+          sx={{
+            "@media screen and (max-width: 626px)": {
+              flexWrap: "wrap",
+              width: "min-content",
+            },
+          }}
         >
           {popData?.map((item, index) => (
             <Grid

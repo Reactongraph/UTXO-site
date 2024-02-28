@@ -5,7 +5,7 @@ import { CommonButton } from "../../components/Common/CommonButton";
 import CommonPopover from "../../components/Common/CommonPopover";
 import PopoverContentData from "./popoverContentData";
 import { HeaderCard, RightContent } from "./headerContent";
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from "@mui/material/styles";
 
 const Header = () => {
   const [viewPopover, setViewPopover] = useState(false);
@@ -15,11 +15,16 @@ const Header = () => {
     setAnchorEl(event.currentTarget);
     setViewPopover(!viewPopover);
   };
-console.log("themetheme",theme?.palette?.primary)
+  console.log("themetheme", theme?.palette?.primary);
   return (
     <>
       <Box>
-        <Box display="flex" justifyContent="space-between" padding="20px">
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          padding="20px"
+          alignItems={"flex-start"}
+        >
           <LeftConatiner>
             <Box>
               <img src="/images/logo.svg" alt="logo"></img>
@@ -28,8 +33,7 @@ console.log("themetheme",theme?.palette?.primary)
           </LeftConatiner>
           <RightContainer>
             <Box>{RightContent}</Box>
-            <Box>
-            </Box>
+            <Box></Box>
             <Box id="header-pop">
               <CommonButton
                 fz="1.125em"

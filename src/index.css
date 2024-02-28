@@ -20,6 +20,7 @@ body {
   }
 }
 
+
 code {
   font-family: "Rubik", sans-serif;
 }
@@ -74,6 +75,27 @@ code {
   }
 }
 
+#edit-slide .slick-arrow img {
+  position: absolute;
+  top: -57px;
+  right: 15px;
+}
+
+#edit-slide{
+  width:458.5px;
+  @media screen and (max-width: 430px) {
+    width: 380px;
+  }
+}
+
+#edit-slide .slick-arrow-left img {
+  position: absolute;
+  top: -57px;
+  right: 70px;
+  @media screen and (max-width: 430px) {
+    right: 60px;
+  }
+}
 .slick-arrow-left img {
   position: absolute;
   top: -65px;
@@ -84,10 +106,10 @@ code {
   }
 }
 
-.MuiSwitch-switchBase.Mui-checked {
+#switch-toggle .MuiSwitch-switchBase.Mui-checked {
   width: 115%;
 }
-.MuiSwitch-switchBase.Mui-checked:hover {
+#switch-toggle .MuiSwitch-switchBase.Mui-checked:hover {
   background-color: transparent !important;
 }
 
@@ -97,4 +119,15 @@ code {
 .MuiBackdrop-root {
   background: #010101 !important;
   opacity: 63% !important;
+}
+
+#toggle{
+  margin-right: 12px;
+}
+
+.MuiPaper-root{
+  top: 118px !important;
+  @media screen and (max-width: 754px) {
+    top: 80px !important;
+  }
 }
