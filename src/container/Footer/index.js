@@ -79,15 +79,15 @@ const Footer = () => {
           </Box>
           <Box>
             <Box
-              display={"flex"}
-              alignContent={"top"}
-              columnGap={"23px"}
+              // display={"flex"}
+              // alignContent={"top"}
+              // columnGap={"23px"}
               marginBottom={"15px"}
             >
-              <WrapperSecond
+              {/* <WrapperSecond
                 src="/images/vector.svg"
                 alt="icon"
-              ></WrapperSecond>
+              ></WrapperSecond> */}
               <HeaderTypography fz="1.0625em" fc="#fff" fw="500">
                 Website
               </HeaderTypography>

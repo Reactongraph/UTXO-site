@@ -45,6 +45,7 @@ export const TextAreaWrap = styled(TextareaAutosize)`
   padding: 19px 16px;
   overflow: hidden;
   width: 100%;
+  resize: none;
   font-size: 1em;
   font-family: Rubik, sans-serif;
 `;
@@ -58,6 +59,7 @@ export const TextAreaWrapper = styled(TextareaAutosize)`
   font-size: 1em;
   background: #f4f6f8;
   font-family: Rubik, sans-serif;
+  resize: none;
 `;
 
 export const Container = styled.div`

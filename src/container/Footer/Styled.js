@@ -10,6 +10,7 @@ export const WrapperFirst = styled.img`
 export const WrapperSecond = styled.img`
   @media screen and (max-width: 654px) {
     width: 15%;
+    min-width: 28px;
   }
 `;
 export const WrapperThird = styled.div`

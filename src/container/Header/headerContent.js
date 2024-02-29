@@ -12,6 +12,7 @@ import {
   ToggleWrap,
 } from "./Styled";
 import ToggleButton from "../../components/ToggleButton/toggleButton";
+import CommonSlider from "../../components/Common/CommonSlider";
 
 const data = [
   { title: "24H Change", percentage: "0%" },
@@ -23,17 +24,38 @@ const data = [
 
 export const HeaderCard = ({ theme }) => (
   <BoxContent>
-    <BoxWrap display="flex" columnGap={"32px"} flexWrap="wrap">
-      {data?.map((item, index) => (
-        <HeadConatiner key={index} theme={theme}>
-          <HeaderTypography fz="1em" fc={theme?.primary?.main}>
-            {item.title}
-          </HeaderTypography>
-          <HeaderTypography fw="500" fc={theme?.primary?.main} fz="1.5em">
-            {item.percentage}
-          </HeaderTypography>
-        </HeadConatiner>
-      ))}
+    <BoxWrap
+      display="flex"
+      columnGap={"32px"}
+      flexWrap="wrap"
+      id="header-slider"
+    >
+      {window?.innerWidth < 1217 ? (
+        <CommonSlider
+          InitialShowNumber={1}
+          responsiveArray={[]}
+          CardContent={data?.map((item, index) => (
+            <HeadConatiner key={index} theme={theme}>
+              <HeaderTypography fz="1em" fc={theme?.primary?.main}>
+                {item.title}
+              </HeaderTypography>
+              <HeaderTypography fw="500" fc={theme?.primary?.main} fz="1.5em">
+                {item.percentage}
+              </HeaderTypography>
+            </HeadConatiner>
+          ))}
+        />
+      ) : (
+        data?.map((item, index) => (
+          <HeadConatiner key={index} theme={theme}>
+            <HeaderTypography fz="1em" fc={theme?.primary?.main}>
+              {item.title}
+            </HeaderTypography>
+            <HeaderTypography fw="500" fc={theme?.primary?.main} fz="1.5em">
+              {item.percentage}
+            </HeaderTypography>
+          </HeadConatiner>
+        )))}
     </BoxWrap>
   </BoxContent>
 );

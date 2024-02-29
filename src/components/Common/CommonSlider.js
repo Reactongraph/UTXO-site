@@ -3,7 +3,7 @@ import React from "react";
 import Slider from "react-slick";
 
 function CommonSlider(propsData) {
-  const { InitialShowNumber = "", responsiveArray } = propsData || "";
+  const { InitialShowNumber = "", responsiveArray ,CardContent} = propsData || "";
 
   function SampleNextArrow(props) {
     const { className, style, onClick } = props;
@@ -71,7 +71,7 @@ function CommonSlider(propsData) {
   return (
     <div className="slider-container">
       <Slider {...settings}>
-        {Cards?.map((item) => {
+        {CardContent ? CardContent : Cards?.map((item) => {
           return (
             <Box id="slider-wrap">
               <img src={`/images/${item}.svg`} alt="icon"></img>
