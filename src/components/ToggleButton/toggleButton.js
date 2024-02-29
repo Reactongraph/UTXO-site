@@ -120,6 +120,7 @@ const MaterialUISwitchSmall = styled(Switch)(({ theme }) => ({
 export default function ToggleButton() {
   const [switchState, setSwitchState] = React.useState(false);
   const [windowWidth, setWindowWidth] = React.useState(window?.innerWidth);
+  const { theme, toggleTheme } = useThemeContext();
 
   React.useEffect(() => {
     function handleResize() {
@@ -133,6 +134,7 @@ export default function ToggleButton() {
 
   const handleSwitchChange = () => {
     setSwitchState(!switchState);
+    toggleTheme();
   };
   return (
     <FormGroup position="relative">

@@ -13,9 +13,11 @@ import {
 import { FormFieldsEdit } from "./constant";
 import { ProposalWrapper } from "../Dashboard/Styled";
 import CommonSlider from "../../components/Common/CommonSlider";
+import { useTheme } from "@mui/material/styles";
 
 const EditForm = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
   const [selects, setSelects] = useState([true, false, false, false]);
   const titles = [{ text: "Running", color: "#0FAE96" }];
   const handleClick = (index) => {
@@ -127,7 +129,11 @@ const EditForm = () => {
                 <HeaderTypography
                   fz="1em"
                   marginTop={"20px"}
-                  fc={`${item?.text === "Attachments" ? "#2B2B2B" : "#808080"}`}
+                  fc={`${
+                    item?.text === "Attachments"
+                      ? theme?.palette?.primary?.main
+                      : "#808080"
+                  }`}
                   marginBottom={"8px"}
                 >
                   {item?.text}

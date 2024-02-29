@@ -17,7 +17,7 @@ const popData = [
   },
 ];
 
-const PopoverContentData = () => {
+const PopoverContentData = ({ theme }) => {
   return (
     <Box>
       <Grid
@@ -42,7 +42,7 @@ const PopoverContentData = () => {
             </HeaderTypography>
             <HeaderTypography
               fz={"0.938em"}
-              fc="#808080"
+              fc={theme?.secondary?.main}
               sx={{
                 "@media screen and (max-width: 626px)": {
                   width: "70%",

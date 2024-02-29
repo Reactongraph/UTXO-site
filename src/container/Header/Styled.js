@@ -26,20 +26,25 @@ export const RightContainer = styled.div`
   }
 `;
 
-export const HeadConatiner = styled.div`
+export const HeadConatiner = styled.div(
+  {},
+  ({ theme }) => `
   display: flex;
   gap: 20px;
   flex-direction: column;
-  background: rgba(145, 248, 232, 0.1);
+  background: ${theme?.primary?.light};
   border-radius: 4px;
   padding: 15px 16px 23px;
   height: 94.24px;
   width: 196px;
-`;
+`
+);
 
-export const RightWrapper = styled.div`
+export const RightWrapper = styled.div(
+  {},
+  ({ theme }) => `
   padding: 12px;
-  background: #ecf1f0;
+  background: ${theme?.primary?.dark};
   display: flex;
   border-radius: 6px;
   @media screen and (max-width: 756px) {
@@ -49,7 +54,8 @@ export const RightWrapper = styled.div`
     padding: 9px 12px;
     margin-top: 1px;
   }
-`;
+`
+);
 
 export const MainWrapper = styled.div`
   display: flex;

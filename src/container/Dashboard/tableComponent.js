@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import { useTheme } from "@mui/material/styles";
 
 const columnHeaders = [
   "Grand name",
@@ -54,6 +55,7 @@ const rows = [
 ];
 
 export default function TableComponent({ onRowClick }) {
+  const theme = useTheme();
   return (
     <>
       <TableContainer component={Paper}>
@@ -98,10 +100,10 @@ export default function TableComponent({ onRowClick }) {
                       position: "relative",
                       color:
                         header === "Proposal" || header === "Additional info"
-                          ? "#808080"
+                          ? theme?.palette?.secondary?.subHeading
                           : header === "Github link"
-                          ? "#46A1F5"
-                          : "#2B2B2B",
+                          ? theme?.palette?.secondary?.link
+                          : theme?.palette?.primary?.main,
                       fontSize:
                         header === "Fund amount" ||
                         header === "Grand name" ||
@@ -127,13 +129,8 @@ export default function TableComponent({ onRowClick }) {
           </TableBody>
         </Table>
       </TableContainer>
-      <Stack spacing={2} padding={"20px 0px 22px"} >
-        <Pagination
-          count={10}
-          variant="outlined"
-          shape="rounded"
-          id="data"
-        />
+      <Stack spacing={2} padding={"20px 0px 22px"}>
+        <Pagination count={10} variant="outlined" shape="rounded" id="data" />
       </Stack>
     </>
   );

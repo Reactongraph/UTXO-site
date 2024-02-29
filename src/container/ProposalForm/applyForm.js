@@ -12,11 +12,13 @@ import { HeaderTypography } from "../../components/Common/CommonTypography";
 import { FormFields } from "./constant";
 import { CommonButton } from "../../components/Common/CommonButton";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
 
 const ApplyForm = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const navigate = useNavigate();
+  const theme = useTheme();
   const handleImageChange = async (event, type) => {
     const file = event.target.files[0];
 
@@ -147,7 +149,9 @@ const ApplyForm = () => {
                     fz="1em"
                     marginTop={"20px"}
                     fc={`${
-                      item?.text === "Upload Image" ? "#2B2B2B" : "#808080"
+                      item?.text === "Upload Image"
+                        ? theme?.palette?.primary?.main
+                        : "#808080"
                     }`}
                     marginBottom={"8px"}
                   >

@@ -65,27 +65,31 @@ export const MainWrapper = styled.div`
   }
 `;
 
-export const ProposalWrapperFilter = styled.div`
+export const ProposalWrapperFilter = styled.div(
+  {},
+  ({ theme }) => `
   padding: 10px 29px;
   display: flex;
   gap: 30px;
   border: 1px solid #cbcbcb;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-  color: #000;
+  color: ${theme?.secondary?.dark};
   width: fit-content;
   @media screen and (max-width: 654px) {
     gap: 10px;
     padding: 10px;
   }
-`;
+`
+);
 
-export const DisplayGrid = styled.div`
-  background: linear-gradient(
-    91.18deg,
-    #f0fcfb 49.99%,
-    rgba(201, 255, 250, 0) 98.59%
-  );
+export const DisplayGrid = styled.div(
+  {},
+  ({ theme }) => `
+  background: ${
+    theme?.palette?.mode === "light" &&
+    "linear-gradient(91.18deg, #f0fcfb 49.99%,rgba(201, 255, 250, 0) 98.59%)"
+  };
   width: 100%;
   height: 385px;
   position: absolute;
@@ -93,4 +97,5 @@ export const DisplayGrid = styled.div`
   @media screen and (max-width: 1227px) {
     height: 135%;
   }
-`;
+`
+);

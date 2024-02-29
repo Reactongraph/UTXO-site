@@ -15,7 +15,7 @@ const Header = () => {
     setAnchorEl(event.currentTarget);
     setViewPopover(!viewPopover);
   };
-  console.log("themetheme", theme?.palette?.primary);
+  // console.log("themetheme", theme?.palette?.primary);
   return (
     <>
       <Box>
@@ -27,12 +27,18 @@ const Header = () => {
         >
           <LeftConatiner>
             <Box>
-              <img src="/images/logo.svg" alt="logo"></img>
+              {theme?.palette?.mode === "light" ? (
+                <img src="/images/logo.svg" alt="logo"></img>
+              ) : (
+                <img src="/images/logo-dark.svg" alt="logo" />
+              )}
             </Box>
-            {HeaderCard}
+            <HeaderCard theme={theme?.palette} />
           </LeftConatiner>
           <RightContainer>
-            <Box>{RightContent}</Box>
+            <Box>
+              <RightContent theme={theme?.palette} />
+            </Box>
             <Box></Box>
             <Box id="header-pop">
               <CommonButton
@@ -45,7 +51,7 @@ const Header = () => {
               </CommonButton>
               <CommonPopover
                 open={viewPopover}
-                content={<PopoverContentData />}
+                content={<PopoverContentData theme={theme?.palette} />}
                 onClose={() => setViewPopover(false)}
                 anchorEl={anchorEl}
               />

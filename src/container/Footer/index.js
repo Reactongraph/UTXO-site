@@ -8,13 +8,15 @@ import {
   WrapperSecond,
   WrapperThird,
 } from "./Styled";
+import { useTheme } from "@mui/material/styles";
 
 const FooterData = ["utxo.site", "src20utxo.com", "src20utxo.app"];
 const FooterPreData = ["Docs", "Github", "Gitbook"];
 
 const Footer = () => {
+  const theme = useTheme();
   return (
-    <Box bgcolor={"#0FAE96"}>
+    <Box bgcolor={theme?.palette?.primary?.contrastText}>
       <Box
         maxWidth={"1440px"}
         margin={"auto"}
@@ -23,7 +25,14 @@ const Footer = () => {
         padding="25px 20px"
       >
         <Box>
-          <WrapperFirst src="/images/footer-logo.svg" alt="icon"></WrapperFirst>
+          <WrapperFirst
+            src={
+              theme?.palette?.mode === "light"
+                ? "/images/footer-logo.svg"
+                : "/images/logo-dark.svg"
+            }
+            alt="icon"
+          ></WrapperFirst>
 
           <Box
             margin="29px 0px 10px"
@@ -32,8 +41,22 @@ const Footer = () => {
             alignItems="center"
             gap="13px"
           >
-            <WrapperSecond src="/images/tweeter.svg" alt="icon"></WrapperSecond>
-            <WrapperSecond src="/images/discord.svg" alt="icon"></WrapperSecond>
+            <WrapperSecond
+              src={
+                theme?.palette?.mode === "light"
+                  ? "/images/discord.svg"
+                  : "/images/discord-dark.svg"
+              }
+              alt="icon"
+            ></WrapperSecond>
+            <WrapperSecond
+              src={
+                theme?.palette?.mode === "light"
+                  ? "/images/tweeter.svg"
+                  : "/images/tweeter-dark.svg"
+              }
+              alt="icon"
+            ></WrapperSecond>
           </Box>
           <ResponsiveHeaderTypography fz="1em" fc="#fff">
             Credit by: UTXO.site
