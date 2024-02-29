@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Box } from '@mui/material';
+import { HeaderTypography } from './CommonTypography';
 
 export default function CommonMenuItem(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -36,9 +37,9 @@ export default function CommonMenuItem(props) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Data</MenuItem>
-        <MenuItem onClick={handleClose}>Data</MenuItem>
-        <MenuItem onClick={handleClose}>Data</MenuItem>
+        <MenuItem onClick={handleClose}><HeaderTypography fw="500" fz="1.25em"><img src="/images/low.svg"></img>Low: 14 sats/vB</HeaderTypography></MenuItem>
+        <MenuItem onClick={handleClose}><HeaderTypography fw="500" fz="1.25em"><img src="/images/standard.svg"></img>Standard: 15 sats/vB</HeaderTypography></MenuItem>
+        <MenuItem onClick={handleClose}><HeaderTypography fw="500" fz="1.25em"><img src="/images/high.svg"></img>High: 16 sats/vB</HeaderTypography></MenuItem>
       </Menu>
     </Box>
   );

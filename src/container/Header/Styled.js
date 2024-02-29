@@ -34,7 +34,7 @@ export const HeadConatiner = styled.div`
   border-radius: 4px;
   padding: 15px 16px 23px;
   height: 94.24px;
-  width: 196px;
+  width: 196px !important;
 `;
 
 export const RightWrapper = styled.div`
@@ -83,24 +83,23 @@ export const ToggleWrap = styled.div`
 
 export const BoxWrap = styled(Box)`
   row-gap: 20px;
-  @media screen and (max-width: 1217px) {
-    width: 70rem;
-  }
+  // @media screen and (max-width: 1217px) {
+  //   width: 70rem;
+  // }
 `;
 
 export const BoxContent = styled(Box)`
-@media screen and (max-width: 1217px) {
-  width: 288%;
-  overflow-x: scroll;
-  &::-webkit-scrollbar {
-    width: 2px;
-    height: 4px;
-    border-radius:20px;
-    background-color: rgb(236, 241, 240); 
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #808080;
-    border-radius: 20px;
-  }
-
-  `;
+  // @media screen and (max-width: 1217px) {
+  //   width: 288%;
+  //   overflow-x: scroll;
+  //   &::-webkit-scrollbar {
+  //     width: 2px;
+  //     height: 4px;
+  //     border-radius:20px;
+  //     background-color: rgb(236, 241, 240);
+  //   }
+  //   &::-webkit-scrollbar-thumb {
+  //     background-color: #808080;
+  //     border-radius: 20px;
+  //   }
+`;

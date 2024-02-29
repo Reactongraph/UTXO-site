@@ -32,8 +32,8 @@ const Footer = () => {
             alignItems="center"
             gap="13px"
           >
-            <WrapperSecond src="/images/tweeter.svg" alt="icon"></WrapperSecond>
             <WrapperSecond src="/images/discord.svg" alt="icon"></WrapperSecond>
+            <WrapperSecond src="/images/tweeter.svg" alt="icon"></WrapperSecond>
           </Box>
           <ResponsiveHeaderTypography fz="1em" fc="#fff">
             Credit by: UTXO.site
@@ -56,15 +56,15 @@ const Footer = () => {
           </Box>
           <Box>
             <Box
-              display={"flex"}
-              alignContent={"top"}
-              columnGap={"23px"}
+              // display={"flex"}
+              // alignContent={"top"}
+              // columnGap={"23px"}
               marginBottom={"15px"}
             >
-              <WrapperSecond
+              {/* <WrapperSecond
                 src="/images/vector.svg"
                 alt="icon"
-              ></WrapperSecond>
+              ></WrapperSecond> */}
               <HeaderTypography fz="1.0625em" fc="#fff" fw="500">
                 Website
               </HeaderTypography>
