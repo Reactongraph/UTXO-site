@@ -143,7 +143,7 @@ code {
 
 #header-slider .slider-container{
   width: 196px;
-  margin-bottom: -30px;
+  /* margin-bottom: -30px; */
 }
 
 #header-slider  .slick-arrow-left img {

@@ -1,10 +1,14 @@
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import React from "react";
 import Slider from "react-slick";
 
 function CommonSlider(propsData) {
-  const { InitialShowNumber = "", responsiveArray ,CardContent} = propsData || "";
-
+  const {
+    InitialShowNumber = "",
+    responsiveArray,
+    CardContent,
+  } = propsData || "";
+  const theme = useTheme();
   function SampleNextArrow(props) {
     const { className, style, onClick } = props;
     return (
@@ -13,7 +17,14 @@ function CommonSlider(propsData) {
         style={{ ...style, display: "block" }}
         onClick={onClick}
       >
-        <img src={"/images/right-arrow.svg"} alt="arrow_left" />
+        <img
+          src={
+            theme?.palette?.mode === "light"
+              ? "/images/right-arrow.svg"
+              : "/images/arrow-right-dark.svg"
+          }
+          alt="arrow_left"
+        />
       </div>
     );
   }
@@ -25,7 +36,14 @@ function CommonSlider(propsData) {
         style={{ ...style, display: "block" }}
         onClick={onClick}
       >
-        <img src={"/images/left-arrow.svg"} alt="arrow_left" />
+        <img
+          src={
+            theme?.palette?.mode === "light"
+              ? "/images/left-arrow.svg"
+              : "/images/arrow-left-dark.svg"
+          }
+          alt="arrow_left"
+        />
       </div>
     );
   }
@@ -71,13 +89,15 @@ function CommonSlider(propsData) {
   return (
     <div className="slider-container">
       <Slider {...settings}>
-        {CardContent ? CardContent : Cards?.map((item) => {
-          return (
-            <Box id="slider-wrap">
-              <img src={`/images/${item}.svg`} alt="icon"></img>
-            </Box>
-          );
-        })}
+        {CardContent
+          ? CardContent
+          : Cards?.map((item) => {
+              return (
+                <Box id="slider-wrap">
+                  <img src={`/images/${item}.svg`} alt="icon"></img>
+                </Box>
+              );
+            })}
       </Slider>
     </div>
   );

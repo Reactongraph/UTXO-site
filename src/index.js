@@ -92,6 +92,9 @@ const lightTheme = createTheme({
     },
     accent: {
       main: "#46A1F5",
+      lightGrey:"#CCCCCC",
+      placeholder:"#C6C6C6",
+      grey:"#EFEFEF",
     },
   },
 });
@@ -112,6 +115,12 @@ const darkTheme = createTheme({
       subHeading: "#ECF1F0",
       link: "#ffffff",
     },
+    accent:{
+      dark1: "#292929",
+      dark2: "#3B3A3A",
+      dark3: "#C6C6C6",
+      dark4: "#191919"
+    }
   },
 });
 

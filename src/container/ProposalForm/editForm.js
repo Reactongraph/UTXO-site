@@ -18,6 +18,7 @@ import { useTheme } from "@mui/material/styles";
 const EditForm = () => {
   const navigate = useNavigate();
   const theme = useTheme();
+  const themeType = theme?.palette;
   const [selects, setSelects] = useState([true, false, false, false]);
   const titles = [{ text: "Running", color: "#0FAE96" }];
   const handleClick = (index) => {
@@ -41,7 +42,12 @@ const EditForm = () => {
               key={index}
               padding={"23px 45px"}
               borderRadius={"8px"}
-              border="1px solid #DBD9D9"
+              border={`1px solid ${
+                themeType?.mode === "light" ? "#DBD9D9" : "#1E1E1E"
+              }`}
+              bgcolor={`1px solid ${
+                themeType?.mode === "light" ? "#fff" : "#161616"
+              }`}
               width="fit-content"
             >
               <img src="/images/attachment.svg" alt="svg"></img>
@@ -53,6 +59,7 @@ const EditForm = () => {
       return (
         <Box maxWidth={"782px"}>
           <TextAreaWrapper
+            theme={themeType}
             maxRows={6}
             minRows={item && item?.inputLine}
             fullWidth
@@ -68,7 +75,12 @@ const EditForm = () => {
   return (
     <Container>
       <Box>
-        <HeaderTypography fz="1.938em" fw="600" marginBottom={"23px"}>
+        <HeaderTypography
+          fz="1.938em"
+          fw="600"
+          marginBottom={"23px"}
+          fc={themeType?.primary?.main}
+        >
           Grand Proposals
         </HeaderTypography>
         <Box marginLeft={"-22px"} marginBottom={"53px"} id="edit-slide">
@@ -84,7 +96,11 @@ const EditForm = () => {
           marginBottom={"23px"}
         >
           <MainContainer display="flex" columnGap={"32px"}>
-            <HeaderTypography fz="1.938em" fw="600">
+            <HeaderTypography
+              fz="1.938em"
+              fw="600"
+              fc={themeType?.primary?.main}
+            >
               Rohit Kumar
             </HeaderTypography>
             <ProposalWrapper>
@@ -112,7 +128,11 @@ const EditForm = () => {
                     color: selects[index] ? "#fff" : "#808080",
                     cursor: "pointer",
                     height: "fit-content",
-                    backgroundColor: selects[index] ? "#0FAE96" : "#ECF1F0",
+                    backgroundColor: selects[index]
+                      ? "#0FAE96"
+                      : themeType?.mode === "light"
+                      ? "#ECF1F0"
+                      : "#414141",
                   }}
                   onClick={() => handleClick(index)}
                 >
@@ -157,7 +177,7 @@ const EditForm = () => {
       >
         <CommonButton
           fc="#929292"
-          bg="#EFEFEF"
+          bg={themeType?.mode === "light" ? themeType?.accent?.grey : "#2F2F2F"}
           mr="0"
           fw="600"
           fz="1.25em"

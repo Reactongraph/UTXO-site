@@ -32,7 +32,9 @@ export const HeadConatiner = styled.div(
   display: flex;
   gap: 20px;
   flex-direction: column;
-  background: ${theme?.primary?.light};
+  background: ${
+    theme?.mode === "light" ? "rgba(145, 248, 232, 0.1)" : theme?.primary?.light
+  };
   border-radius: 4px;
   padding: 15px 16px 23px;
   height: 94.24px;

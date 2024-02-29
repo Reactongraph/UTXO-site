@@ -12,7 +12,9 @@ export const MainWrapper = styled(Box)`
   }
 `;
 
-export const FormContainer = styled.div`
+export const FormContainer = styled.div(
+  {},
+  ({ theme }) =>`
   display: flex;
   align-items: center;
   margin: 12px 0px 20px;
@@ -21,7 +23,9 @@ export const FormContainer = styled.div`
   border: 1px solid #dbd9d9;
   border-radius: 8px;
   padding: 15px 52px;
-`;
+  background: ${theme?.mode === "light" ? theme?.primary?.light :  theme?.accent?.dark1};
+  border:${theme?.mode === "light" ? `1px solid ${theme?.accent?.lightGrey}` :  `1px solid ${theme?.accent?.dark2}`};
+`);
 
 export const ImageWrapperFile = styled.img`
   width: 156px;
@@ -29,7 +33,7 @@ export const ImageWrapperFile = styled.img`
   border-radius: 8px;
   position: relative;
   height: 96px;
-  object-fit: contain;
+  object-fit: cover;
 `;
 
 export const Imagecross = styled.img`
@@ -39,18 +43,29 @@ export const Imagecross = styled.img`
   cursor: pointer;
 `;
 
-export const TextAreaWrap = styled(TextareaAutosize)`
-  border: 1px solid rgb(222, 222, 222);
+export const TextAreaWrap = styled(TextareaAutosize)(
+  {},
+  ({ theme }) =>`
   border-radius: 8px;
   padding: 19px 16px;
   overflow: hidden;
   width: 100%;
   resize: none;
   font-size: 1em;
+  
+  border:${theme?.mode === "light" ? `1px solid ${theme?.accent?.lightGrey}` :  `1px solid ${theme?.accent?.dark2}`};
+  color: ${theme?.mode === "light" ? theme?.secondary?.main : theme?.accent?.dark3};
+  background: ${theme?.mode === "light" ? theme?.primary?.light :  theme?.accent?.dark1};
   font-family: Rubik, sans-serif;
-`;
+  &::placeholder {
+    color:  ${theme?.accent?.placeholder};
+  }
+`);
 
-export const TextAreaWrapper = styled(TextareaAutosize)`
+
+export const TextAreaWrapper = styled(TextareaAutosize)(
+  {},
+  ({ theme }) =>`
   border: 1px solid #dddddd;
   border-radius: 8px;
   padding: 19px 16px;
@@ -60,7 +75,13 @@ export const TextAreaWrapper = styled(TextareaAutosize)`
   background: #f4f6f8;
   font-family: Rubik, sans-serif;
   resize: none;
-`;
+  border:${theme?.mode === "light" ? `1px solid ${theme?.accent?.lightGrey}` :  `1px solid #1E1E1E`};
+  color: ${theme?.mode === "light" ? "#000" : theme?.secondary?.subHeading};
+  background: ${theme?.mode === "light" ? "#f4f6f8" :  "#161616"};
+  &::placeholder {
+    color:  ${theme?.accent?.dark3};
+  }
+`);
 
 export const Container = styled.div`
   margin-left: 241px;

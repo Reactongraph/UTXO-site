@@ -17,8 +17,9 @@ import { useTheme } from "@mui/material/styles";
 const ApplyForm = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
-  const navigate = useNavigate();
   const theme = useTheme();
+  const themeType= theme?.palette;
+  const navigate = useNavigate();
   const handleImageChange = async (event, type) => {
     const file = event.target.files[0];
 
@@ -59,7 +60,7 @@ const ApplyForm = () => {
           alignItems={"center"}
           columnGap={"32px"}
         >
-          <FormContainer>
+          <FormContainer theme={themeType}>
             <label htmlFor={`upload-photo${index}`}>
               <IconButton
                 color="primary"
@@ -114,6 +115,7 @@ const ApplyForm = () => {
       return (
         <>
           <TextAreaWrap
+            theme={themeType}
             maxRows={6}
             minRows={item && item?.inputLine}
             fullWidth
@@ -130,14 +132,26 @@ const ApplyForm = () => {
       <Wrapper>
         {/* <ImageWrapper src="/images/edit-screen.svg" /> */}
         <Box
-          border={"1px solid #ECF1F0"}
+          border={
+            themeType?.mode === "light"
+              ? `1px solid ${themeType?.primary?.dark}`
+              : `1px solid ${themeType?.accent?.dark2}`
+          }
           padding={"25px"}
           borderRadius={"27px"}
           boxShadow={"1px 5px 6px 0px #34333329"}
           marginBottom={"60px"}
           maxWidth={"830px"}
+          bgcolor={
+            themeType?.mode === "dark" && themeType?.accent?.dark4
+          }
         >
-          <HeaderTypography fz="1.5em" fw="700" marginBottom={"4px"}>
+          <HeaderTypography
+            fz="1.5em"
+            fw="700"
+            marginBottom={"4px"}
+            fc={themeType?.primary?.main}
+          >
             Apply Proposals
           </HeaderTypography>
 
@@ -150,8 +164,12 @@ const ApplyForm = () => {
                     marginTop={"20px"}
                     fc={`${
                       item?.text === "Upload Image"
-                        ? theme?.palette?.primary?.main
-                        : "#808080"
+                        ? themeType?.mode === "light"
+                          ? themeType?.primary?.main
+                          : "#ECF1F0"
+                        : themeType?.mode === "light"
+                        ? themeType?.secondary?.main
+                        : themeType?.accent?.dark3
                     }`}
                     marginBottom={"8px"}
                   >
@@ -165,7 +183,11 @@ const ApplyForm = () => {
           <Box justifyContent={"end"} display={"flex"} columnGap={"33px"}>
             <CommonButton
               fc="#929292"
-              bg="#EFEFEF"
+              bg={
+                themeType?.mode === "light"
+                  ? themeType?.accent?.grey
+                  : themeType?.accent?.dark1
+              }
               fw="600"
               fz="1.25em"
               pd="14px 45px"

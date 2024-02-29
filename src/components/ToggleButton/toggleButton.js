@@ -41,12 +41,12 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
       "& + .MuiSwitch-track": {
         opacity: 1,
         height: "47px",
-        backgroundColor: theme.palette.mode === "dark" ? "#8796A5" : "#ECF1F0",
+        backgroundColor: theme.palette.mode === "dark" ? "#353333" : "#ECF1F0",
       },
     },
   },
   "& .MuiSwitch-thumb": {
-    backgroundColor: theme.palette.mode === "dark" ? "#003892" : "#0FAE96",
+    backgroundColor: "#0FAE96",
     width: 41,
     height: 41,
     marginTop: "1px",
@@ -66,7 +66,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
   "& .MuiSwitch-track": {
     opacity: 1,
-    backgroundColor: theme.palette.mode === "dark" ? "#ECF1F0" : "#ECF1F0",
+    backgroundColor: theme.palette.mode === "dark" ? "#353333" : "#ECF1F0",
     borderRadius: 60,
   },
 }));
@@ -89,12 +89,12 @@ const MaterialUISwitchSmall = styled(Switch)(({ theme }) => ({
       },
       "& + .MuiSwitch-track": {
         opacity: 1,
-        backgroundColor: theme.palette.mode === "dark" ? "#8796A5" : "#ECF1F0",
+        backgroundColor: theme.palette.mode === "dark" ? "#353333" : "#ECF1F0",
       },
     },
   },
   "& .MuiSwitch-thumb": {
-    backgroundColor: theme.palette.mode === "dark" ? "#003892" : "#0FAE96",
+    backgroundColor: "#0FAE96",
     width: 32,
     height: 32,
     "&::before": {
@@ -113,14 +113,16 @@ const MaterialUISwitchSmall = styled(Switch)(({ theme }) => ({
   },
   "& .MuiSwitch-track": {
     opacity: 1,
-    backgroundColor: theme.palette.mode === "dark" ? "#ECF1F0" : "#ECF1F0",
-    borderRadius: 20 / 2,
+    backgroundColor: "#ECF1F0",
+    borderRadius: 60,
   },
 }));
 export default function ToggleButton() {
-  const [switchState, setSwitchState] = React.useState(false);
-  const [windowWidth, setWindowWidth] = React.useState(window?.innerWidth);
   const { theme, toggleTheme } = useThemeContext();
+  const [switchState, setSwitchState] = React.useState(
+    theme === "dark" ? true : false
+  );
+  const [windowWidth, setWindowWidth] = React.useState(window?.innerWidth);
 
   React.useEffect(() => {
     function handleResize() {
@@ -136,6 +138,8 @@ export default function ToggleButton() {
     setSwitchState(!switchState);
     toggleTheme();
   };
+  console.log("theme?.palette?.mode", theme);
+
   return (
     <FormGroup position="relative">
       <FormControlLabel
@@ -161,12 +165,13 @@ export default function ToggleButton() {
           top={0}
           bottom={0}
           fw="500"
+          fc={theme === "dark" ? "#fff" : "#000"}
           left={`${switchState ? "12px" : ""}`}
           right={`${switchState ? "" : "46px"}`}
           fz="0.938em"
           position={"absolute"}
         >
-          {switchState ? "Dark" : "Light"}
+          {theme === "dark" ? "Dark" : "Light"}
         </HeaderTypography>
       ) : (
         ""
