@@ -8,22 +8,34 @@ import {
   WrapperSecond,
   WrapperThird,
 } from "./Styled";
+import { useTheme } from "@mui/material/styles";
 
 const FooterData = ["utxo.site", "src20utxo.com", "src20utxo.app"];
 const FooterPreData = ["Docs", "Github", "Gitbook"];
 
 const Footer = () => {
+  const theme = useTheme();
   return (
-    <Box bgcolor={"#0FAE96"}>
+    <Box bgcolor={theme?.palette?.primary?.contrastText} position={"relative"} zIndex={"1"}>
       <Box
         maxWidth={"1440px"}
+        bgcolor={theme?.palette?.primary?.contrastText} 
         margin={"auto"}
         display="flex"
         justifyContent="space-between"
+        position={"relative"}  
+        zIndex={"1"}
         padding="25px 20px"
       >
         <Box>
-          <WrapperFirst src="/images/footer-logo.svg" alt="icon"></WrapperFirst>
+          <WrapperFirst
+            src={
+              theme?.palette?.mode === "light"
+                ? "/images/footer-logo.svg"
+                : "/images/logo-dark.svg"
+            }
+            alt="icon"
+          ></WrapperFirst>
 
           <Box
             margin="29px 0px 10px"
@@ -32,8 +44,22 @@ const Footer = () => {
             alignItems="center"
             gap="13px"
           >
-            <WrapperSecond src="/images/discord.svg" alt="icon"></WrapperSecond>
-            <WrapperSecond src="/images/tweeter.svg" alt="icon"></WrapperSecond>
+            <WrapperSecond
+              src={
+                theme?.palette?.mode === "light"
+                  ? "/images/discord.svg"
+                  : "/images/discord-dark.svg"
+              }
+              alt="icon"
+            ></WrapperSecond>
+            <WrapperSecond
+              src={
+                theme?.palette?.mode === "light"
+                  ? "/images/tweeter.svg"
+                  : "/images/tweeter-dark.svg"
+              }
+              alt="icon"
+            ></WrapperSecond>
           </Box>
           <ResponsiveHeaderTypography fz="1em" fc="#fff">
             Credit by: UTXO.site
@@ -76,6 +102,19 @@ const Footer = () => {
           </Box>
         </HiddenOnMobile>
       </Box>
+      {theme?.palette?.mode === "dark" && window.innerWidth > 756 && (
+          <Box
+            width={"681.67px"}
+            // height={"520.87px"}
+            height={"300px"}
+            position={"absolute"}
+            left="0"
+            // bottom="73px"
+            bottom={"220px"}
+          >
+            <img src="/images/shadow-bottom.png" alt="logo" width={"100%"} height={"100%"} />
+          </Box>
+        )}
     </Box>
   );
 };

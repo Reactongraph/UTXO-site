@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import { useTheme } from "@mui/material/styles";
 
 const columnHeaders = [
   "Grand name",
@@ -54,6 +55,7 @@ const rows = [
 ];
 
 export default function TableComponent({ onRowClick }) {
+  const theme = useTheme();
   return (
     <>
       <TableContainer component={Paper}>
@@ -87,6 +89,11 @@ export default function TableComponent({ onRowClick }) {
                 onClick={() => onRowClick(row?.id)}
                 sx={{
                   cursor: "pointer",
+                  fontFamily: "Rubik, sans-serif",
+                  bgcolor:
+                    rowIndex % 2 === 0
+                      ? theme?.palette?.secondary?.trowbg
+                      : theme?.palette?.secondary?.trow2bg,
                 }}
               >
                 {columnHeaders.map((header, colIndex) => (
@@ -94,14 +101,17 @@ export default function TableComponent({ onRowClick }) {
                     key={header}
                     align="left"
                     sx={{
+                      fontFamily: "Rubik, sans-serif",
                       borderBottom: "none",
                       position: "relative",
                       color:
                         header === "Proposal" || header === "Additional info"
-                          ? "#808080"
+                          ? theme?.palette?.secondary?.subHeading
                           : header === "Github link"
-                          ? "#46A1F5"
-                          : "#2B2B2B",
+                          ? theme?.palette?.secondary?.link
+                          : header === "BTC wallet"
+                          ? theme?.palette?.secondary?.wallet
+                          : theme?.palette?.primary?.main,
                       fontSize:
                         header === "Fund amount" ||
                         header === "Grand name" ||
@@ -127,13 +137,8 @@ export default function TableComponent({ onRowClick }) {
           </TableBody>
         </Table>
       </TableContainer>
-      <Stack spacing={2} padding={"20px 0px 22px"} >
-        <Pagination
-          count={10}
-          variant="outlined"
-          shape="rounded"
-          id="data"
-        />
+      <Stack spacing={2} padding={"20px 0px 22px"}>
+        <Pagination count={10} variant="outlined" shape="rounded" id="data" />
       </Stack>
     </>
   );

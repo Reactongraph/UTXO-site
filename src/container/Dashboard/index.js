@@ -15,6 +15,7 @@ import TableComponent from "./tableComponent";
 import { useNavigate } from "react-router-dom";
 import Footer from "../Footer";
 import CommonSlider from "../../components/Common/CommonSlider";
+import { useTheme } from "@mui/material/styles";
 
 const titles = [
   { text: "Running", color: "#0FAE96" },
@@ -27,6 +28,7 @@ const Filter = ["Final proposals", "Activity", "Leaderboard"];
 
 const DashboardPage = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
   const [selects, setSelects] = useState([true, false, false, false]);
   const handleApplyClick = () => {
     navigate("/proposal/add");
@@ -47,13 +49,14 @@ const DashboardPage = () => {
     <Box>
       <Header />
       <Box padding="20px">
-        <Box position={"relative"}>
-          <DisplayGrid></DisplayGrid>
+        <Box position={"relative"} zIndex={"1"}>
+          <DisplayGrid theme={theme}></DisplayGrid>
           <HeaderTypography
             maxWidth={"1446px"}
             margin={"auto"}
             fw="600"
             fz="2em"
+            fc={theme?.palette?.primary?.main}
             marginTop={"38px"}
             marginBottom={"38px"}
             paddingLeft={"20px"}
@@ -77,14 +80,19 @@ const DashboardPage = () => {
             alignItems="center"
             marginTop={"59px"}
             padding="19px"
-            border="1px solid #34313114"
+            border={`1px solid ${theme?.palette?.primary?.borderColor}`}
             borderRadius="12px"
           >
-            <HeaderTypography fz="2em" fw="700" textAlign={"center"}>
+            <HeaderTypography
+              fz="2em"
+              fw="700"
+              fc={theme?.palette?.primary?.main}
+              textAlign={"center"}
+            >
               Create your UTXO proposal and build on UTXO today!
             </HeaderTypography>
             <HeaderTypography
-              fc="#808080"
+              fc={theme?.palette?.secondary?.subHeading}
               fz=" 1.125rem"
               textAlign={"center"}
               marginTop={"-20px"}
@@ -104,6 +112,7 @@ const DashboardPage = () => {
             padding={"44px 25px 22px"}
             borderRadius={"27px"}
             marginBottom={"94px"}
+            backgroundColor={theme.palette.mode === "dark" ? "#161515" : ""}
           >
             <MainWrapper>
               <TableWrapper
@@ -112,10 +121,14 @@ const DashboardPage = () => {
                 columnGap={"30px"}
                 justifyContent={"space-between"}
               >
-                <HeaderTypography fz="1.5em" fw="500">
+                <HeaderTypography
+                  fz="1.5em"
+                  fw="500"
+                  fc={theme?.palette?.primary?.main}
+                >
                   Running Proposals{" "}
                 </HeaderTypography>
-                <ProposalWrapper>
+                <ProposalWrapper theme={theme?.palette}>
                   {titles?.map((item) => {
                     return (
                       <Box
@@ -135,7 +148,7 @@ const DashboardPage = () => {
                 columnGap={"30px"}
                 justifyContent={"space-between"}
               >
-                <ProposalWrapperFilter>
+                <ProposalWrapperFilter theme={theme?.palette}>
                   {Filter?.map((item, index) => {
                     return (
                       <Box
@@ -159,7 +172,7 @@ const DashboardPage = () => {
                           cursor: "pointer",
                           backgroundColor: selects[index]
                             ? "#0FAE96"
-                            : "#ECF1F0",
+                            : theme?.palette?.secondary?.light,
                         }}
                         onClick={() => handleClick(index)}
                       >

@@ -12,10 +12,13 @@ import { HeaderTypography } from "../../components/Common/CommonTypography";
 import { FormFields } from "./constant";
 import { CommonButton } from "../../components/Common/CommonButton";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
 
 const ApplyForm = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
+  const theme = useTheme();
+  const themeType = theme?.palette;
   const navigate = useNavigate();
   const handleImageChange = async (event, type) => {
     const file = event.target.files[0];
@@ -56,8 +59,14 @@ const ApplyForm = () => {
           key={index}
           alignItems={"center"}
           columnGap={"32px"}
+          sx={{
+            "@media screen and (max-width: 450px)": {
+              flexDirection: "column",
+              alignItems: "start",
+            },
+          }}
         >
-          <FormContainer>
+          <FormContainer theme={themeType}>
             <label htmlFor={`upload-photo${index}`}>
               <IconButton
                 color="primary"
@@ -112,6 +121,7 @@ const ApplyForm = () => {
       return (
         <>
           <TextAreaWrap
+            theme={themeType}
             maxRows={6}
             minRows={item && item?.inputLine}
             fullWidth
@@ -124,18 +134,32 @@ const ApplyForm = () => {
   };
 
   return (
-    <>
+    <Box position={"relative"} zIndex={"1"}>
       <Wrapper>
         {/* <ImageWrapper src="/images/edit-screen.svg" /> */}
         <Box
-          border={"1px solid #ECF1F0"}
+          border={
+            themeType?.mode === "light"
+              ? `1px solid ${themeType?.primary?.dark}`
+              : `1px solid ${themeType?.accent?.dark2}`
+          }
           padding={"25px"}
           borderRadius={"27px"}
           boxShadow={"1px 5px 6px 0px #34333329"}
           marginBottom={"60px"}
           maxWidth={"830px"}
+          bgcolor={
+            themeType?.mode === "dark"
+              ? themeType?.accent?.dark4
+              : themeType?.primary?.light
+          }
         >
-          <HeaderTypography fz="1.5em" fw="700" marginBottom={"4px"}>
+          <HeaderTypography
+            fz="1.5em"
+            fw="700"
+            marginBottom={"4px"}
+            fc={themeType?.primary?.main}
+          >
             Apply Proposals
           </HeaderTypography>
 
@@ -147,7 +171,13 @@ const ApplyForm = () => {
                     fz="1em"
                     marginTop={"20px"}
                     fc={`${
-                      item?.text === "Upload Image" ? "#2B2B2B" : "#808080"
+                      item?.text === "Upload Image"
+                        ? themeType?.mode === "light"
+                          ? themeType?.primary?.main
+                          : "#ECF1F0"
+                        : themeType?.mode === "light"
+                        ? themeType?.secondary?.main
+                        : themeType?.accent?.dark3
                     }`}
                     marginBottom={"8px"}
                   >
@@ -161,7 +191,11 @@ const ApplyForm = () => {
           <Box justifyContent={"end"} display={"flex"} columnGap={"33px"}>
             <CommonButton
               fc="#929292"
-              bg="#EFEFEF"
+              bg={
+                themeType?.mode === "light"
+                  ? themeType?.accent?.grey
+                  : themeType?.accent?.dark1
+              }
               fw="600"
               fz="1.25em"
               pd="14px 45px"
@@ -182,7 +216,21 @@ const ApplyForm = () => {
           </Box>
         </Box>
       </Wrapper>
-    </>
+      {themeType?.mode === "light" && (
+        <Box
+          position={"absolute"}
+          height={"387.74px"}
+          top="0"
+          zIndex="-1"
+          width="100%"
+          bgcolor={"red"}
+          sx={{
+            background:
+              "linear-gradient(91.18deg, #F0FCFB 49.99%, rgba(201, 255, 250, 0) 98.59%)",
+          }}
+        ></Box>
+      )}
+    </Box>
   );
 };
 

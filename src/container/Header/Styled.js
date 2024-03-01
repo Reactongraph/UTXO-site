@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
 export const LeftConatiner = styled.div`
   display: flex;
@@ -26,20 +26,27 @@ export const RightContainer = styled.div`
   }
 `;
 
-export const HeadConatiner = styled.div`
+export const HeadConatiner = styled.div(
+  {},
+  ({ theme }) => `
   display: flex;
   gap: 20px;
   flex-direction: column;
-  background: rgba(145, 248, 232, 0.1);
+  background: ${
+    theme?.mode === "light" ? "rgba(145, 248, 232, 0.1)" : theme?.primary?.light
+  };
   border-radius: 4px;
   padding: 15px 16px 23px;
   height: 94.24px;
-  width: 196px !important;
-`;
+  width: 196px !important;;
+`
+);
 
-export const RightWrapper = styled.div`
+export const RightWrapper = styled.div(
+  {},
+  ({ theme }) => `
   padding: 12px;
-  background: #ecf1f0;
+  background: ${theme?.primary?.dark};
   display: flex;
   border-radius: 6px;
   @media screen and (max-width: 756px) {
@@ -49,7 +56,8 @@ export const RightWrapper = styled.div`
     padding: 9px 12px;
     margin-top: 1px;
   }
-`;
+`
+);
 
 export const MainWrapper = styled.div`
   display: flex;
@@ -103,3 +111,28 @@ export const BoxContent = styled(Box)`
   //     border-radius: 20px;
   //   }
 `;
+
+export const ConnectStyledItem = styled(Grid)(({ theme }) => ({
+  columnGap: "17px",
+  padding: "9px 8px",
+  display: "flex",
+  alignItems: "center",
+  borderRadius: "8px",
+  border: "1px solid transparent",
+  backgroundColor: theme?.primary?.popoverBg,
+  maxWidth: "239px",
+  width: "239px",
+  "&:hover": {
+    color: "#0FAE96",
+    backgroundColor: "#F4FEFD",
+    border: "1px solid #0FAE96",
+    ".MuiTypography-root": {
+      color: "#0FAE96",
+    },
+  },
+  "&.selected": {
+    color: "#0FAE96",
+    backgroundColor: "#F4FEFD",
+    border: "1px solid #0FAE96",
+  },
+}));

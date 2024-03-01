@@ -1,6 +1,7 @@
 import { Box, Grid } from "@mui/material";
 import React from "react";
 import { HeaderTypography } from "../../components/Common/CommonTypography";
+import { ConnectStyledItem } from "./Styled";
 
 const popData = [
   {
@@ -17,7 +18,7 @@ const popData = [
   },
 ];
 
-const PopoverContentData = () => {
+const PopoverContentData = ({ theme }) => {
   return (
     <Box>
       <Grid
@@ -42,7 +43,7 @@ const PopoverContentData = () => {
             </HeaderTypography>
             <HeaderTypography
               fz={"0.938em"}
-              fc="#808080"
+              fc={theme?.secondary?.main}
               sx={{
                 "@media screen and (max-width: 626px)": {
                   width: "70%",
@@ -66,22 +67,16 @@ const PopoverContentData = () => {
           }}
         >
           {popData?.map((item, index) => (
-            <Grid
-              key={index}
-              columnGap={"17px"}
-              padding={"9px 8px"}
-              display={"flex"}
-              alignItems={"center"}
-              borderRadius={"8px"}
-              backgroundColor={"#EFEFEF"}
-              maxWidth={"239px"}
-              width={"239px"}
-            >
+            <ConnectStyledItem key={index} theme={theme}>
               <img width={"47px"} src={item?.icon} alt="img" />
-              <HeaderTypography fc="#0FAE96" fz="1em" fw="500">
+              <HeaderTypography
+                fc={theme?.primary?.popoverText}
+                fz="1em"
+                fw="500"
+              >
                 {item?.text}
               </HeaderTypography>
-            </Grid>
+            </ConnectStyledItem>
           ))}
         </Grid>
       </Grid>
