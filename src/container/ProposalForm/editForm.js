@@ -7,7 +7,6 @@ import {
   Container,
   MainContainer,
   MainWrapper,
-  TextAreaWrap,
   TextAreaWrapper,
 } from "./Styled";
 import { FormFieldsEdit } from "./constant";

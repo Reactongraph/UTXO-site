@@ -18,11 +18,13 @@ const Header = () => {
   // console.log("themetheme", theme?.palette?.primary);
   return (
     <>
-      <Box>
+      <Box position={"relative"}  zIndex={"1"}>
         <Box
           display="flex"
           justifyContent="space-between"
           padding="20px"
+          position={"relative"}  
+          zIndex={"1"}
           alignItems={"flex-start"}
         >
           <LeftConatiner>
@@ -58,6 +60,17 @@ const Header = () => {
             </Box>
           </RightContainer>
         </Box>
+        {theme?.palette?.mode === "dark" && window.innerWidth > 756 && (
+          <Box
+            width={"681.67px"}
+            height={"520.87px"}
+            position={"absolute"}
+            top="125px"
+            right="0"
+          >
+            <img src="/images/shadow-top.png" alt="logo" width={"100%"} />
+          </Box>
+        )}
       </Box>
     </>
   );

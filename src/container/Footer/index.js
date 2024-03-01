@@ -16,12 +16,15 @@ const FooterPreData = ["Docs", "Github", "Gitbook"];
 const Footer = () => {
   const theme = useTheme();
   return (
-    <Box bgcolor={theme?.palette?.primary?.contrastText}>
+    <Box bgcolor={theme?.palette?.primary?.contrastText} position={"relative"} zIndex={"1"}>
       <Box
         maxWidth={"1440px"}
+        bgcolor={theme?.palette?.primary?.contrastText} 
         margin={"auto"}
         display="flex"
         justifyContent="space-between"
+        position={"relative"}  
+        zIndex={"1"}
         padding="25px 20px"
       >
         <Box>
@@ -99,6 +102,17 @@ const Footer = () => {
           </Box>
         </HiddenOnMobile>
       </Box>
+      {theme?.palette?.mode === "dark" && window.innerWidth > 756 && (
+          <Box
+            width={"681.67px"}
+            height={"520.87px"}
+            position={"absolute"}
+            left="0"
+            bottom="73px"
+          >
+            <img src="/images/shadow-bottom.png" alt="logo" width={"100%"} height={"100%"} />
+          </Box>
+        )}
     </Box>
   );
 };

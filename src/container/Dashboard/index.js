@@ -49,7 +49,7 @@ const DashboardPage = () => {
     <Box>
       <Header />
       <Box padding="20px">
-        <Box position={"relative"}>
+        <Box position={"relative"} zIndex={"1"}>
           <DisplayGrid theme={theme}></DisplayGrid>
           <HeaderTypography
             maxWidth={"1446px"}

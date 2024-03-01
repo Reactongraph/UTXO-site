@@ -18,7 +18,7 @@ const ApplyForm = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const theme = useTheme();
-  const themeType= theme?.palette;
+  const themeType = theme?.palette;
   const navigate = useNavigate();
   const handleImageChange = async (event, type) => {
     const file = event.target.files[0];
@@ -128,7 +128,7 @@ const ApplyForm = () => {
   };
 
   return (
-    <>
+    <Box position={"relative"} zIndex={"1"}>
       <Wrapper>
         {/* <ImageWrapper src="/images/edit-screen.svg" /> */}
         <Box
@@ -143,7 +143,9 @@ const ApplyForm = () => {
           marginBottom={"60px"}
           maxWidth={"830px"}
           bgcolor={
-            themeType?.mode === "dark" && themeType?.accent?.dark4
+            themeType?.mode === "dark"
+              ? themeType?.accent?.dark4
+              : themeType?.primary?.light
           }
         >
           <HeaderTypography
@@ -208,7 +210,21 @@ const ApplyForm = () => {
           </Box>
         </Box>
       </Wrapper>
-    </>
+      {themeType?.mode === "light" && (
+        <Box
+          position={"absolute"}
+          height={"387.74px"}
+          top="0"
+          zIndex="-1"
+          width="100%"
+          bgcolor={"red"}
+          sx={{
+            background:
+              "linear-gradient(91.18deg, #F0FCFB 49.99%, rgba(201, 255, 250, 0) 98.59%)",
+          }}
+        ></Box>
+      )}
+    </Box>
   );
 };
 
