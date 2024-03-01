@@ -82,6 +82,10 @@ const lightTheme = createTheme({
       light: "#ffffff",
       dark: "#ECF1F0",
       contrastText: "#0FAE96",
+      menuItemText: "#2B2B2B",
+      borderColor: "#34313114",
+      popoverText: "#000000",
+      popoverBg: "#EFEFEF",
     },
     secondary: {
       main: "#808080",
@@ -92,9 +96,9 @@ const lightTheme = createTheme({
     },
     accent: {
       main: "#46A1F5",
-      lightGrey:"#CCCCCC",
-      placeholder:"#C6C6C6",
-      grey:"#EFEFEF",
+      lightGrey: "#CCCCCC",
+      placeholder: "#C6C6C6",
+      grey: "#EFEFEF",
     },
   },
 });
@@ -107,6 +111,10 @@ const darkTheme = createTheme({
       light: "#191919",
       dark: "#202020",
       contrastText: "#171717",
+      menuItemText: "#0FAE96",
+      borderColor: "#FFFFFF14",
+      popoverText: "#FFFFFF",
+      popoverBg: "#696969",
     },
     secondary: {
       main: "#ffffff",
@@ -115,12 +123,12 @@ const darkTheme = createTheme({
       subHeading: "#ECF1F0",
       link: "#ffffff",
     },
-    accent:{
+    accent: {
       dark1: "#292929",
       dark2: "#3B3A3A",
       dark3: "#C6C6C6",
-      dark4: "#191919"
-    }
+      dark4: "#191919",
+    },
   },
 });
 

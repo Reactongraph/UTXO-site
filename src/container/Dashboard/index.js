@@ -80,7 +80,7 @@ const DashboardPage = () => {
             alignItems="center"
             marginTop={"59px"}
             padding="19px"
-            border="1px solid #34313114"
+            border={`1px solid ${theme?.palette?.primary?.borderColor}`}
             borderRadius="12px"
           >
             <HeaderTypography

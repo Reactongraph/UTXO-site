@@ -55,7 +55,8 @@ export const HeaderCard = ({ theme }) => (
               {item.percentage}
             </HeaderTypography>
           </HeadConatiner>
-        )))}
+        ))
+      )}
     </BoxWrap>
   </BoxContent>
 );
@@ -66,6 +67,7 @@ export const RightContent = ({ theme }) => (
     <MainWrapper>
       <ToggleWrap>
         <CommonMenuItem
+          theme={theme}
           butonContent={
             <RightWrapper theme={theme}>
               {theme?.mode === "light" ? (
