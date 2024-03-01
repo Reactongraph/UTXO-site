@@ -86,6 +86,8 @@ export const TextAreaWrapper = styled(TextareaAutosize)(
 export const Container = styled.div`
   margin-left: 241px;
   max-width: 1472px;
+  position: relative;
+  z-index: 2;
   padding: 30px 20px 0px;
   overflow: hidden;
   @media screen and (max-width: 1300px) {

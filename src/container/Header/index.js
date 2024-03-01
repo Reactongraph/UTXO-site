@@ -23,6 +23,9 @@ const Header = () => {
           display="flex"
           justifyContent="space-between"
           padding="20px"
+          sx={{"@media screen and (max-width: 366px)":{
+            padding:"14px"
+          }}}
           position={"relative"}  
           zIndex={"1"}
           alignItems={"flex-start"}

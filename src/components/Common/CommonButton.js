@@ -22,7 +22,7 @@ export const CommonButton = styled(Button)(
       background: "#0FAE96",
     },
     "@media screen and (max-width: 756px)": {
-      fontSize: mfz || "16px",
+      fontSize: mfz || "14px",
     },
   })
 );

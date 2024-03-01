@@ -80,6 +80,10 @@ export const ProposalWrapperFilter = styled.div(
     gap: 10px;
     padding: 10px;
   }
+  @media screen and (max-width: 367px) {
+   flex-direction: column;
+   width: 100%;
+  }
 `
 );
 

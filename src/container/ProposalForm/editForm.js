@@ -44,12 +44,14 @@ const EditForm = () => {
               border={`1px solid ${
                 themeType?.mode === "light" ? "#DBD9D9" : "#1E1E1E"
               }`}
-              bgcolor={`1px solid ${
-                themeType?.mode === "light" ? "#fff" : "#161616"
-              }`}
+              bgcolor={themeType?.mode === "light" ? "#fff" : "#161616"}
               width="fit-content"
             >
-              <img src="/images/attachment.svg" alt="svg"></img>
+              {themeType?.mode === "dark" ? (
+                <img src="/images/dark-attachement.svg" alt="svg"></img>
+              ) : (
+                <img src="/images/attachment.svg" alt="svg"></img>
+              )}
             </Box>
           ))}
         </Box>
@@ -79,6 +81,11 @@ const EditForm = () => {
           fw="600"
           marginBottom={"23px"}
           fc={themeType?.primary?.main}
+          sx={{
+            " @media screen and (max-width: 367px)": {
+              fontSize: "24px",
+            },
+          }}
         >
           Grand Proposals
         </HeaderTypography>
