@@ -20,6 +20,7 @@ export const CustomMenuItem = styled(MenuItem)(() => ({
 export default function CommonMenuItem(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { butonContent, theme } = props || "";
+  const themeCheck = theme?.mode === "light" ? "#fff" : "rgb(48 46 46)";
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -47,9 +48,13 @@ export default function CommonMenuItem(props) {
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
-        // bgColor={theme?.mode === "light" ? "tran" : "black"}
       >
-        <CustomMenuItem onClick={handleClose}>
+        <CustomMenuItem
+          onClick={handleClose}
+          style={{
+            background: themeCheck,
+          }}
+        >
           <HeaderTypography
             fw="500"
             fz="1.25em"
@@ -61,11 +66,17 @@ export default function CommonMenuItem(props) {
                   ? "/images/low.svg"
                   : "/images/low_dark.svg"
               }
+              alt="icon"
             ></img>
             Low: 14 sats/vB
           </HeaderTypography>
         </CustomMenuItem>
-        <CustomMenuItem onClick={handleClose}>
+        <CustomMenuItem
+          onClick={handleClose}
+          style={{
+            background: themeCheck,
+          }}
+        >
           <HeaderTypography
             fw="500"
             fz="1.25em"
@@ -77,11 +88,17 @@ export default function CommonMenuItem(props) {
                   ? "/images/standard.svg"
                   : "/images/standard_dark.svg"
               }
+              alt="icon"
             ></img>
             Standard: 15 sats/vB
           </HeaderTypography>
         </CustomMenuItem>
-        <CustomMenuItem onClick={handleClose}>
+        <CustomMenuItem
+          onClick={handleClose}
+          style={{
+            background: themeCheck,
+          }}
+        >
           <HeaderTypography
             fw="500"
             fz="1.25em"
@@ -93,6 +110,7 @@ export default function CommonMenuItem(props) {
                   ? "/images/high.svg"
                   : "/images/high_dark.svg"
               }
+              alt="icon"
             ></img>
             High: 16 sats/vB
           </HeaderTypography>

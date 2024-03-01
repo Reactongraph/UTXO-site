@@ -118,6 +118,7 @@ export const ConnectStyledItem = styled(Grid)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   borderRadius: "8px",
+  border: "1px solid transparent",
   backgroundColor: theme?.primary?.popoverBg,
   maxWidth: "239px",
   width: "239px",

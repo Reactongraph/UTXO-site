@@ -89,6 +89,7 @@ export default function TableComponent({ onRowClick }) {
                 onClick={() => onRowClick(row?.id)}
                 sx={{
                   cursor: "pointer",
+                  fontFamily: "Rubik, sans-serif",
                   bgcolor:
                     rowIndex % 2 === 0
                       ? theme?.palette?.secondary?.trowbg
@@ -100,6 +101,7 @@ export default function TableComponent({ onRowClick }) {
                     key={header}
                     align="left"
                     sx={{
+                      fontFamily: "Rubik, sans-serif",
                       borderBottom: "none",
                       position: "relative",
                       color:

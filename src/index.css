@@ -60,6 +60,9 @@ code {
   }
 }
 
+#basic-menu .MuiTouchRipple-root {
+z-index: -1 !important;
+}
 
 #slider-wrap {
   display: flex !important;
