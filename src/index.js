@@ -93,6 +93,10 @@ const lightTheme = createTheme({
       dark: "#000000",
       subHeading: "#808080",
       link: "#46A1F5",
+      wallet: "#2B2B2B",
+      tborderColor: "#CBCBCB",
+      trowbg: "#FFFFFF",
+      trow2bg: "#F5F6F9",
     },
     accent: {
       main: "#46A1F5",
@@ -121,7 +125,11 @@ const darkTheme = createTheme({
       light: "#414141",
       dark: "#ffffff",
       subHeading: "#ECF1F0",
-      link: "#ffffff",
+      link: "#ECF1F0",
+      wallet: "#ECF1F0",
+      tborderColor: "#9B9B9B",
+      trowbg: "#242323",
+      trow2bg: "#262525",
     },
     accent: {
       dark1: "#292929",

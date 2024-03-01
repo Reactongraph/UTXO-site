@@ -128,7 +128,7 @@ const DashboardPage = () => {
                 >
                   Running Proposals{" "}
                 </HeaderTypography>
-                <ProposalWrapper>
+                <ProposalWrapper theme={theme?.palette}>
                   {titles?.map((item) => {
                     return (
                       <Box

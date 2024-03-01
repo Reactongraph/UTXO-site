@@ -11,16 +11,19 @@ export const TitleWrapper = styled.div`
   opacity: 0.7;
 `;
 
-export const ProposalWrapper = styled.div`
+export const ProposalWrapper = styled.div(
+  {},
+  ({ theme }) => `
   padding: 10px 29px;
   display: flex;
   height: fit-content;
   gap: 30px;
-  border: 1px solid #cbcbcb;
+  border: 1px solid ${theme?.secondary?.tborderColor};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   width: fit-content;
-`;
+  `
+);
 
 export const TableWrapper = styled.div`
   display: flex;
@@ -71,7 +74,7 @@ export const ProposalWrapperFilter = styled.div(
   padding: 10px 29px;
   display: flex;
   gap: 30px;
-  border: 1px solid #cbcbcb;
+  border: 1px solid ${theme?.secondary?.tborderColor};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   color: ${theme?.secondary?.dark};

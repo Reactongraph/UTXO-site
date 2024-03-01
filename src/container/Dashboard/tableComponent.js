@@ -89,6 +89,10 @@ export default function TableComponent({ onRowClick }) {
                 onClick={() => onRowClick(row?.id)}
                 sx={{
                   cursor: "pointer",
+                  bgcolor:
+                    rowIndex % 2 === 0
+                      ? theme?.palette?.secondary?.trowbg
+                      : theme?.palette?.secondary?.trow2bg,
                 }}
               >
                 {columnHeaders.map((header, colIndex) => (
@@ -103,6 +107,8 @@ export default function TableComponent({ onRowClick }) {
                           ? theme?.palette?.secondary?.subHeading
                           : header === "Github link"
                           ? theme?.palette?.secondary?.link
+                          : header === "BTC wallet"
+                          ? theme?.palette?.secondary?.wallet
                           : theme?.palette?.primary?.main,
                       fontSize:
                         header === "Fund amount" ||
