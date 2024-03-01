@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
 export const LeftConatiner = styled.div`
   display: flex;
@@ -111,3 +111,27 @@ export const BoxContent = styled(Box)`
   //     border-radius: 20px;
   //   }
 `;
+
+export const ConnectStyledItem = styled(Grid)(({ theme }) => ({
+  columnGap: "17px",
+  padding: "9px 8px",
+  display: "flex",
+  alignItems: "center",
+  borderRadius: "8px",
+  backgroundColor: theme?.primary?.popoverBg,
+  maxWidth: "239px",
+  width: "239px",
+  "&:hover": {
+    color: "#0FAE96",
+    backgroundColor: "#F4FEFD",
+    border: "1px solid #0FAE96",
+    ".MuiTypography-root": {
+      color: "#0FAE96",
+    },
+  },
+  "&.selected": {
+    color: "#0FAE96",
+    backgroundColor: "#F4FEFD",
+    border: "1px solid #0FAE96",
+  },
+}));
