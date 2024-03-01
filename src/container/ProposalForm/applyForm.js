@@ -59,6 +59,12 @@ const ApplyForm = () => {
           key={index}
           alignItems={"center"}
           columnGap={"32px"}
+          sx={{
+            "@media screen and (max-width: 450px)": {
+              flexDirection: "column",
+              alignItems: "start",
+            },
+          }}
         >
           <FormContainer theme={themeType}>
             <label htmlFor={`upload-photo${index}`}>
