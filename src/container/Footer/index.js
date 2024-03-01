@@ -105,10 +105,12 @@ const Footer = () => {
       {theme?.palette?.mode === "dark" && window.innerWidth > 756 && (
           <Box
             width={"681.67px"}
-            height={"520.87px"}
+            // height={"520.87px"}
+            height={"300px"}
             position={"absolute"}
             left="0"
-            bottom="73px"
+            // bottom="73px"
+            bottom={"220px"}
           >
             <img src="/images/shadow-bottom.png" alt="logo" width={"100%"} height={"100%"} />
           </Box>
