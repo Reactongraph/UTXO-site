@@ -24,10 +24,24 @@ export const FormFields = [
     type: "input",
   },
   {
-    text: "Github Wallet ",
+    text: "Github",
     inputLine: 1,
     placeholder: "Enter Amount",
     type: "input",
+  },
+  {
+    text: "Twitter / X ",
+    inputLine: "",
+    placeholder: "Enter Amount",
+    type: "text",
+    value: "www.github6789"
+  },
+  {
+    text: "Telegram ",
+    inputLine: "",
+    placeholder: "Enter Amount",
+    type: "text",
+    value: "www.github6789"
   },
   {
     text: "Description",
@@ -65,9 +79,23 @@ export const FormFieldsEdit = [
     value: "bc1q...aw4e"
   },
   {
-    text: "Github Wallet",
+    text: "Github",
     inputLine: "",
     placeholder: "",
+    type: "text",
+    value: "www.github6789"
+  },
+  {
+    text: "Twitter / X ",
+    inputLine: "",
+    placeholder: "Enter Amount",
+    type: "text",
+    value: "www.github6789"
+  },
+  {
+    text: "Telegram ",
+    inputLine: "",
+    placeholder: "Enter Amount",
     type: "text",
     value: "www.github6789"
   },

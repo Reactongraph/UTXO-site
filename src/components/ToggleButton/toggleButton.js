@@ -1,18 +1,3 @@
-// import React from 'react';
-// import { Button } from '@mui/material';
-// import { useThemeContext } from '../../theme/theme';
-
-// const ToggleButton = () => {
-//   const { theme, toggleTheme } = useThemeContext();
-
-//   return (
-//     <Button onClick={toggleTheme} variant="outlined" color="primary">
-//       {theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
-//     </Button>
-//   );
-// };
-
-// export default ToggleButton;
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import FormGroup from "@mui/material/FormGroup";
