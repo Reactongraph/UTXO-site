@@ -24,7 +24,7 @@ const titles = [
 
 const titleDates = ["6H", "24H", "7D", "All"];
 
-const Filter = ["Final proposals", "Activity", "Leaderboard"];
+const Filter = ["Final proposals", "Activity", "Leaderboard", "My voting Power  "];
 
 const DashboardPage = () => {
   const navigate = useNavigate();
@@ -79,6 +79,8 @@ const DashboardPage = () => {
             rowGap="32px"
             alignItems="center"
             marginTop={"59px"}
+            position={"relative"}
+            zIndex="1"
             padding="19px"
             border={`1px solid ${theme?.palette?.primary?.borderColor}`}
             borderRadius="12px"
@@ -124,6 +126,7 @@ const DashboardPage = () => {
                 <HeaderTypography
                   fz="1.5em"
                   fw="500"
+                  minWidth={"fit-content"}
                   fc={theme?.palette?.primary?.main}
                 >
                   Running Proposals{" "}
@@ -152,8 +155,9 @@ const DashboardPage = () => {
                   {Filter?.map((item, index) => {
                     return (
                       <Box
+                      minWidth={"fit-content"}
                         fontSize={"1em"}
-                        minWidth={`${index === 0 ? "112px" : ""} `}
+                        // minWidth={`${index === 0 ? "112px" : ""} `}
                       >
                         {item}
                       </Box>

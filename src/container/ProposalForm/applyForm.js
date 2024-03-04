@@ -134,7 +134,7 @@ const ApplyForm = () => {
   };
 
   return (
-    <Box position={"relative"} zIndex={"1"}>
+    <Box position={"relative"} zIndex={"2"}>
       <Wrapper>
         {/* <ImageWrapper src="/images/edit-screen.svg" /> */}
         <Box
@@ -211,7 +211,7 @@ const ApplyForm = () => {
               pd="14px 54px"
               mr="0"
             >
-              Save
+              Upload
             </CommonButton>
           </Box>
         </Box>

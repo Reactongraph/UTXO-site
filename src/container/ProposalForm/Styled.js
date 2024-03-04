@@ -111,7 +111,6 @@ export const Wrapper = styled.div`
   margin-left: 241px;
   max-width: 1472px;
   padding: 20px;
-
   @media screen and (max-width: 1300px) {
     margin: auto;
   }

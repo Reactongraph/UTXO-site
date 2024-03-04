@@ -18,24 +18,29 @@ const Header = () => {
   // console.log("themetheme", theme?.palette?.primary);
   return (
     <>
-      <Box position={"relative"}  zIndex={"1"}>
+      <Box position={"relative"} zIndex={"1"}>
         <Box
           display="flex"
           justifyContent="space-between"
           padding="20px"
-          sx={{"@media screen and (max-width: 366px)":{
-            padding:"14px"
-          }}}
-          position={"relative"}  
+          sx={{
+            "@media screen and (max-width: 366px)": {
+              padding: "14px",
+            },
+            "@media screen and (max-width: 1217px)": {
+              alignItems: "flex-start",
+            },
+          }}
+          position={"relative"}
           zIndex={"1"}
-          alignItems={"flex-start"}
+          alignItems={"center"}
         >
           <LeftConatiner>
             <Box>
               {theme?.palette?.mode === "light" ? (
                 <img src="/images/logo.svg" alt="logo"></img>
               ) : (
-                <img src="/images/logo-dark.svg" alt="logo" />
+                <img src="/images/logo-dark-header.svg" alt="logo" />
               )}
             </Box>
             <HeaderCard theme={theme?.palette} />

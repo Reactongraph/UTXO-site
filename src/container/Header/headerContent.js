@@ -23,14 +23,31 @@ const data = [
 ];
 
 export const HeaderCard = ({ theme }) => (
-  <BoxContent>
-    <BoxWrap
-      display="flex"
-      columnGap={"32px"}
-      flexWrap="wrap"
-      id="header-slider"
-    >
-      {window?.innerWidth < 1217 ? (
+<BoxContent>
+  <BoxWrap
+    display="flex"
+    columnGap={"32px"}
+    flexWrap="wrap"
+  >
+    {window?.innerWidth < 1820 && window?.innerWidth > 576 ? (
+      <Box id="header-slider-desk">
+        <CommonSlider
+          InitialShowNumber={2}
+          responsiveArray={[]}
+          CardContent={data?.map((item, index) => (
+            <HeadConatiner key={index} theme={theme}>
+              <HeaderTypography fz="1em" fc={theme?.primary?.main} marginBottom={"18px"}>
+                {item.title}
+              </HeaderTypography>
+              <HeaderTypography fw="500" fc={theme?.primary?.main} fz="1.5em">
+                {item.percentage}
+              </HeaderTypography>
+            </HeadConatiner>
+          ))}
+        />
+      </Box>
+    ) : window?.innerWidth < 576 ? (
+      <Box id="header-slider">
         <CommonSlider
           InitialShowNumber={1}
           responsiveArray={[]}
@@ -45,20 +62,22 @@ export const HeaderCard = ({ theme }) => (
             </HeadConatiner>
           ))}
         />
-      ) : (
-        data?.map((item, index) => (
-          <HeadConatiner key={index} theme={theme}>
-            <HeaderTypography fz="1em" fc={theme?.primary?.main}>
-              {item.title}
-            </HeaderTypography>
-            <HeaderTypography fw="500" fc={theme?.primary?.main} fz="1.5em">
-              {item.percentage}
-            </HeaderTypography>
-          </HeadConatiner>
-        ))
-      )}
-    </BoxWrap>
-  </BoxContent>
+      </Box>
+    ) : (
+      data?.map((item, index) => (
+        <HeadConatiner key={index} theme={theme}>
+          <HeaderTypography fz="1em" fc={theme?.primary?.main}>
+            {item.title}
+          </HeaderTypography>
+          <HeaderTypography fw="500" fc={theme?.primary?.main} fz="1.5em">
+            {item.percentage}
+          </HeaderTypography>
+        </HeadConatiner>
+      ))
+    )}
+  </BoxWrap>
+</BoxContent>
+
 );
 const ImgData = ["social", "social-2", "social-3", "social-4"];
 
@@ -81,7 +100,7 @@ export const RightContent = ({ theme }) => (
         <ToggleButton />
       </ToggleWrap>
 
-      <Box display="flex" alignItems="center" columnGap={"16px"}>
+      {/* <Box display="flex" alignItems="center" columnGap={"16px"}>
         {ImgData?.map((item) => {
           return (
             <>
@@ -89,7 +108,7 @@ export const RightContent = ({ theme }) => (
             </>
           );
         })}
-      </Box>
+      </Box> */}
     </MainWrapper>
   </LeftMainConatiner>
 );
