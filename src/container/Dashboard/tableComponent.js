@@ -17,6 +17,8 @@ const columnHeaders = [
   "BTC wallet",
   "Github link",
   "Additional info",
+  "Twitter / X ",
+  "Telegram",
 ];
 
 function createData(...rowData) {
@@ -34,7 +36,9 @@ const rows = [
     "1.1023 BTC",
     "bc1q...aw4e",
     "Github Link",
-    "Check link"
+    "Check link",
+    "Twitter Link",
+    "Telegram Link"
   ),
   createData(
     "Name 1",
@@ -42,7 +46,9 @@ const rows = [
     "1.1023 BTC",
     "bc1q...aw4e",
     "Github Link",
-    "Check link"
+    "Check link",
+    "Twitter Link",
+    "Telegram Link"
   ),
   createData(
     "Name 1",
@@ -50,7 +56,9 @@ const rows = [
     "1.1023 BTC",
     "bc1q...aw4e",
     "Github Link",
-    "Check link"
+    "Check link",
+    "Twitter Link",
+    "Telegram Link"
   ),
 ];
 
@@ -96,42 +104,49 @@ export default function TableComponent({ onRowClick }) {
                       : theme?.palette?.secondary?.trow2bg,
                 }}
               >
-                {columnHeaders.map((header, colIndex) => (
-                  <TableCell
-                    key={header}
-                    align="left"
-                    sx={{
-                      fontFamily: "Rubik, sans-serif",
-                      borderBottom: "none",
-                      position: "relative",
-                      color:
-                        header === "Proposal" || header === "Additional info"
-                          ? theme?.palette?.secondary?.subHeading
-                          : header === "Github link"
-                          ? theme?.palette?.secondary?.link
-                          : header === "BTC wallet"
-                          ? theme?.palette?.secondary?.wallet
-                          : theme?.palette?.primary?.main,
-                      fontSize:
-                        header === "Fund amount" ||
-                        header === "Grand name" ||
-                        header === "BTC wallet"
-                          ? "1em"
-                          : "0.8125em",
-                      "&:not(:last-child)::after": {
-                        content: '""',
-                        position: "absolute",
-                        bottom: 0,
-                        right: 0,
-                        height: "100%",
-                        borderRight: "1px solid #D8D8D8",
+                {columnHeaders.map((header, colIndex) => {
+                  const headerReturn =
+                    header === "Github link" ||
+                    header === "Twitter / X " ||
+                    header === "Telegram";
+
+                  return (
+                    <TableCell
+                      key={header}
+                      align="left"
+                      sx={{
                         fontFamily: "Rubik, sans-serif",
-                      },
-                    }}
-                  >
-                    {row[header]}
-                  </TableCell>
-                ))}
+                        borderBottom: "none",
+                        position: "relative",
+                        color:
+                          header === "Proposal" || header === "Additional info"
+                            ? theme?.palette?.secondary?.subHeading
+                            : headerReturn
+                            ? theme?.palette?.secondary?.link
+                            : header === "BTC wallet"
+                            ? theme?.palette?.secondary?.wallet
+                            : theme?.palette?.primary?.main,
+                        fontSize:
+                          header === "Fund amount" ||
+                          header === "Grand name" ||
+                          header === "BTC wallet"
+                            ? "1em"
+                            : "0.8125em",
+                        "&:not(:last-child)::after": {
+                          content: '""',
+                          position: "absolute",
+                          bottom: 0,
+                          right: 0,
+                          height: "100%",
+                          borderRight: "1px solid #D8D8D8",
+                          fontFamily: "Rubik, sans-serif",
+                        },
+                      }}
+                    >
+                      {row[header]}
+                    </TableCell>
+                  );
+                })}
               </TableRow>
             ))}
           </TableBody>
