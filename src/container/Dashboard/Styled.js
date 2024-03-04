@@ -58,7 +58,7 @@ export const MainWrapper = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-between;
-  @media screen and (max-width: 1140px) {
+  @media screen and (max-width: 1360px) {
     flex-direction: column;
     align-items: flex-start;
     row-gap: 20px;
@@ -79,10 +79,12 @@ export const ProposalWrapperFilter = styled.div(
   border-radius: 5px;
   color: ${theme?.secondary?.dark};
   width: fit-content;
+  flex-wrap:wrap;
   @media screen and (max-width: 654px) {
     gap: 10px;
     padding: 10px;
   }
+
   @media screen and (max-width: 367px) {
    flex-direction: column;
    width: 100%;

@@ -16,12 +16,12 @@ export const WrapperSecond = styled.img`
 export const WrapperThird = styled.div`
   height: 37px;
   display: flex;
-  alignitems: center;
-  marginbottom: 9px;
+  align-items: center;
+  // margin-bottom: 9px;
   color: #fff;
-  fontsize: 1.25em;
+  font-size: 1.25em;
   @media screen and (max-width: 654px) {
-    font-size: 16px;
+    font-size: 14px;
   }
 `;
 
@@ -34,6 +34,17 @@ export const ResponsiveHeaderTypography = styled(HeaderTypography)`
 export const HiddenOnMobile = styled(Box)`
   column-gap: 73px;
   @media screen and (max-width: 510px) {
-    column-gap: 20px;
+    column-gap: 10px !important;
+    font-size: 12px;
+  }
+  @media screen and (max-width: 1000px) {
+    column-gap: 50px ;
+  }
+`;
+
+export const WrapperBox = styled(Box)`
+  @media screen and (max-width: 756px) {
+    padding:9px 0px 5px 0px;
+    justify-content:center;
   }
 `;

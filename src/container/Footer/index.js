@@ -7,11 +7,14 @@ import {
   WrapperFirst,
   WrapperSecond,
   WrapperThird,
+  WrapperBox,
 } from "./Styled";
 import { useTheme } from "@mui/material/styles";
 
 const FooterData = ["utxo.site", "src20utxo.com", "src20utxo.app"];
 const FooterPreData = ["Docs", "Github", "Gitbook"];
+const FooterPreSouce = [{text:"Twitter",light:"social",dark:"social-dark"}, {text:"Telegram",light:"social-2",dark:"social-2-dark"}, {text:"Discord",light:"social-3",dark:"social-3-dark"}];
+
 
 const Footer = () => {
   const theme = useTheme();
@@ -66,6 +69,27 @@ const Footer = () => {
           </ResponsiveHeaderTypography>
         </Box>
         <HiddenOnMobile display={"flex"}>
+        <Box>
+            {/* <img src="/images/resouce.svg" alt="icon"></img> */}
+            <HeaderTypography
+              fz="1.063em"
+              fc="#fff"
+              fw="600"
+              marginBottom={"15px"}
+            >
+              Source
+            </HeaderTypography>
+            {FooterPreSouce?.map((item) => {
+              return (
+              <>
+              <WrapperBox display={"flex"} columnGap={"10px"}>
+              <img src={`/images/${theme?.palette?.mode === "light" ? item?.light : item?.dark}.svg`} alt="icon"></img>
+              <WrapperThird className="mobile-footer">{item.text}</WrapperThird>
+              </WrapperBox>
+              </>
+              );
+            })}
+          </Box>
           <Box>
             {/* <img src="/images/resouce.svg" alt="icon"></img> */}
             <HeaderTypography
