@@ -99,16 +99,6 @@ export const RightContent = ({ theme }) => (
         />
         <ToggleButton />
       </ToggleWrap>
-
-      {/* <Box display="flex" alignItems="center" columnGap={"16px"}>
-        {ImgData?.map((item) => {
-          return (
-            <>
-              <img src={`/images/${item}.svg`} alt="icon"></img>
-            </>
-          );
-        })}
-      </Box> */}
     </MainWrapper>
   </LeftMainConatiner>
 );
