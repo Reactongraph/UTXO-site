@@ -27,7 +27,7 @@ const Header = () => {
             "@media screen and (max-width: 366px)": {
               padding: "14px",
             },
-            "@media screen and (max-width: 1475px)": {
+            "@media screen and (max-width: 1060px)": {
               alignItems: "flex-start",
             },
           }}
