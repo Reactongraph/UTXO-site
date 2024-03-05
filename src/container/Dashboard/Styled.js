@@ -96,8 +96,8 @@ export const DisplayGrid = styled.div(
   {},
   ({ theme }) => `
   background: ${
-    theme?.palette?.mode === "light" &&
-    "linear-gradient(91.18deg, #f0fcfb 49.99%,rgba(201, 255, 250, 0) 98.59%)"
+    theme?.palette?.mode === "light" && "#f0fcfb "
+    // "linear-gradient(91.18deg, #f0fcfb 49.99%,rgba(201, 255, 250, 0) 98.59%)"
   };
   width: 100%;
   height: 385px;
