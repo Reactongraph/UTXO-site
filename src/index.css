@@ -170,7 +170,7 @@ z-index: -1 !important;
   /* width: 430px; */
   width: 625px;
   @media screen and (max-width: 1750px) {
-    width: 430px;
+    /* width: 430px; */
   }
   /* margin-bottom: -30px; */
 }
@@ -183,20 +183,20 @@ z-index: -1 !important;
 
 #header-slider-desk .slick-slider{
   position: inherit !important;
-  @media screen and (max-width: 1330px) {
+  @media screen and (max-width: 1475px) {
     position: relative !important;
   }
 }
 #header-slider-desk  .slick-arrow img {
   right: 50%;
-  left: 52%;
+  left: 60%;
   top:52px;
   z-index: 9;
   cursor: pointer;
   @media screen and (min-width: 1750px) {
   left: 58%
   }
-  @media screen and (max-width: 1330px) {
+  @media screen and (max-width: 1475px) {
     top: 25px;
     right: -58px;
     left: auto;
@@ -205,14 +205,14 @@ z-index: -1 !important;
 
 #header-slider-desk  .slick-arrow-left img {
   right: 50%;
-  left: 48%;
+  left: 57%;
   z-index: 9;
 cursor: pointer;
   top:52px;
   @media screen and (min-width: 1750px) {
   left: 55%;
   }
-  @media screen and (max-width: 1330px) {
+  @media screen and (max-width: 1475px) {
     top: 25px;
     right: -18px;
     left: auto;

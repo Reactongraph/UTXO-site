@@ -45,7 +45,7 @@ export const HeaderCard = ({ theme }) => {
         {windowWidth < 2030 && windowWidth > 576 ? (
           <Box id="header-slider-desk">
             <CommonSlider
-              InitialShowNumber={windowWidth < 1750 ? 2 : 3}
+              InitialShowNumber={windowWidth < 1750 ? 3 : 3}
               responsiveArray={[]}
               CardContent={data?.map((item, index) => (
                 <HeadConatiner key={index} theme={theme}>
