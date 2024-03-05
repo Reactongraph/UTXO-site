@@ -58,7 +58,9 @@ const EditForm = () => {
       );
     } else {
       return (
-        <Box maxWidth={"782px"}>
+        <Box
+        // maxWidth={"782px"}
+        >
           <TextAreaWrapper
             theme={themeType}
             maxRows={6}
@@ -98,7 +100,7 @@ const EditForm = () => {
         <MainContainer
           display="flex"
           justifyContent={"space-between"}
-          width="782px"
+          // width="782px"
           marginBottom={"23px"}
         >
           <MainContainer display="flex" columnGap={"32px"}>

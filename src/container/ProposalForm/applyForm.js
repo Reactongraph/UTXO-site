@@ -147,7 +147,7 @@ const ApplyForm = () => {
           borderRadius={"27px"}
           boxShadow={"1px 5px 6px 0px #34333329"}
           marginBottom={"60px"}
-          maxWidth={"830px"}
+          // maxWidth={"830px"}
           bgcolor={
             themeType?.mode === "dark"
               ? themeType?.accent?.dark4

@@ -16,9 +16,10 @@ import CommonSlider from "../../components/Common/CommonSlider";
 
 const data = [
   { title: "24H Change", percentage: "0%" },
+  { title: "24H Volume", percentage: "0.1599 BTC" },
   { title: "Total Volume", percentage: "91.71 BTC" },
-  { title: "Market Cap", percentage: "115 BTC" },
-  { title: "Market Cap", percentage: "115 BTC" },
+  { title: "Total Supply", percentage: "10,000" },
+  { title: "Market Cap", percentage: "90 BTC" },
   { title: "Holders", percentage: "1,947" },
 ];
 
@@ -29,7 +30,7 @@ export const HeaderCard = ({ theme }) => (
     columnGap={"32px"}
     flexWrap="wrap"
   >
-    {window?.innerWidth < 1820 && window?.innerWidth > 576 ? (
+    {window?.innerWidth < 2030 && window?.innerWidth > 576 ? (
       <Box id="header-slider-desk">
         <CommonSlider
           InitialShowNumber={2}
