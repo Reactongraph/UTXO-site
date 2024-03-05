@@ -134,7 +134,7 @@ const ApplyForm = () => {
   };
 
   return (
-    <Box position={"relative"} zIndex={"1"}>
+    <Box position={"relative"} zIndex={"2"}>
       <Wrapper>
         {/* <ImageWrapper src="/images/edit-screen.svg" /> */}
         <Box
@@ -147,7 +147,7 @@ const ApplyForm = () => {
           borderRadius={"27px"}
           boxShadow={"1px 5px 6px 0px #34333329"}
           marginBottom={"60px"}
-          maxWidth={"830px"}
+          // maxWidth={"830px"}
           bgcolor={
             themeType?.mode === "dark"
               ? themeType?.accent?.dark4
@@ -211,12 +211,12 @@ const ApplyForm = () => {
               pd="14px 54px"
               mr="0"
             >
-              Save
+              Upload
             </CommonButton>
           </Box>
         </Box>
       </Wrapper>
-      {themeType?.mode === "light" && (
+      {/* {themeType?.mode === "light" && (
         <Box
           position={"absolute"}
           height={"387.74px"}
@@ -229,7 +229,7 @@ const ApplyForm = () => {
               "linear-gradient(91.18deg, #F0FCFB 49.99%, rgba(201, 255, 250, 0) 98.59%)",
           }}
         ></Box>
-      )}
+      )} */}
     </Box>
   );
 };

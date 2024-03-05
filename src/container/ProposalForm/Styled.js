@@ -85,6 +85,7 @@ export const TextAreaWrapper = styled(TextareaAutosize)(
 
 export const Container = styled.div`
   margin-left: 241px;
+  margin-right: 241px;
   max-width: 1472px;
   position: relative;
   z-index: 2;
@@ -99,7 +100,7 @@ export const Container = styled.div`
 `;
 
 export const MainContainer = styled(Box)`
-  @media screen and (max-width: 830px) {
+  @media screen and (max-width: 756px) {
     display: flex;
     width: fit-content;
     row-gap: 20px;
@@ -109,9 +110,9 @@ export const MainContainer = styled(Box)`
 
 export const Wrapper = styled.div`
   margin-left: 241px;
+  margin-right: 241px;
   max-width: 1472px;
   padding: 20px;
-
   @media screen and (max-width: 1300px) {
     margin: auto;
   }

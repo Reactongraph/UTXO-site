@@ -4,15 +4,15 @@ import { Box, Grid } from "@mui/material";
 export const LeftConatiner = styled.div`
   display: flex;
   gap: 42px;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
-  @media screen and (max-width: 1217px) {
+  @media screen and (max-width: 1475px) {
     display: flex;
     flex-direction: column;
     align-items: baseline;
     width: fit-content;
     width: 25%;
-    gap: 80px;
+    gap: 65px;
   }
 `;
 
@@ -36,8 +36,8 @@ export const HeadConatiner = styled.div(
     theme?.mode === "light" ? "rgba(145, 248, 232, 0.1)" : theme?.primary?.light
   };
   border-radius: 4px;
-  padding: 15px 16px 23px;
-  height: 94.24px;
+  padding: 15px ;
+  // height: 94.24px; 
   width: 196px !important;;
 `
 );
@@ -49,13 +49,13 @@ export const RightWrapper = styled.div(
   background: ${theme?.primary?.dark};
   display: flex;
   border-radius: 6px;
-  @media screen and (max-width: 756px) {
-    width: 36px;
-    overflow: hidden;
-    border-radius: 50%;
-    padding: 9px 12px;
-    margin-top: 1px;
-  }
+  // @media screen and (max-width: 756px) {
+  //   width: 36px;
+  //   overflow: hidden;
+  //   border-radius: 50%;
+  //   padding: 9px 12px;
+  //   margin-top: 1px;
+  // }
 `
 );
 
@@ -83,14 +83,16 @@ left:10px
 export const ToggleWrap = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: column;
-  @media screen and (max-width: 756px) {
-    flex-direction: row;
-  }
+  gap:24px;
+  // flex-direction: column;
+  // @media screen and (max-width: 756px) {
+  //   flex-direction: row;
+  // }
 `;
 
 export const BoxWrap = styled(Box)`
-  row-gap: 20px;
+  gap:24px;
+  // row-gap: 20px;
   // @media screen and (max-width: 1217px) {
   //   width: 70rem;
   // }
