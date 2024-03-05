@@ -13,6 +13,7 @@ import {
 } from "./Styled";
 import ToggleButton from "../../components/ToggleButton/toggleButton";
 import CommonSlider from "../../components/Common/CommonSlider";
+import { useEffect, useState } from "react";
 
 const data = [
   { title: "24H Change", percentage: "0%" },
@@ -23,36 +24,72 @@ const data = [
   { title: "Holders", percentage: "1,947" },
 ];
 
-export const HeaderCard = ({ theme }) => (
-<BoxContent>
-  <BoxWrap
-    display="flex"
-    columnGap={"32px"}
-    flexWrap="wrap"
-  >
-    {window?.innerWidth < 2030 && window?.innerWidth > 576 ? (
-      <Box id="header-slider-desk">
-        <CommonSlider
-          InitialShowNumber={2}
-          responsiveArray={[]}
-          CardContent={data?.map((item, index) => (
-            <HeadConatiner key={index} theme={theme}>
-              <HeaderTypography fz="1em" fc={theme?.primary?.main} marginBottom={"18px"}>
-                {item.title}
-              </HeaderTypography>
-              <HeaderTypography fw="500" fc={theme?.primary?.main} fz="1.5em">
-                {item.percentage}
-              </HeaderTypography>
-            </HeadConatiner>
-          ))}
-        />
-      </Box>
-    ) : window?.innerWidth < 576 ? (
-      <Box id="header-slider">
-        <CommonSlider
-          InitialShowNumber={1}
-          responsiveArray={[]}
-          CardContent={data?.map((item, index) => (
+export const HeaderCard = ({ theme }) => {
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(window.innerWidth);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  return (
+    <BoxContent>
+      <BoxWrap display="flex" columnGap={"32px"} flexWrap="wrap">
+        {windowWidth < 2030 && windowWidth > 576 ? (
+          <Box id="header-slider-desk">
+            <CommonSlider
+              InitialShowNumber={windowWidth < 1750 ? 2 : 3}
+              responsiveArray={[]}
+              CardContent={data?.map((item, index) => (
+                <HeadConatiner key={index} theme={theme}>
+                  <HeaderTypography
+                    fz="1em"
+                    fc={theme?.primary?.main}
+                    marginBottom={"18px"}
+                  >
+                    {item.title}
+                  </HeaderTypography>
+                  <HeaderTypography
+                    fw="500"
+                    fc={theme?.primary?.main}
+                    fz="1.5em"
+                  >
+                    {item.percentage}
+                  </HeaderTypography>
+                </HeadConatiner>
+              ))}
+            />
+          </Box>
+        ) : windowWidth < 576 ? (
+          <Box id="header-slider">
+            <CommonSlider
+              InitialShowNumber={1}
+              responsiveArray={[]}
+              CardContent={data?.map((item, index) => (
+                <HeadConatiner key={index} theme={theme}>
+                  <HeaderTypography fz="1em" fc={theme?.primary?.main}>
+                    {item.title}
+                  </HeaderTypography>
+                  <HeaderTypography
+                    fw="500"
+                    fc={theme?.primary?.main}
+                    fz="1.5em"
+                  >
+                    {item.percentage}
+                  </HeaderTypography>
+                </HeadConatiner>
+              ))}
+            />
+          </Box>
+        ) : (
+          data?.map((item, index) => (
             <HeadConatiner key={index} theme={theme}>
               <HeaderTypography fz="1em" fc={theme?.primary?.main}>
                 {item.title}
@@ -61,25 +98,12 @@ export const HeaderCard = ({ theme }) => (
                 {item.percentage}
               </HeaderTypography>
             </HeadConatiner>
-          ))}
-        />
-      </Box>
-    ) : (
-      data?.map((item, index) => (
-        <HeadConatiner key={index} theme={theme}>
-          <HeaderTypography fz="1em" fc={theme?.primary?.main}>
-            {item.title}
-          </HeaderTypography>
-          <HeaderTypography fw="500" fc={theme?.primary?.main} fz="1.5em">
-            {item.percentage}
-          </HeaderTypography>
-        </HeadConatiner>
-      ))
-    )}
-  </BoxWrap>
-</BoxContent>
-
-);
+          ))
+        )}
+      </BoxWrap>
+    </BoxContent>
+  );
+};
 const ImgData = ["social", "social-2", "social-3", "social-4"];
 
 export const RightContent = ({ theme }) => (
