@@ -6,7 +6,7 @@ export const LeftConatiner = styled.div`
   gap: 42px;
   align-items: center;
   width: 100%;
-  @media screen and (max-width: 1217px) {
+  @media screen and (max-width: 1330px) {
     display: flex;
     flex-direction: column;
     align-items: baseline;
