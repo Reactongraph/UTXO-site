@@ -39,13 +39,23 @@ export const HeaderCard = ({ theme }) => {
     };
   }, []);
 
+  const determineInitialShowNumber = (windowWidth) => {
+    if (windowWidth < 1280) {
+      return 1;
+    } else if (windowWidth < 1480) {
+      return 2;
+    } else {
+      return 3;
+    }
+  };
+  
   return (
     <BoxContent>
       <BoxWrap display="flex" columnGap={"32px"} flexWrap="wrap">
-        {windowWidth < 2030 && windowWidth > 576 ? (
+        {windowWidth < 2035 && windowWidth > 576 ? (
           <Box id="header-slider-desk">
             <CommonSlider
-              InitialShowNumber={3}
+              InitialShowNumber={determineInitialShowNumber(windowWidth)}
               responsiveArray={[]}
               CardContent={data?.map((item, index) => (
                 <HeadConatiner key={index} theme={theme}>
