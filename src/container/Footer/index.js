@@ -19,16 +19,19 @@ const FooterPreSouce = [{text:"Twitter",light:"social",dark:"social-dark"}, {tex
 const Footer = () => {
   const theme = useTheme();
   return (
-    <Box bgcolor={theme?.palette?.primary?.contrastText} position={"relative"} zIndex={"1"}>
+    <Box bgcolor={theme?.palette?.primary?.contrastText} position={"relative"} zIndex={"1"} display={"flex"} justifyContent={"center"} width={"100%"}>
       <Box
         maxWidth={"1440px"}
         bgcolor={theme?.palette?.primary?.contrastText} 
-        margin={"auto"}
+        // margin={"auto"}
         display="flex"
+        width={"100%"}
         justifyContent="space-between"
         position={"relative"}  
         zIndex={"1"}
-        padding="25px 20px"
+        padding="25px 0px"
+        margin="0% 10%"
+        columnGap={"35px"}
       >
         <Box>
           <WrapperFirst

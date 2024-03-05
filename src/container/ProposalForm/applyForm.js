@@ -216,7 +216,7 @@ const ApplyForm = () => {
           </Box>
         </Box>
       </Wrapper>
-      {themeType?.mode === "light" && (
+      {/* {themeType?.mode === "light" && (
         <Box
           position={"absolute"}
           height={"387.74px"}
@@ -229,7 +229,7 @@ const ApplyForm = () => {
               "linear-gradient(91.18deg, #F0FCFB 49.99%, rgba(201, 255, 250, 0) 98.59%)",
           }}
         ></Box>
-      )}
+      )} */}
     </Box>
   );
 };
