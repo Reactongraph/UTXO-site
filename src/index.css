@@ -177,16 +177,36 @@ z-index: -1 !important;
   right: -65px;
 }
 
+#header-slider-desk .slick-slider{
+  position: inherit !important;
+  @media screen and (max-width: 1217px) {
+    position: relative !important;
+  }
+}
 #header-slider-desk  .slick-arrow img {
-  top: 25px;
-  right: -58px;
+  right: 50%;
+  left: 52%;
+  top:52px;
   z-index: 9;
+  cursor: pointer;
+  @media screen and (max-width: 1217px) {
+    top: 25px;
+    right: -58px;
+    left: auto;
+  }
 }
 
 #header-slider-desk  .slick-arrow-left img {
-  top: 25px;
-  right: -18px;
+  right: 50%;
+  left: 48%;
   z-index: 9;
+cursor: pointer;
+  top:52px;
+  @media screen and (max-width: 1217px) {
+    top: 25px;
+    right: -18px;
+    left: auto;
+  }
 }
 
 #header-slider  .slick-arrow img {
