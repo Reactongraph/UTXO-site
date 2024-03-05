@@ -86,6 +86,7 @@ const lightTheme = createTheme({
       borderColor: "#34313114",
       popoverText: "#000000",
       popoverBg: "#EFEFEF",
+      typography: '#121212'
     },
     secondary: {
       main: "#808080",
@@ -119,6 +120,7 @@ const darkTheme = createTheme({
       borderColor: "#FFFFFF14",
       popoverText: "#FFFFFF",
       popoverBg: "#696969",
+      typography: '#ffffff'
     },
     secondary: {
       main: "#ffffff",

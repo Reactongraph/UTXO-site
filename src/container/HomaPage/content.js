@@ -1,7 +1,7 @@
 export const HomeCardsData = [
   {
     imageUrl: "/images/utxo2.svg",
-    header: "Build with and for the UXTO community!",
+    header: "Build with and for the UTXO community!",
     subtitle1:
       "We are delighted to extend this formal invitation to you to join the UTXO Token Community on Bitcoin.",
     subtitle2:
