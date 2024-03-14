@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  CalenderWrap,
   FormContainer,
   ImageWrapperFile,
   Imagecross,
@@ -13,6 +14,10 @@ import { FormFields } from "./constant";
 import { CommonButton } from "../../components/Common/CommonButton";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const ApplyForm = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -116,6 +121,16 @@ const ApplyForm = () => {
             </Box>
           )}
         </Box>
+      );
+    } else if (item?.text === "Target Date") {
+      return (
+        <CalenderWrap theme={themeType}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DatePicker"]}>
+              <DatePicker format="DD-MM-YYYY" />
+            </DemoContainer>
+          </LocalizationProvider>
+        </CalenderWrap>
       );
     } else {
       return (

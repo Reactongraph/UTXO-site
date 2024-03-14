@@ -27,7 +27,7 @@ export const FormFields = [
     text: "Target Date",
     inputLine: "",
     placeholder: "Target Date",
-    type: "text",
+    type: "calender",
   },
   {
     text: "Github",

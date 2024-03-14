@@ -14,7 +14,7 @@ export const MainWrapper = styled(Box)`
 
 export const FormContainer = styled.div(
   {},
-  ({ theme }) =>`
+  ({ theme }) => `
   display: flex;
   align-items: center;
   margin: 12px 0px 20px;
@@ -23,9 +23,16 @@ export const FormContainer = styled.div(
   border: 1px solid #dbd9d9;
   border-radius: 8px;
   padding: 15px 52px;
-  background: ${theme?.mode === "light" ? theme?.primary?.light :  theme?.accent?.dark1};
-  border:${theme?.mode === "light" ? `1px solid ${theme?.accent?.lightGrey}` :  `1px solid ${theme?.accent?.dark2}`};
-`);
+  background: ${
+    theme?.mode === "light" ? theme?.primary?.light : theme?.accent?.dark1
+  };
+  border:${
+    theme?.mode === "light"
+      ? `1px solid ${theme?.accent?.lightGrey}`
+      : `1px solid ${theme?.accent?.dark2}`
+  };
+`
+);
 
 export const ImageWrapperFile = styled.img`
   width: 156px;
@@ -45,7 +52,7 @@ export const Imagecross = styled.img`
 
 export const TextAreaWrap = styled(TextareaAutosize)(
   {},
-  ({ theme }) =>`
+  ({ theme }) => `
   border-radius: 8px;
   padding: 19px 16px;
   overflow: hidden;
@@ -53,19 +60,36 @@ export const TextAreaWrap = styled(TextareaAutosize)(
   resize: none;
   font-size: 1em;
   
-  border:${theme?.mode === "light" ? `1px solid ${theme?.accent?.lightGrey}` :  `1px solid ${theme?.accent?.dark2}`};
-  color: ${theme?.mode === "light" ? theme?.secondary?.main : theme?.accent?.dark3};
-  background: ${theme?.mode === "light" ? theme?.primary?.light :  theme?.accent?.dark1};
+  border:${
+    theme?.mode === "light"
+      ? `1px solid ${theme?.accent?.lightGrey}`
+      : `1px solid ${theme?.accent?.dark2}`
+  };
+  color: ${
+    theme?.mode === "light" ? theme?.secondary?.main : theme?.accent?.dark3
+  };
+  background: ${
+    theme?.mode === "light" ? theme?.primary?.light : theme?.accent?.dark1
+  };
   font-family: Rubik, sans-serif;
   &::placeholder {
     color:  ${theme?.accent?.placeholder};
   }
-`);
+`
+);
 
+export const CalenderWrap = styled.div({}, ({theme}) => `
+  .MuiFormControl-root {
+    width: 100%;
+    background: ${
+      theme?.mode === "light" ? theme?.primary?.light : theme?.accent?.dark1
+    };
+  }
+`);
 
 export const TextAreaWrapper = styled(TextareaAutosize)(
   {},
-  ({ theme }) =>`
+  ({ theme }) => `
   border: 1px solid #dddddd;
   border-radius: 8px;
   padding: 19px 16px;
@@ -75,13 +99,18 @@ export const TextAreaWrapper = styled(TextareaAutosize)(
   background: #f4f6f8;
   font-family: Rubik, sans-serif;
   resize: none;
-  border:${theme?.mode === "light" ? `1px solid ${theme?.accent?.lightGrey}` :  `1px solid #1E1E1E`};
+  border:${
+    theme?.mode === "light"
+      ? `1px solid ${theme?.accent?.lightGrey}`
+      : `1px solid #1E1E1E`
+  };
   color: ${theme?.mode === "light" ? "#000" : theme?.secondary?.subHeading};
-  background: ${theme?.mode === "light" ? "#f4f6f8" :  "#161616"};
+  background: ${theme?.mode === "light" ? "#f4f6f8" : "#161616"};
   &::placeholder {
     color:  ${theme?.accent?.dark3};
   }
-`);
+`
+);
 
 export const Container = styled.div`
   margin-left: 241px;
