@@ -24,6 +24,12 @@ export const FormFields = [
     type: "input",
   },
   {
+    text: "Target Date",
+    inputLine: "",
+    placeholder: "Target Date",
+    type: "text",
+  },
+  {
     text: "Github",
     inputLine: 1,
     placeholder: "Enter Amount",
