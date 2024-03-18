@@ -11,23 +11,58 @@ import {
 } from "./Styled";
 import { useTheme } from "@mui/material/styles";
 
-const FooterData = ["utxo.site", "src20utxo.com", "src20utxo.app"];
+const FooterData = [
+  { site: "utxo.site", url: "https://www.utxo.site/" },
+  { site: "src20utxo.com", url: "http://src20utxo.com/" },
+  { site: "src20utxo.app", url: "http://src20utxo.app/" },
+];
 const FooterPreData = ["Docs", "Github", "Gitbook"];
-const FooterPreSouce = [{text:"Twitter",light:"social",dark:"social-dark"}, {text:"Telegram",light:"social-2",dark:"social-2-dark"}, {text:"Discord",light:"social-3",dark:"social-3-dark"}];
-
+const FooterPreSouce = [
+  {
+    text: "Twitter",
+    light: "social",
+    dark: "social-dark",
+    url: "https://twitter.com/src20_utxo?s=21&t=g5wuAI1cMd7gYWAGUbZEIg",
+  },
+  {
+    text: "Telegram",
+    light: "social-2",
+    dark: "social-2-dark",
+    url: "https://t.me/UTXO_SRC20",
+  },
+  {
+    text: "Discord",
+    light: "social-3",
+    dark: "social-3-dark",
+    url: "",
+  },
+];
 
 const Footer = () => {
   const theme = useTheme();
+  const handleButtonClick = (text, url) => {
+    if (text !== "Discord") {
+      window.open(url, "_blank");
+    }
+  };
+
   return (
-    <Box bgcolor={theme?.palette?.primary?.contrastText} position={"relative"} zIndex={"1"} display={"flex"} justifyContent={"center"} width={"100%"}>
+    <Box
+      bgcolor={theme?.palette?.primary?.contrastText}
+      position={"relative"}
+      zIndex={"1"}
+      display={"flex"}
+      justifyContent={"center"}
+      width={"100%"}
+    >
       <Box
         maxWidth={"1440px"}
-        bgcolor={theme?.palette?.primary?.contrastText} 
+        bgcolor={theme?.palette?.primary?.contrastText}
         // margin={"auto"}
         display="flex"
         width={"100%"}
         justifyContent="space-between"
-        position={"relative"}  
+        position={"relative"}
         zIndex={"1"}
         padding="25px 0px"
         margin="0% 10%"
@@ -65,6 +100,12 @@ const Footer = () => {
                   : "/images/tweeter-dark.svg"
               }
               alt="icon"
+              onClick={() =>
+                window.open(
+                  "https://twitter.com/src20_utxo?s=21&t=g5wuAI1cMd7gYWAGUbZEIg",
+                  "_blank"
+                )
+              }
             ></WrapperSecond>
           </Box>
           <ResponsiveHeaderTypography fz="1em" fc="#fff">
@@ -72,7 +113,7 @@ const Footer = () => {
           </ResponsiveHeaderTypography>
         </Box>
         <HiddenOnMobile display={"flex"}>
-        <Box>
+          <Box>
             {/* <img src="/images/resouce.svg" alt="icon"></img> */}
             <HeaderTypography
               fz="1.063em"
@@ -84,12 +125,25 @@ const Footer = () => {
             </HeaderTypography>
             {FooterPreSouce?.map((item) => {
               return (
-              <>
-              <WrapperBox display={"flex"} columnGap={"10px"}>
-              <img src={`/images/${theme?.palette?.mode === "light" ? item?.light : item?.dark}.svg`} alt="icon"></img>
-              <WrapperThird className="mobile-footer">{item.text}</WrapperThird>
-              </WrapperBox>
-              </>
+                <>
+                  <WrapperBox
+                    display={"flex"}
+                    columnGap={"10px"}
+                    onClick={() => handleButtonClick(item.text, item?.url)}
+                  >
+                    <img
+                      src={`/images/${
+                        theme?.palette?.mode === "light"
+                          ? item?.light
+                          : item?.dark
+                      }.svg`}
+                      alt="icon"
+                    ></img>
+                    <WrapperThird className="mobile-footer">
+                      {item.text}
+                    </WrapperThird>
+                  </WrapperBox>
+                </>
               );
             })}
           </Box>
@@ -124,24 +178,33 @@ const Footer = () => {
             </Box>
 
             {FooterData?.map((item) => {
-              return <WrapperThird>{item}</WrapperThird>;
+              return (
+                <WrapperThird onClick={() => window.open(item?.url, "_blank")}>
+                  {item?.site}
+                </WrapperThird>
+              );
             })}
           </Box>
         </HiddenOnMobile>
       </Box>
       {theme?.palette?.mode === "dark" && window.innerWidth > 756 && (
-          <Box
-            width={"681.67px"}
-            // height={"520.87px"}
-            height={"300px"}
-            position={"absolute"}
-            left="0"
-            // bottom="73px"
-            bottom={"220px"}
-          >
-            <img src="/images/shadow-bottom.png" alt="logo" width={"100%"} height={"100%"} />
-          </Box>
-        )}
+        <Box
+          width={"681.67px"}
+          // height={"520.87px"}
+          height={"300px"}
+          position={"absolute"}
+          left="0"
+          // bottom="73px"
+          bottom={"220px"}
+        >
+          <img
+            src="/images/shadow-bottom.png"
+            alt="logo"
+            width={"100%"}
+            height={"100%"}
+          />
+        </Box>
+      )}
     </Box>
   );
 };

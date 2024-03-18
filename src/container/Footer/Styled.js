@@ -8,12 +8,14 @@ export const WrapperFirst = styled.img`
   }
 `;
 export const WrapperSecond = styled.img`
+  cursor: pointer;
   @media screen and (max-width: 654px) {
     width: 15%;
     min-width: 28px;
   }
 `;
 export const WrapperThird = styled.div`
+  cursor: pointer;
   height: 37px;
   display: flex;
   align-items: center;
@@ -38,13 +40,14 @@ export const HiddenOnMobile = styled(Box)`
     font-size: 12px;
   }
   @media screen and (max-width: 1000px) {
-    column-gap: 50px ;
+    column-gap: 50px;
   }
 `;
 
 export const WrapperBox = styled(Box)`
+  cursor: pointer;
   @media screen and (max-width: 756px) {
-    padding:9px 0px 5px 0px;
-    justify-content:center;
+    padding: 9px 0px 5px 0px;
+    justify-content: center;
   }
 `;
