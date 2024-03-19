@@ -12,7 +12,7 @@ import {
 import { useTheme } from "@mui/material/styles";
 
 const FooterData = [
-  { site: "utxo.site", url: "https://www.utxo.site/" },
+  { site: "utxo.meme", url: "http://utxo.meme/" },
   { site: "src20utxo.com", url: "http://src20utxo.com/" },
   { site: "src20utxo.app", url: "http://src20utxo.app/" },
 ];
@@ -58,7 +58,6 @@ const Footer = () => {
       <Box
         maxWidth={"1440px"}
         bgcolor={theme?.palette?.primary?.contrastText}
-        // margin={"auto"}
         display="flex"
         width={"100%"}
         justifyContent="space-between"
@@ -109,7 +108,7 @@ const Footer = () => {
             ></WrapperSecond>
           </Box>
           <ResponsiveHeaderTypography fz="1em" fc="#fff">
-            Credit by: UTXO.site
+            Credit by: utxo.meme
           </ResponsiveHeaderTypography>
         </Box>
         <HiddenOnMobile display={"flex"}>
