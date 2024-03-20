@@ -6,7 +6,7 @@ import axios from "axios";
 
 function PopoverContentData({ theme }) {
   const [walletType, setWalletType] = useState("");
-  const message = 'Welcome to utxo!';
+  const [message, setMessage] = useState('Welcome to utxo!');
   const [signature, setSignature] = useState("");
   const [unisatInstalled, setUnisatInstalled] = useState(false);
   const [connected, setConnected] = useState(false);
@@ -56,11 +56,11 @@ function PopoverContentData({ theme }) {
         if (result.length > 0) {
           setAccounts(result);
           setConnected(true);
-
+          const address = result[0];
           setAddress(result[0]);
-
+          // setMessage(`message\nAddress:${address}\nNonce:${Date.now()}`)
           getBasicInfo();
-          handleSignMessage();
+          handleSignMessage(address);
         } else {
           setConnected(false);
         }
@@ -78,9 +78,9 @@ function PopoverContentData({ theme }) {
     getBasicInfo();
   };
 
-  const handleSignMessage = async () => {
+  const handleSignMessage = async (address) => {
     try {
-      const signature = await window.unisat.signMessage(message);
+      const signature = await window.unisat.signMessage(`${message}\nAddress:${address}`);
       setSignature(signature);
     } catch (error) {
       console.error("Error in Sign Message:", error);
@@ -88,6 +88,7 @@ function PopoverContentData({ theme }) {
       // Handle error as needed
     }
   };
+  
 
   useEffect(() => {
     async function checkUnisat() {
@@ -143,12 +144,12 @@ function PopoverContentData({ theme }) {
 
   const payload = {
     address: address,
-    message: `${message}\nAddress:${address}\nNonce:${Date.now()}`,
+    message: `${message}\nAddress:${address}`,
     signature: signature,
     publicKey: publicKey,
     walletType: walletType,
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
