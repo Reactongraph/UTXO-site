@@ -1,24 +1,172 @@
+import React, { useEffect, useRef, useState } from "react";
 import { Box, Grid } from "@mui/material";
-import React from "react";
 import { HeaderTypography } from "../../components/Common/CommonTypography";
 import { ConnectStyledItem } from "./Styled";
+import axios from "axios";
 
-const popData = [
-  {
-    text: "Unisat",
-    icon: "/images/unisat.svg",
-  },
-  {
-    text: "Leather (hiro)",
-    icon: "/images/leather.svg",
-  },
-  {
-    text: "OKX Wallet",
-    icon: "/images/okx.svg",
-  },
-];
+function PopoverContentData({ theme }) {
+  const [walletType, setWalletType] = useState("");
+  const message = 'Welcome to utxo!';
+  const [signature, setSignature] = useState("");
+  const [unisatInstalled, setUnisatInstalled] = useState(false);
+  const [connected, setConnected] = useState(false);
+  const [accounts, setAccounts] = useState([]);
+  const [publicKey, setPublicKey] = useState("");
+  const [address, setAddress] = useState("");
+  const [balance, setBalance] = useState({
+    confirmed: 0,
+    unconfirmed: 0,
+    total: 0,
+  });
+  const [network, setNetwork] = useState("livenet");
+  const unisetRef = useRef({ accounts: [] });
 
-const PopoverContentData = ({ theme }) => {
+  // Check if UniSet extension is installed
+  useEffect(() => {
+    if (window.unisat) {
+      setUnisatInstalled(true);
+    }
+  }, []);
+
+  const getBasicInfo = async () => {
+    const unisat = window.unisat;
+    const [address] = await unisat.getAccounts();
+    setAddress(address);
+
+    const publicKey = await unisat.getPublicKey();
+    setPublicKey(publicKey);
+
+    const balance = await unisat.getBalance();
+    setBalance(balance);
+
+    const network = await unisat.getNetwork();
+    setNetwork(network);
+  };
+
+  const handleAccountsChanged = async () => {
+    if (unisatInstalled) {
+      try {
+        const result = await window.unisat.requestAccounts();
+        if (unisetRef.current.accounts[0] === result[0]) {
+          // prevent from triggering twice
+          return;
+        }
+
+        unisetRef.current.accounts = result;
+        if (result.length > 0) {
+          setAccounts(result);
+          setConnected(true);
+
+          setAddress(result[0]);
+
+          getBasicInfo();
+          handleSignMessage();
+        } else {
+          setConnected(false);
+        }
+      } catch (error) {
+        console.error("Error requesting accounts:", error);
+        alert(`${error?.message}, Please create your account first.`);
+        // Handle error as needed
+      }
+    } else {
+      window.location.href = "https://unisat.io";
+    }
+  };
+  const handleNetworkChanged = (network) => {
+    setNetwork(network);
+    getBasicInfo();
+  };
+
+  const handleSignMessage = async () => {
+    try {
+      const signature = await window.unisat.signMessage(message);
+      setSignature(signature);
+    } catch (error) {
+      console.error("Error in Sign Message:", error);
+      // alert(`${error?.message}, Please create your account first.`);
+      // Handle error as needed
+    }
+  };
+
+  useEffect(() => {
+    async function checkUnisat() {
+      let unisat = window.unisat;
+
+      for (let i = 1; i < 10 && !unisat; i += 1) {
+        await new Promise((resolve) => setTimeout(resolve, 100 * i));
+        unisat = window.unisat;
+      }
+
+      if (unisat) {
+        setUnisatInstalled(true);
+      } else if (!unisat) return;
+
+      if (accounts?.length > 0) {
+        unisat.getAccounts().then((accounts) => {
+          handleAccountsChanged(accounts);
+        });
+      }
+
+      unisat.on("accountsChanged", handleAccountsChanged);
+      unisat.on("networkChanged", handleNetworkChanged);
+
+      return () => {
+        unisat.removeListener("accountsChanged", handleAccountsChanged);
+        unisat.removeListener("networkChanged", handleNetworkChanged);
+      };
+    }
+
+    checkUnisat().then();
+  }, []);
+
+  const popData = [
+    {
+      text: "Unisat",
+      icon: "/images/unisat.svg",
+      handleOnClick: handleAccountsChanged,
+      type: "uniset",
+    },
+    {
+      text: "Leather (hiro)",
+      icon: "/images/leather.svg",
+      handleOnClick: () => {},
+      type: "leather (hiro)",
+    },
+    {
+      text: "OKX Wallet",
+      icon: "/images/okx.svg",
+      handleOnClick: () => {},
+      type: "okx wallet",
+    },
+  ];
+
+  const payload = {
+    address: address,
+    message: `${message}\nAddress:${address}\nNonce:${Date.now()}`,
+    signature: signature,
+    publicKey: publicKey,
+    walletType: walletType,
+  };
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post("http://localhost:5000/api/v1/auth/signin", payload);
+
+        console.log("Response:", response.data);
+        // Handle the response data as needed
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle error
+      }
+    };
+
+    if (signature) {
+      fetchData();
+    }
+  }, [payload]);
+
   return (
     <Box>
       <Grid
@@ -67,7 +215,14 @@ const PopoverContentData = ({ theme }) => {
           }}
         >
           {popData?.map((item, index) => (
-            <ConnectStyledItem key={index} theme={theme}>
+            <ConnectStyledItem
+              key={index}
+              theme={theme}
+              onClick={() => {
+                item.handleOnClick();
+                setWalletType(item.type);
+              }}
+            >
               <img width={"47px"} src={item?.icon} alt="img" />
               <HeaderTypography
                 fc={theme?.primary?.popoverText}
@@ -82,6 +237,6 @@ const PopoverContentData = ({ theme }) => {
       </Grid>
     </Box>
   );
-};
+}
 
 export default PopoverContentData;
