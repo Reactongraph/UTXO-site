@@ -4,12 +4,20 @@ import { HeaderTypography } from "../../components/Common/CommonTypography";
 import { ConnectStyledItem } from "./Styled";
 import axiosInstance from "../../utils/globals/axiosInstance";
 
-const PopoverContentData = ({ theme }) => {
+const PopoverContentData = ({ theme, setLogin }) => {
   const [unisatInstalled, setUnisatInstalled] = useState(false);
 
   useEffect(() => {
     setUnisatInstalled(!!window.unisat);
   }, []);
+
+  const handleLogin = (response) => {
+    if(response) {
+      setLogin(true);
+    }
+    localStorage.setItem("accessToken", response?.accessToken);
+    localStorage.setItem("refreshToken", response?.refreshToken);
+  };
 
   const handleUnisetConnection = async (walletType) => {
     if (!unisatInstalled) {
@@ -23,7 +31,6 @@ const PopoverContentData = ({ theme }) => {
         alert("You need to create an account first.");
         return;
       }
-
       const address = accounts[0];
       const nonce = Date.now();
       const messagePayload = `Welcome to UTXO app!\nAddress:${address}\nNonce:${nonce}`;
@@ -46,6 +53,7 @@ const PopoverContentData = ({ theme }) => {
 
       console.log("uniset response", response);
       // TODO: add login logic to save tokens and error handling.
+      handleLogin(response);
     } catch (error) {
       console.error("Error requesting accounts:", error);
       alert(`${error?.message}, Please create your account first.`);

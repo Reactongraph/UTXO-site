@@ -1,8 +1,9 @@
 import axios from "axios";
 
 const axiosInstance = async (options) => {
+  const accessToken = localStorage.getItem('accessToken');
   try {
-    const { url, method = 'get', payload = null, params = null, token = null, responseType = 'json', timeout = 0 } = options;
+    const { url, method = 'get', payload = null, params = null, token = accessToken, responseType = 'json', timeout = 0 } = options;
     const baseUrl = process.env.REACT_APP_BASE_URL;
     const headers = {};
 
