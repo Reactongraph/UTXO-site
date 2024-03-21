@@ -19,16 +19,14 @@ const Header = () => {
   };
 
   const handleLogout = async () => {
-    try {
-      await axiosInstance({
-        url: "/auth/signout",
-      });
+    const response = await axiosInstance({
+      url: "/auth/signout",
+    });
+    if(response?.message) {
       setLogin(false);
       localStorage.clear();
-      console.log("Logout successful");
-    } catch (error) {
-      console.error("Logout failed:", error);
     }
+    console.log("response", response);
   };
 
   return (
