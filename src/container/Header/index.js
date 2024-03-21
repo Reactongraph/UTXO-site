@@ -6,8 +6,10 @@ import CommonPopover from "../../components/Common/CommonPopover";
 import PopoverContentData from "./popoverContentData";
 import { HeaderCard, RightContent } from "./headerContent";
 import { useTheme } from "@mui/material/styles";
+import axiosInstance from "../../utils/globals/axiosInstance";
 
 const Header = () => {
+  const [login, setLogin] = useState(false);
   const [viewPopover, setViewPopover] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const theme = useTheme();
@@ -15,7 +17,18 @@ const Header = () => {
     setAnchorEl(event.currentTarget);
     setViewPopover(!viewPopover);
   };
-  // console.log("themetheme", theme?.palette?.primary);
+
+  const handleLogout = async () => {
+    const response = await axiosInstance({
+      url: "/auth/signout",
+    });
+    if(response?.message) {
+      setLogin(false);
+      localStorage.clear();
+    }
+    console.log("response", response);
+  };
+
   return (
     <>
       <Box position={"relative"} zIndex={"1"}>
@@ -61,11 +74,26 @@ const Header = () => {
               </CommonButton>
               <CommonPopover
                 open={viewPopover}
-                content={<PopoverContentData theme={theme?.palette} />}
+                content={
+                  <PopoverContentData
+                    theme={theme?.palette}
+                    setLogin={setLogin}
+                  />
+                }
                 onClose={() => setViewPopover(false)}
                 anchorEl={anchorEl}
               />
             </Box>
+            {login && (
+              <CommonButton
+                fz="1.125em"
+                pd="14px 31px"
+                aria-describedby={viewPopover ? "simple-popover" : undefined}
+                onClick={handleLogout}
+              >
+                Logout
+              </CommonButton>
+            )}
           </RightContainer>
         </Box>
         {theme?.palette?.mode === "dark" && window.innerWidth > 756 && (

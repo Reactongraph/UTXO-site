@@ -74,10 +74,10 @@ export const MainWrapper = styled.div`
 `;
 
 export const LeftMainConatiner = styled.div`
-@media screen and (max-width: 626px) {
+/* @media screen and (max-width: 626px) {
 position:absolute
 left:10px
-}
+} */
 `;
 
 export const ToggleWrap = styled.div`
@@ -115,6 +115,7 @@ export const BoxContent = styled(Box)`
 `;
 
 export const ConnectStyledItem = styled(Grid)(({ theme }) => ({
+  cursor: 'pointer',
   columnGap: "17px",
   padding: "9px 8px",
   display: "flex",

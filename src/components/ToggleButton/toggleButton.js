@@ -123,7 +123,6 @@ export default function ToggleButton() {
     setSwitchState(!switchState);
     toggleTheme();
   };
-  console.log("theme?.palette?.mode", theme);
 
   return (
     <FormGroup position="relative">
