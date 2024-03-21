@@ -3,6 +3,7 @@ import { Box, Grid } from "@mui/material";
 import { HeaderTypography } from "../../components/Common/CommonTypography";
 import { ConnectStyledItem } from "./Styled";
 import axiosInstance from "../../utils/globals/axiosInstance";
+import { handleLogin } from "../../utils/auth/helperLogin";
 
 const PopoverContentData = ({ theme, setLogin }) => {
   const [unisatInstalled, setUnisatInstalled] = useState(false);
@@ -10,14 +11,6 @@ const PopoverContentData = ({ theme, setLogin }) => {
   useEffect(() => {
     setUnisatInstalled(!!window.unisat);
   }, []);
-
-  const handleLogin = (response) => {
-    if(response) {
-      setLogin(true);
-    }
-    localStorage.setItem("accessToken", response?.accessToken);
-    localStorage.setItem("refreshToken", response?.refreshToken);
-  };
 
   const handleUnisetConnection = async (walletType) => {
     if (!unisatInstalled) {
@@ -32,14 +25,19 @@ const PopoverContentData = ({ theme, setLogin }) => {
         return;
       }
       const address = accounts[0];
-      const nonce = Date.now();
-      const messagePayload = `Welcome to UTXO app!\nAddress:${address}\nNonce:${nonce}`;
-      const signature = await window.unisat.signMessage(messagePayload);
+      const messagePayload = await axiosInstance({
+        url: "/auth/message",
+        params: { address },
+      });
+      // const messagePayload = `Welcome to UTXO app!\nAddress:${address}\nNonce:${nonce}`;
+      const signature = await window.unisat.signMessage(
+        messagePayload?.message
+      );
       const publicKey = await window.unisat.getPublicKey();
 
       const payload = {
         address,
-        message: messagePayload,
+        message: messagePayload?.message,
         signature,
         publicKey,
         walletType,
@@ -52,6 +50,9 @@ const PopoverContentData = ({ theme, setLogin }) => {
       });
 
       console.log("uniset response", response);
+      if (response) {
+        setLogin(true);
+      }
       // TODO: add login logic to save tokens and error handling.
       handleLogin(response);
     } catch (error) {
