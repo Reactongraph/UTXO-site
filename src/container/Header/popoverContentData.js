@@ -3,21 +3,18 @@ import { Box, Grid } from "@mui/material";
 import { HeaderTypography } from "../../components/Common/CommonTypography";
 import { ConnectStyledItem } from "./Styled";
 import axiosInstance from "../../utils/globals/axiosInstance";
+import { handleLogin } from "../../utils/auth/helperLogin";
+import { openSignatureRequestPopup } from "@stacks/connect";
+import { StacksTestnet } from "@stacks/network";
 
 const PopoverContentData = ({ theme, setLogin }) => {
   const [unisatInstalled, setUnisatInstalled] = useState(false);
+  const [leatherInstalled, setLeatherInstalled] = useState(false);
 
   useEffect(() => {
     setUnisatInstalled(!!window.unisat);
+    setLeatherInstalled(!!window?.btc);
   }, []);
-
-  const handleLogin = (response) => {
-    if(response) {
-      setLogin(true);
-    }
-    localStorage.setItem("accessToken", response?.accessToken);
-    localStorage.setItem("refreshToken", response?.refreshToken);
-  };
 
   const handleUnisetConnection = async (walletType) => {
     if (!unisatInstalled) {
@@ -33,13 +30,20 @@ const PopoverContentData = ({ theme, setLogin }) => {
       }
       const address = accounts[0];
       const nonce = Date.now();
-      const messagePayload = `Welcome to UTXO app!\nAddress:${address}\nNonce:${nonce}`;
-      const signature = await window.unisat.signMessage(messagePayload);
+      const messagePayload = await axiosInstance({
+        url: "/auth/message",
+        params: { address },
+      });
+      console.log("message", messagePayload);
+      // const messagePayload = `Welcome to UTXO app!\nAddress:${address}\nNonce:${nonce}`;
+      const signature = await window.unisat.signMessage(
+        messagePayload?.message
+      );
       const publicKey = await window.unisat.getPublicKey();
 
       const payload = {
         address,
-        message: messagePayload,
+        message: messagePayload?.message,
         signature,
         publicKey,
         walletType,
@@ -52,11 +56,76 @@ const PopoverContentData = ({ theme, setLogin }) => {
       });
 
       console.log("uniset response", response);
+      if (response) {
+        setLogin(true);
+      }
       // TODO: add login logic to save tokens and error handling.
       handleLogin(response);
     } catch (error) {
       console.error("Error requesting accounts:", error);
       alert(`${error?.message}, Please create your account first.`);
+    }
+  };
+
+  const handleLeatherConnection = async (walletType) => {
+    if (!leatherInstalled) {
+      window.location.href = "https://leather.io/install-extension";
+      return;
+    }
+
+    try {
+      const message = "Hello World";
+      // const signMessageResponce = await window.btc.request("signMessage", {
+      //   message: "my message",
+      //   paymentType: "p2tr", // or 'p2wphk' (default)
+      // });
+      // console.log("signMessageResponce", signMessageResponce);
+      await openSignatureRequestPopup({
+        message,
+        network: new StacksTestnet(), // for mainnet, `new StacksMainnet()`
+        appDetails: {
+          name: "My App",
+          icon: window.location.origin + "/my-app-logo.svg",
+        },
+        onFinish(data) {
+          console.log("Signature of the message", data);
+          console.log("Use public key:", data.publicKey);
+        },
+        userSession: 'hi there'
+      });
+      // const signMessageResponce = await window.btc.request("signMessage", {
+      //   message: "my message",
+      //   paymentType: "p2tr", // or 'p2wphk' (default)
+      // });
+      // console.log("signMessageResponce", signMessageResponce);
+      // // const onFinish = (data) => {
+      // //   console.log("Signature");
+      // //   console.log("PublicKey", data);
+      // // };
+      // // onFinish();
+
+      // const payload = {
+      //   address: signMessageResponce?.result?.address,
+      //   message: signMessageResponce?.result?.message,
+      //   signature: signMessageResponce?.result?.signature,
+      //   // publicKey,
+      //   walletType,
+      // };
+
+      // const response = await axiosInstance({
+      //   url: "/auth/signin",
+      //   method: "post",
+      //   payload,
+      // });
+
+      // console.log("uniset response", response);
+      // if (response) {
+      //   setLogin(true);
+      // }
+      // handleLogin(response);
+    } catch (error) {
+      console.error("Error requesting accounts:", error);
+      alert(`${error?.error?.message}, Please create your account first.`);
     }
   };
 
@@ -71,7 +140,7 @@ const PopoverContentData = ({ theme, setLogin }) => {
       text: "Leather (hiro)",
       icon: "/images/leather.svg",
       type: "leather",
-      handleOnClick: () => {},
+      handleOnClick: handleLeatherConnection,
     },
     {
       text: "OKX Wallet",

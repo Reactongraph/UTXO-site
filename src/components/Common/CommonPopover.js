@@ -1,6 +1,6 @@
 import * as React from "react";
 import Popover from "@mui/material/Popover";
-import Typography from "@mui/material/Typography";
+import { Box } from "@mui/material";
 
 export default function CommonPopover(props) {
   const { content, open, onClose, anchorEl } = props || "";
@@ -15,10 +15,11 @@ export default function CommonPopover(props) {
         horizontal: "right",
       }}
       transformOrigin={{
-        horizontal: "right",
+        vertical: 'top',
+        horizontal: 'right',
       }}
     >
-      <Typography>{content}</Typography>
+      <Box>{content}</Box>
     </Popover>
   );
 }
