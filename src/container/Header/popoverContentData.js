@@ -5,37 +5,38 @@ import { ConnectStyledItem } from "./Styled";
 import axiosInstance from "../../utils/globals/axiosInstance";
 import { handleLogin } from "../../utils/auth/helperLogin";
 import { openSignatureRequestPopup } from "@stacks/connect";
-import { StacksTestnet } from "@stacks/network";
+import { StacksTestnet, StacksMainnet } from "@stacks/network";
+import { AppConfig, UserSession, showConnect } from "@stacks/connect";
 
 const PopoverContentData = ({ theme, setLogin }) => {
   const [unisatInstalled, setUnisatInstalled] = useState(false);
   const [leatherInstalled, setLeatherInstalled] = useState(false);
+  const [okxInstalled, setOkxInstalled] = useState(false);
 
   useEffect(() => {
     setUnisatInstalled(!!window.unisat);
     setLeatherInstalled(!!window?.btc);
+    setOkxInstalled(!!window.okxwallet);
   }, []);
 
   const handleUnisetConnection = async (walletType) => {
-    if (!unisatInstalled) {
-      window.location.href = "https://unisat.io";
-      return;
-    }
-
     try {
-      const accounts = await window.unisat.requestAccounts();
-      if (accounts.length === 0) {
-        alert("You need to create an account first.");
+      if (!unisatInstalled) {
+        window.location.href = "https://unisat.io";
         return;
       }
+
+      const accounts = await window.unisat.requestAccounts();
+      if (accounts.length === 0) {
+        throw new Error("No accounts found. Please create an account first.");
+      }
+
       const address = accounts[0];
-      const nonce = Date.now();
       const messagePayload = await axiosInstance({
         url: "/auth/message",
         params: { address },
       });
-      console.log("message", messagePayload);
-      // const messagePayload = `Welcome to UTXO app!\nAddress:${address}\nNonce:${nonce}`;
+
       const signature = await window.unisat.signMessage(
         messagePayload?.message
       );
@@ -59,11 +60,12 @@ const PopoverContentData = ({ theme, setLogin }) => {
       if (response) {
         setLogin(true);
       }
-      // TODO: add login logic to save tokens and error handling.
       handleLogin(response);
     } catch (error) {
-      console.error("Error requesting accounts:", error);
-      alert(`${error?.message}, Please create your account first.`);
+      console.error("Error connecting to Uniset:", error);
+      const errorMessage =
+        error.response?.data?.message || error.message || "An error occurred.";
+      alert(errorMessage);
     }
   };
 
@@ -74,58 +76,120 @@ const PopoverContentData = ({ theme, setLogin }) => {
     }
 
     try {
-      const message = "Hello World";
-      // const signMessageResponce = await window.btc.request("signMessage", {
-      //   message: "my message",
-      //   paymentType: "p2tr", // or 'p2wphk' (default)
-      // });
-      // console.log("signMessageResponce", signMessageResponce);
-      await openSignatureRequestPopup({
-        message,
-        network: new StacksTestnet(), // for mainnet, `new StacksMainnet()`
-        appDetails: {
-          name: "My App",
-          icon: window.location.origin + "/my-app-logo.svg",
-        },
-        onFinish(data) {
-          console.log("Signature of the message", data);
-          console.log("Use public key:", data.publicKey);
-        },
-        userSession: 'hi there'
-      });
-      // const signMessageResponce = await window.btc.request("signMessage", {
-      //   message: "my message",
-      //   paymentType: "p2tr", // or 'p2wphk' (default)
-      // });
-      // console.log("signMessageResponce", signMessageResponce);
-      // // const onFinish = (data) => {
-      // //   console.log("Signature");
-      // //   console.log("PublicKey", data);
-      // // };
-      // // onFinish();
+      const appConfig = new AppConfig(["store_write", "publish_data"]);
+      const userSession = new UserSession({ appConfig });
 
-      // const payload = {
-      //   address: signMessageResponce?.result?.address,
-      //   message: signMessageResponce?.result?.message,
-      //   signature: signMessageResponce?.result?.signature,
-      //   // publicKey,
-      //   walletType,
-      // };
+      function authenticate() {
+        showConnect({
+          appDetails: {
+            name: "My App",
+            icon: window.location.origin + "/my-app-logo.svg",
+          },
+          redirectTo: "/",
+          onFinish: async () => {
+            let userData = userSession.loadUserData();
+            console.log("userData", userData);
+            const messagePayload = await axiosInstance({
+              url: "/auth/message",
+              params: {
+                address: userData?.profile?.btcAddress?.p2wpkh?.mainnet,
+              },
+            });
+            await openSignatureRequestPopup({
+              message: messagePayload?.message,
+              network: new StacksMainnet(),
+              appDetails: {
+                name: "utxo",
+                icon: window.location.origin + "/images/logo-dark-header.svg",
+              },
+              async onFinish(data) {
+                console.log("Signature of the message", data);
+                console.log("Use public key:", data.publicKey);
+                const payload = {
+                  address: userData?.profile?.btcAddress?.p2wpkh?.mainnet,
+                  message: messagePayload?.message,
+                  signature: data?.signature,
+                  publicKey: data?.publicKey,
+                  walletType,
+                };
+                const response = await axiosInstance({
+                  url: "/auth/signin",
+                  method: "post",
+                  payload,
+                });
 
-      // const response = await axiosInstance({
-      //   url: "/auth/signin",
-      //   method: "post",
-      //   payload,
-      // });
-
-      // console.log("uniset response", response);
-      // if (response) {
-      //   setLogin(true);
-      // }
-      // handleLogin(response);
+                console.log("leather response", response);
+              },
+              userSession: userSession,
+            });
+          },
+          userSession: userSession,
+        });
+      }
+      authenticate();
     } catch (error) {
       console.error("Error requesting accounts:", error);
       alert(`${error?.error?.message}, Please create your account first.`);
+    }
+  };
+
+  const handleOkxConnection = async (walletType) => {
+    if (!okxInstalled) {
+      window.location.href = "https://okx.com/web3";
+    }
+    try {
+      // Attempt to connect to the OKX Wallet
+      const okxConnect = await window.okxwallet.bitcoin.connect();
+      console.log("Connected to OKX Wallet", okxConnect);
+
+      // Attempt to get okx acconts
+      const accounts = await window.okxwallet.bitcoin.getAccounts();
+      console.log("Connected to OKX Wallet", accounts);
+
+      // Attempt to get public key
+      const publicKey = await window.okxwallet.bitcoin.getPublicKey();
+      console.log("public key for okx wallet", publicKey);
+
+      let res = await window.okxwallet.bitcoin.getNetwork();
+      console.log("okx wallet network type", res);
+
+      // Get message from backend
+      const messagePayload = await axiosInstance({
+        url: "/auth/message",
+        params: { address: accounts[0] },
+      });
+
+      // Get message signed by okx wallet
+      const signedMessage = await window.okxwallet.bitcoin.signMessage(
+        messagePayload?.message
+      );
+      console.log("Signed message:", signedMessage);
+
+      // Construct the payload
+      const payload = {
+        address: accounts[0],
+        message: messagePayload?.message,
+        signature: signedMessage,
+        publicKey,
+        walletType,
+      };
+      console.log("payload", payload);
+
+      // Send the payload to your backend for verification
+      const response = await axiosInstance({
+        url: "/auth/signin",
+        method: "post",
+        payload,
+      });
+
+      console.log("OKX Wallet response:", response);
+      if (response) {
+        setLogin(true);
+      }
+      handleLogin(response);
+    } catch (error) {
+      console.error("Failed to connect to OKX Wallet", error);
+      // Handle connection error, e.g., show an error message to the user
     }
   };
 
@@ -133,7 +197,7 @@ const PopoverContentData = ({ theme, setLogin }) => {
     {
       text: "Unisat",
       icon: "/images/unisat.svg",
-      type: "uniset",
+      type: "unisat",
       handleOnClick: handleUnisetConnection,
     },
     {
@@ -146,7 +210,7 @@ const PopoverContentData = ({ theme, setLogin }) => {
       text: "OKX Wallet",
       icon: "/images/okx.svg",
       type: "okx",
-      handleOnClick: () => {},
+      handleOnClick: handleOkxConnection,
     },
   ];
 
