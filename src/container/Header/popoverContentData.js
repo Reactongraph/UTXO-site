@@ -78,11 +78,162 @@ const PopoverContentData = ({ theme, setLogin, handleLogout }) => {
       window.location.href = "https://leather.io/install-extension";
       return;
     }
+
+    try {
+      const appConfig = new AppConfig(["store_write", "publish_data"]);
+      const userSession = new UserSession({ appConfig });
+      // const userAddresses = await window.btc?.request("getAddresses");
+
+      // const matchingAddress = userAddresses.result.addresses.find(
+      //   (address) => address.type === "p2tr"
+      // );
+
+      // const messagePayload = await axiosInstance({
+      //   url: "/auth/message",
+      //   params: {
+      //     address: matchingAddress.address,
+      //   },
+      // });
+      // console.log('leather', userAddresses, matchingAddress, messagePayload);
+
+      // const wallet = await window.btc.request("signMessage", {
+      //   message: messagePayload?.message,
+      //   paymentType: "p2tr",
+      // });
+
+      // const payload = {
+      //   address: wallet.result?.address,
+      //   message: messagePayload?.message,
+      //   signature: wallet.result?.signature,
+      //   publicKey: matchingAddress?.publicKey,
+      //   walletType,
+      // };
+
+      // const response = await axiosInstance({
+      //   url: "/auth/signin",
+      //   method: "post",
+      //   payload,
+      // });
+
+      // console.log("leather response", response);
+
+      // console.log("response", response, userAddresses, matchingAddress);
+      // return;
+      function authenticate() {
+        showConnect({
+          appDetails: {
+            name: "My App",
+            icon: window.location.origin + "/my-app-logo.svg",
+          },
+          redirectTo: "/",
+          onFinish: async () => {
+            let userData = userSession.loadUserData();
+            console.log("userData", userData);
+            const messagePayload = await axiosInstance({
+              url: "/auth/message",
+              params: {
+                address: userData?.profile?.btcAddress?.p2wpkh?.mainnet,
+              },
+            });
+            await openSignatureRequestPopup({
+              message: messagePayload?.message,
+              network: new StacksMainnet(),
+              appDetails: {
+                name: "utxo",
+                icon: window.location.origin + "/images/logo-dark-header.svg",
+              },
+              async onFinish(data) {
+                console.log("Signature of the message", data);
+                console.log("Use public key:", data.publicKey);
+                const payload = {
+                  address: userData?.profile?.btcAddress?.p2wpkh?.mainnet,
+                  message: messagePayload?.message,
+                  signature: data?.signature,
+                  publicKey: data?.publicKey,
+                  walletType,
+                };
+                const response = await axiosInstance({
+                  url: "/auth/signin",
+                  method: "post",
+                  payload,
+                });
+
+                console.log("leather response", response);
+                if (response) {
+                  setLogin(true);
+                }
+                handleLogin(response);
+              },
+              userSession: userSession,
+            });
+          },
+          userSession: userSession,
+        });
+      }
+      authenticate();
+    } catch (error) {
+      console.error("Error requesting accounts:", error);
+      alert(`${error?.error?.message}, Please create your account first.`);
+    }
   };
 
   const handleOkxConnection = async (walletType) => {
     if (!okxInstalled) {
       window.location.href = "https://okx.com/web3";
+    }
+    try {
+      // Attempt to connect to the OKX Wallet
+      const okxConnect = await window.okxwallet.bitcoin.connect();
+      console.log("Connected to OKX Wallet", okxConnect);
+
+      // Attempt to get okx acconts
+      const accounts = await window.okxwallet.bitcoin.getAccounts();
+      console.log("Connected to OKX Wallet", accounts);
+
+      // Attempt to get public key
+      const publicKey = await window.okxwallet.bitcoin.getPublicKey();
+      console.log("public key for okx wallet", publicKey);
+
+      let res = await window.okxwallet.bitcoin.getNetwork();
+      console.log("okx wallet network type", res);
+
+      // Get message from backend
+      const messagePayload = await axiosInstance({
+        url: "/auth/message",
+        params: { address: accounts[0] },
+      });
+
+      // Get message signed by okx wallet
+      const signedMessage = await window.okxwallet.bitcoin.signMessage(
+        messagePayload?.message
+      );
+      console.log("Signed message:", signedMessage);
+
+      // Construct the payload
+      const payload = {
+        address: accounts[0],
+        message: messagePayload?.message,
+        signature: signedMessage,
+        publicKey,
+        walletType,
+      };
+      console.log("payload", payload);
+
+      // Send the payload to your backend for verification
+      const response = await axiosInstance({
+        url: "/auth/signin",
+        method: "post",
+        payload,
+      });
+
+      console.log("OKX Wallet response:", response);
+      if (response) {
+        setLogin(true);
+      }
+      handleLogin(response);
+    } catch (error) {
+      console.error("Failed to connect to OKX Wallet", error);
+      // Handle connection error, e.g., show an error message to the user
     }
   };
 

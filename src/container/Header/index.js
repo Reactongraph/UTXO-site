@@ -32,8 +32,8 @@ const Header = () => {
   useEffect(() => {
     const networkChangedListener = () => console.log("Network changed");
 
-    window.unisat.on("accountsChanged", handleAccountChange);
-    window.unisat.on("networkChanged", networkChangedListener);
+    window.unisat?.on("accountsChanged", handleAccountChange);
+    window.unisat?.on("networkChanged", networkChangedListener);
 
     return () => {
       window.unisat.removeListener("accountsChanged", handleAccountChange);
