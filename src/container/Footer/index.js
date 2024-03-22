@@ -122,27 +122,26 @@ const Footer = () => {
             >
               Source
             </HeaderTypography>
-            {FooterPreSouce?.map((item) => {
+            {FooterPreSouce?.map((item, i) => {
               return (
-                <>
-                  <WrapperBox
-                    display={"flex"}
-                    columnGap={"10px"}
-                    onClick={() => handleButtonClick(item.text, item?.url)}
-                  >
-                    <img
-                      src={`/images/${
-                        theme?.palette?.mode === "light"
-                          ? item?.light
-                          : item?.dark
-                      }.svg`}
-                      alt="icon"
-                    ></img>
-                    <WrapperThird className="mobile-footer">
-                      {item.text}
-                    </WrapperThird>
-                  </WrapperBox>
-                </>
+                <WrapperBox
+                key={i}
+                  display={"flex"}
+                  columnGap={"10px"}
+                  onClick={() => handleButtonClick(item.text, item?.url)}
+                >
+                  <img
+                    src={`/images/${
+                      theme?.palette?.mode === "light"
+                        ? item?.light
+                        : item?.dark
+                    }.svg`}
+                    alt="icon"
+                  ></img>
+                  <WrapperThird className="mobile-footer">
+                    {item.text}
+                  </WrapperThird>
+                </WrapperBox>
               );
             })}
           </Box>
@@ -156,8 +155,8 @@ const Footer = () => {
             >
               Resource
             </HeaderTypography>
-            {FooterPreData?.map((item) => {
-              return <WrapperThird>{item}</WrapperThird>;
+            {FooterPreData?.map((item, i) => {
+              return <WrapperThird key={i}>{item}</WrapperThird>;
             })}
           </Box>
           <Box>
@@ -176,9 +175,9 @@ const Footer = () => {
               </HeaderTypography>
             </Box>
 
-            {FooterData?.map((item) => {
+            {FooterData?.map((item, i) => {
               return (
-                <WrapperThird onClick={() => window.open(item?.url, "_blank")}>
+                <WrapperThird key={i} onClick={() => window.open(item?.url, "_blank")}>
                   {item?.site}
                 </WrapperThird>
               );

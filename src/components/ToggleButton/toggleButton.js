@@ -133,12 +133,14 @@ export default function ToggleButton() {
           windowWidth > 756 ? (
             <MaterialUISwitch
               sx={{ m: 1 }}
-              defaultChecked={switchState}
+              // defaultChecked={switchState}
+              checked={switchState}
               onChange={handleSwitchChange}
             />
           ) : (
             <MaterialUISwitchSmall
-              defaultChecked={switchState}
+              // defaultChecked={switchState}
+              checked={switchState}
               onChange={handleSwitchChange}
             />
           )

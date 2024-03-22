@@ -91,9 +91,9 @@ function CommonSlider(propsData) {
       <Slider {...settings}>
         {CardContent
           ? CardContent
-          : Cards?.map((item) => {
+          : Cards?.map((item, i) => {
               return (
-                <Box id="slider-wrap">
+                <Box key={i} id="slider-wrap">
                   <img src={`/images/${item}.svg`} alt="icon"></img>
                 </Box>
               );

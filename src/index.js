@@ -65,7 +65,7 @@ import "./index.css";
 //   </BrowserRouter>,
 //   document.getElementById("root")
 // );
-import ReactDOM from "react-dom";
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom";
 import { Suspense } from "react";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
@@ -156,9 +156,10 @@ const Root = () => {
   );
 };
 
-ReactDOM.render(
+const root = createRoot(document.getElementById("root"));
+
+root.render(
   <ThemeContextProvider>
     <Root />
-  </ThemeContextProvider>,
-  document.getElementById("root")
+  </ThemeContextProvider>
 );

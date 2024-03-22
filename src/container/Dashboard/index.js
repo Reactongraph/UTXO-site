@@ -24,7 +24,12 @@ const titles = [
 
 const titleDates = ["6H", "24H", "7D", "All"];
 
-const Filter = ["Final proposals", "Activity", "Leaderboard", "My voting Power  "];
+const Filter = [
+  "Final proposals",
+  "Activity",
+  "Leaderboard",
+  "My voting Power  ",
+];
 
 const DashboardPage = () => {
   const navigate = useNavigate();
@@ -132,9 +137,10 @@ const DashboardPage = () => {
                   Running Proposals{" "}
                 </HeaderTypography>
                 <ProposalWrapper theme={theme?.palette}>
-                  {titles?.map((item) => {
+                  {titles?.map((item, i) => {
                     return (
                       <Box
+                        key={i}
                         color={`${item.color}`}
                         fontSize={"1em"}
                         fontWeight={500}
@@ -152,10 +158,11 @@ const DashboardPage = () => {
                 justifyContent={"space-between"}
               >
                 <ProposalWrapperFilter theme={theme?.palette}>
-                  {Filter?.map((item, index) => {
+                  {Filter?.map((item, i) => {
                     return (
                       <Box
-                      minWidth={"fit-content"}
+                        key={i}
+                        minWidth={"fit-content"}
                         fontSize={"1em"}
                         // minWidth={`${index === 0 ? "112px" : ""} `}
                       >
