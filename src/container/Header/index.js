@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LeftConatiner, RightContainer } from "./Styled";
 import { CommonButton } from "../../components/Common/CommonButton";
 import CommonPopover from "../../components/Common/CommonPopover";
@@ -22,11 +22,31 @@ const Header = () => {
     const response = await axiosInstance({
       url: "/auth/signout",
     });
-    if(response?.message) {
+    if (response?.message) {
       setLogin(false);
       localStorage.clear();
     }
     console.log("response", response);
+  };
+
+  useEffect(() => {
+    const networkChangedListener = () => console.log("Network changed");
+
+    window.unisat.on("accountsChanged", handleAccountChange);
+    window.unisat.on("networkChanged", networkChangedListener);
+
+    return () => {
+      window.unisat.removeListener("accountsChanged", handleAccountChange);
+      window.unisat.removeListener("networkChanged", networkChangedListener);
+    };
+  }, []);
+
+  const handleAccountChange = () => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      handleLogout();
+      alert("You have changed your account. Logging out...");
+    }
   };
 
   return (
@@ -78,6 +98,7 @@ const Header = () => {
                   <PopoverContentData
                     theme={theme?.palette}
                     setLogin={setLogin}
+                    handleLogout={handleLogout}
                   />
                 }
                 onClose={() => setViewPopover(false)}
