@@ -1,64 +1,43 @@
-import axiosInstance from './axiosInstance';
 import { saveTokens } from './storageHelper';
 import { StacksMainnet } from '@stacks/network';
+import { ISignInPayload, IWalletMessageResponse } from '@/types/user.types';
+import { getMessageVerified, getWalletMessage } from '@/utils/apiCalls/user.apiCalls';
 import { AppConfig, UserSession, openSignatureRequestPopup, showConnect } from '@stacks/connect';
 
 const mainnet = new StacksMainnet();
 
-interface SignInPayload {
-  address: string;
-  message: string;
-  signature: string;
-  publicKey: string;
-  walletType: string;
-}
-
-interface MessageResponse {
-  message: string;
-}
-
-interface SignInResponse {
-  accessToken: string;
-  refreshToken: string;
-}
-
-async function messageCaller(payload: string): Promise<MessageResponse> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const response: any = await axiosInstance<MessageResponse>({
-    url: '/auth/message',
-    params: { address: payload }
-  });
-  return response;
-}
-
-async function signinCaller<T>(payload?: Partial<SignInPayload>): Promise<T> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const response: any = await axiosInstance<T>({
-    url: '/auth/signin',
-    method: 'post',
-    data: payload
-  });
-  return response;
-}
-
 function handleError(error: unknown): void {
-  let errorMessage: unknown = 'An error occurred.';
-  if (typeof error === 'string') {
-    errorMessage = error;
-  } else if (error instanceof Error) {
-    errorMessage = error.message;
-  } else if (error && typeof error === 'object' && 'message' in error) {
-    errorMessage = error.message;
-  }
+  const errorMessage = error instanceof Error ? error.message : 'An error occurred.';
   console.error('Error connecting wallet:', errorMessage);
 }
 
-export const handleUnisetConnection = async (
+async function signInWithWallet(
+  walletType: string,
+  address: string,
+  message: string,
+  signature: string,
+  publicKey: string,
+  setViewPopover: (arg0: boolean) => void,
+  checkLoginStatus: () => void
+) {
+  const payload: ISignInPayload = { address, message, signature, publicKey, walletType };
+  try {
+    // eslint-disable-next-line
+    const response: any = await getMessageVerified(payload);
+    saveTokens(response, walletType);
+    setViewPopover(false);
+    checkLoginStatus();
+  } catch (error: unknown) {
+    handleError(error);
+  }
+}
+
+export async function handleUnisetConnection(
   walletType: string,
   unisatInstalled: boolean,
   setViewPopover: (arg0: boolean) => void,
   checkLoginStatus: () => void
-) => {
+) {
   if (!unisatInstalled) {
     window.location.href = 'https://unisat.io';
     return;
@@ -71,34 +50,22 @@ export const handleUnisetConnection = async (
     }
 
     const address = accounts[0];
-    const messagePayload: MessageResponse = await messageCaller(address);
+    const messagePayload: IWalletMessageResponse = await getWalletMessage(address);
     const signature = await window.unisat.signMessage(messagePayload.message);
     const publicKey = await window.unisat.getPublicKey();
 
-    const payload: SignInPayload = {
-      address,
-      message: messagePayload.message,
-      signature,
-      publicKey,
-      walletType
-    };
-
-    const response: SignInResponse = await signinCaller<SignInResponse>(payload);
-
-    saveTokens(response, walletType);
-    setViewPopover(false);
-    checkLoginStatus();
+    await signInWithWallet(walletType, address, messagePayload.message, signature, publicKey, setViewPopover, checkLoginStatus);
   } catch (error: unknown) {
     handleError(error);
   }
-};
+}
 
-export const handleLeatherConnection = async (
+export async function handleLeatherConnection(
   walletType: string,
   leatherInstalled: boolean,
   setViewPopover: (arg0: boolean) => void,
   checkLoginStatus: () => void
-) => {
+) {
   if (!leatherInstalled) {
     window.location.href = 'https://leather.io/install-extension';
     return;
@@ -122,7 +89,7 @@ export const handleLeatherConnection = async (
             throw new Error('No address found. Please create an account first.');
           }
 
-          const messagePayload: MessageResponse = await messageCaller(address);
+          const messagePayload: IWalletMessageResponse = await getWalletMessage(address);
           await openSignatureRequestPopup({
             message: messagePayload?.message,
             network: mainnet,
@@ -131,17 +98,15 @@ export const handleLeatherConnection = async (
               icon: window.location.origin + '/images/logo-dark-header.svg'
             },
             async onFinish(data) {
-              const payload: SignInPayload = {
+              await signInWithWallet(
+                walletType,
                 address,
-                message: messagePayload?.message,
-                signature: data?.signature,
-                publicKey: data?.publicKey,
-                walletType
-              };
-              const response: SignInResponse = await signinCaller<SignInResponse>(payload);
-              saveTokens(response, walletType);
-              setViewPopover(false);
-              checkLoginStatus();
+                messagePayload.message,
+                data?.signature,
+                data?.publicKey,
+                setViewPopover,
+                checkLoginStatus
+              );
             },
             userSession: newSession
           });
@@ -154,14 +119,14 @@ export const handleLeatherConnection = async (
   } catch (error: unknown) {
     handleError(error);
   }
-};
+}
 
-export const handleOkxConnection = async (
+export async function handleOkxConnection(
   walletType: string,
   okxInstalled: boolean,
   setViewPopover: (arg0: boolean) => void,
   checkLoginStatus: () => void
-) => {
+) {
   if (!okxInstalled) {
     window.location.href = 'https://okx.com/web3';
     return;
@@ -173,22 +138,11 @@ export const handleOkxConnection = async (
     const publicKey = await window.okxwallet.bitcoin.getPublicKey();
 
     const address = accounts[0];
-    const messagePayload: MessageResponse = await messageCaller(address);
+    const messagePayload: IWalletMessageResponse = await getWalletMessage(address);
     const signedMessage = await window.okxwallet.bitcoin.signMessage(messagePayload?.message);
 
-    const payload: SignInPayload = {
-      address,
-      message: messagePayload?.message,
-      signature: signedMessage,
-      publicKey,
-      walletType
-    };
-
-    const response: SignInResponse = await signinCaller<SignInResponse>(payload);
-    saveTokens(response, walletType);
-    setViewPopover(false);
-    checkLoginStatus();
+    await signInWithWallet(walletType, address, messagePayload.message, signedMessage, publicKey, setViewPopover, checkLoginStatus);
   } catch (error: unknown) {
     handleError(error);
   }
-};
+}
