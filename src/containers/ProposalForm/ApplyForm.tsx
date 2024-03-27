@@ -117,7 +117,6 @@ const ApplyForm: React.FC = () => {
             theme={themeType}
             maxRows={6}
             minRows={item && item?.inputLine}
-            fullWidth
             placeholder={item?.placeholder}
             id="fullWidth"
           />

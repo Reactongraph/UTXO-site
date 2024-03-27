@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Menu, MenuItem } from '@mui/material';
+import { Box } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
-import { LeftConatiner, RightContainer } from './styled';
-import { HeaderCard, RightContent } from './HeaderContent';
-import { CommonButton } from '@/components/common/button/Button';
-import PopOverContent from './PopOverContent';
-import PopOver from '@/components/common/popover/PopOver';
-import { getUserData, logoutUser } from '@/utils/apiCalls/user.apiCalls';
-import useIsLogged from '@/hooks/useIsLogged';
-import { truncateAddress } from '@/utils/helpers/jsHelper';
 import { ICurrentUser } from '@/types/user.types';
+import React, { useEffect, useState } from 'react';
+import { HeaderCard, RightContent } from './HeaderContent';
+import { truncateAddress } from '@/utils/helpers/jsHelper';
+import { CommonButton } from '@/components/common/button/Button';
+import { getUserData, logoutUser } from '@/utils/apiCalls/user.apiCalls';
+import { DropDown, DropDownItem, LeftConatiner, RightContainer } from './styled';
+import PopOverContent from './PopOverContent';
+import useIsLogged from '@/hooks/useIsLogged';
+import PopOver from '@/components/common/popover/PopOver';
 
 const Header = () => {
   const [viewPopover, setViewPopover] = useState(false);
@@ -73,7 +74,9 @@ const Header = () => {
       >
         <LeftConatiner>
           <Box>
-            <img src={theme?.palette?.mode === 'light' ? '/images/logo.svg' : '/images/logo-dark-header.svg'} alt="logo"></img>
+            <Link to="/">
+              <img src={theme?.palette?.mode === 'light' ? '/images/logo.svg' : '/images/logo-dark-header.svg'} alt="logo"></img>
+            </Link>
           </Box>
           <HeaderCard theme={theme?.palette} />
         </LeftConatiner>
@@ -107,11 +110,11 @@ const Header = () => {
                 aria-controls={logoutPopover ? 'simple-popover' : undefined}
                 aria-haspopup="true"
                 aria-expanded={logoutPopover ? 'true' : undefined}
-                onClick={handlePopoverClick(setLogoutPopover)}
+                onMouseEnter={handlePopoverClick(setLogoutPopover)}
               >
                 {truncateAddress(userDetails?.address, 10) || 'Account'}
               </CommonButton>
-              <Menu
+              <DropDown
                 id="demo-positioned-menu"
                 aria-labelledby="demo-positioned-button"
                 open={logoutPopover}
@@ -126,22 +129,24 @@ const Header = () => {
                   horizontal: 'right'
                 }}
               >
-                <MenuItem>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div style={{ minWidth: '80px' }}>
-                      <b>{userDetails?.balance}</b> UTXO
-                    </div>
-                  </Box>
-                </MenuItem>
-                <MenuItem>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div style={{ minWidth: '80px' }}>
-                      <b>{userDetails?.votingPower}</b> Voting
-                    </div>
-                  </Box>
-                </MenuItem>
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
-              </Menu>
+                <Box onMouseLeave={handleClose}>
+                  <DropDownItem>Orders</DropDownItem>
+                  <DropDownItem>Assets</DropDownItem>
+                  <DropDownItem className="no-hover">
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                      UTXO <b>{userDetails?.balance}</b>
+                    </Box>
+                  </DropDownItem>
+                  <DropDownItem className="no-hover">
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                      Voting <b>{userDetails?.votingPower}</b>
+                    </Box>
+                  </DropDownItem>
+                  <DropDownItem onClick={handleLogout} className="logout-btn no-hover">
+                    Logout
+                  </DropDownItem>
+                </Box>
+              </DropDown>
             </>
           )}
         </RightContainer>

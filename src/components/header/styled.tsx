@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from '@emotion/styled';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Menu, MenuItem } from '@mui/material';
 
 export const LeftConatiner = styled.div`
   display: flex;
@@ -138,3 +138,38 @@ export const ConnectStyledItem = styled(Grid)(({ theme }: { theme: any }) => ({
     border: '1px solid #0FAE96'
   }
 }));
+
+export const DropDown = styled(Menu)`
+  ul {
+    background-color: #171717;
+    padding: 20px;
+  }
+
+  li {
+    min-width: 220px;
+    line-height: 1.8;
+  }
+`;
+export const DropDownItem = styled(MenuItem)`
+  border: 1px solid #171717;
+  &.no-hover:hover {
+    background-color: transparent;
+    cursor: default;
+    border: 1px solid #171717;
+  }
+  &:hover {
+    background-color: transparent;
+    border: 1px solid #0fae96;
+    border-radius: 5px;
+  }
+  &.logout-btn {
+    justify-content: center;
+    background-color: #111010;
+    border: 1px solid #171717;
+    border-radius: 5px;
+    &:hover {
+      background-color: #0fae96;
+      cursor: pointer;
+    }
+  }
+`;
