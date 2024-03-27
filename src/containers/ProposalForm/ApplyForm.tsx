@@ -113,13 +113,7 @@ const ApplyForm: React.FC = () => {
     } else {
       return (
         <>
-          <TextAreaWrap
-            theme={themeType}
-            maxRows={6}
-            minRows={item && item?.inputLine}
-            placeholder={item?.placeholder}
-            id="fullWidth"
-          />
+          <TextAreaWrap theme={themeType} maxRows={6} minRows={item && item?.inputLine} placeholder={item?.placeholder} id="fullWidth" />
         </>
       );
     }
