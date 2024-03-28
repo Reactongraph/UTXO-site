@@ -138,21 +138,28 @@ const Header = () => {
                 vertical: 'top',
                 horizontal: 'right'
               }}
+              className={theme.palette.mode === 'light' ? 'light-mode' : 'dark-mode'}
             >
               <Box onMouseLeave={handleClose}>
-                <DropDownItem>Orders</DropDownItem>
-                <DropDownItem>Assets</DropDownItem>
-                <DropDownItem className="no-hover">
+                <DropDownItem border={theme.palette.mode === 'light' && '1px solid #fff'}>Orders</DropDownItem>
+                <DropDownItem border={theme.palette.mode === 'light' && '1px solid #fff'}>Assets</DropDownItem>
+                <DropDownItem className="no-hover" border={theme.palette.mode === 'light' && '1px solid #fff'}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                     UTXO <b>{userDetails?.balance}</b>
                   </Box>
                 </DropDownItem>
-                <DropDownItem className="no-hover">
+                <DropDownItem className="no-hover" border={theme.palette.mode === 'light' && '1px solid #fff'}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                     Voting <b>{userDetails?.votingPower}</b>
                   </Box>
                 </DropDownItem>
-                <DropDownItem onClick={handleLogout} className="logout-btn no-hover">
+                <DropDownItem
+                  onClick={handleLogout}
+                  className="logout-btn no-hover"
+                  border={theme.palette.mode === 'light' ? '1px solid #fff' : undefined}
+                  bg={theme.palette.mode === 'light' ? '#efefef' : undefined}
+                  color={theme.palette.mode === 'light' ? '#fff' : undefined}
+                >
                   Logout
                 </DropDownItem>
               </Box>

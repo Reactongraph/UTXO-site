@@ -141,8 +141,13 @@ export const ConnectStyledItem = styled(Grid)(({ theme }: { theme: any }) => ({
 
 export const DropDown = styled(Menu)`
   ul {
-    background-color: #171717;
     padding: 20px;
+    .light-mode {
+      background-color: #fff;
+    }
+    .dark-mode {
+      background-color: #171717;
+    }
   }
 
   li {
@@ -150,26 +155,31 @@ export const DropDown = styled(Menu)`
     line-height: 1.8;
   }
 `;
-export const DropDownItem = styled(MenuItem)`
-  border: 1px solid #171717;
-  &.no-hover:hover {
-    background-color: transparent;
-    cursor: default;
-    border: 1px solid #171717;
-  }
-  &:hover {
-    background-color: transparent;
-    border: 1px solid #0fae96;
-    border-radius: 5px;
-  }
-  &.logout-btn {
-    justify-content: center;
-    background-color: #111010;
-    border: 1px solid #171717;
-    border-radius: 5px;
+
+export const DropDownItem = styled(MenuItem)(
+  {},
+  ({ border, bg, color }: { border: any; bg?: string; color?: string }) => `
+    border: ${border || ' 1px solid #313030'};
+    &.no-hover:hover {
+      background-color: transparent;
+      cursor: default;
+      border: ${border || ' 1px solid #313030'};
+    }
+    &:hover {
+      background-color: transparent;
+      border: 1px solid #0fae96;
+      border-radius: 5px;
+    }
+     &.logout-btn {
+      justify-content: center;
+      background-color: ${bg || '#111010'};
+      border: ${border || ' 1px solid #313030'};
+      border-radius: 5px;
     &:hover {
       background-color: #0fae96;
       cursor: pointer;
+      color : ${color || 'rgba(0,0,0,0.8)'}
     }
-  }
-`;
+}
+`
+);
