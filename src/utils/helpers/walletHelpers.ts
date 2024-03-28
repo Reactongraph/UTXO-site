@@ -1,6 +1,7 @@
 import { saveTokens } from './storageHelper';
 import { StacksMainnet } from '@stacks/network';
 import { ISignInPayload, IWalletMessageResponse } from '@/types/user.types';
+import { UserAction, updateAuthAction } from '@/store/contexts/userContext';
 import { getMessageVerified, getWalletMessage } from '@/utils/apiCalls/user.apiCalls';
 import { AppConfig, UserSession, openSignatureRequestPopup, showConnect } from '@stacks/connect';
 
@@ -18,7 +19,8 @@ async function signInWithWallet(
   signature: string,
   publicKey: string,
   setViewPopover: (arg0: boolean) => void,
-  checkLoginStatus: () => void
+  checkLoginStatus: () => void,
+  userDispatch: React.Dispatch<UserAction>
 ) {
   const payload: ISignInPayload = { address, message, signature, publicKey, walletType };
   try {
@@ -27,6 +29,7 @@ async function signInWithWallet(
     saveTokens(response, walletType);
     setViewPopover(false);
     checkLoginStatus();
+    userDispatch(updateAuthAction({ ...response, walletType }));
   } catch (error: unknown) {
     handleError(error);
   }
@@ -36,7 +39,8 @@ export async function handleUnisetConnection(
   walletType: string,
   unisatInstalled: boolean,
   setViewPopover: (arg0: boolean) => void,
-  checkLoginStatus: () => void
+  checkLoginStatus: () => void,
+  userDispatch: React.Dispatch<UserAction>
 ) {
   if (!unisatInstalled) {
     window.location.href = 'https://unisat.io';
@@ -54,7 +58,16 @@ export async function handleUnisetConnection(
     const signature = await window.unisat.signMessage(messagePayload.message);
     const publicKey = await window.unisat.getPublicKey();
 
-    await signInWithWallet(walletType, address, messagePayload.message, signature, publicKey, setViewPopover, checkLoginStatus);
+    await signInWithWallet(
+      walletType,
+      address,
+      messagePayload.message,
+      signature,
+      publicKey,
+      setViewPopover,
+      checkLoginStatus,
+      userDispatch
+    );
   } catch (error: unknown) {
     handleError(error);
   }
@@ -64,7 +77,8 @@ export async function handleLeatherConnection(
   walletType: string,
   leatherInstalled: boolean,
   setViewPopover: (arg0: boolean) => void,
-  checkLoginStatus: () => void
+  checkLoginStatus: () => void,
+  userDispatch: React.Dispatch<UserAction>
 ) {
   if (!leatherInstalled) {
     window.location.href = 'https://leather.io/install-extension';
@@ -105,7 +119,8 @@ export async function handleLeatherConnection(
                 data?.signature,
                 data?.publicKey,
                 setViewPopover,
-                checkLoginStatus
+                checkLoginStatus,
+                userDispatch
               );
             },
             userSession: newSession
@@ -125,7 +140,8 @@ export async function handleOkxConnection(
   walletType: string,
   okxInstalled: boolean,
   setViewPopover: (arg0: boolean) => void,
-  checkLoginStatus: () => void
+  checkLoginStatus: () => void,
+  userDispatch: React.Dispatch<UserAction>
 ) {
   if (!okxInstalled) {
     window.location.href = 'https://okx.com/web3';
@@ -141,7 +157,16 @@ export async function handleOkxConnection(
     const messagePayload: IWalletMessageResponse = await getWalletMessage(address);
     const signedMessage = await window.okxwallet.bitcoin.signMessage(messagePayload?.message);
 
-    await signInWithWallet(walletType, address, messagePayload.message, signedMessage, publicKey, setViewPopover, checkLoginStatus);
+    await signInWithWallet(
+      walletType,
+      address,
+      messagePayload.message,
+      signedMessage,
+      publicKey,
+      setViewPopover,
+      checkLoginStatus,
+      userDispatch
+    );
   } catch (error: unknown) {
     handleError(error);
   }

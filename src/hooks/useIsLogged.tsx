@@ -2,7 +2,7 @@ import { getItem } from '@/utils/helpers/storageHelper';
 import { useState, useEffect } from 'react';
 
 const useIsLogged = () => {
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState<boolean | null>(null);
   const [wallet, setWallet] = useState<string | null>(null);
 
   const checkLoginStatus = () => {
@@ -15,11 +15,8 @@ const useIsLogged = () => {
 
   useEffect(() => {
     checkLoginStatus();
-
-    // Listen for changes in localStorage from other tabs/windows
     window.addEventListener('storage', checkLoginStatus);
 
-    // Cleanup
     return () => {
       window.removeEventListener('storage', checkLoginStatus);
     };

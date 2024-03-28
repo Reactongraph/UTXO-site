@@ -1,13 +1,14 @@
-import { Box } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { ICurrentUser } from '@/types/user.types';
-import React, { useEffect, useState } from 'react';
 import { HeaderCard, RightContent } from './HeaderContent';
 import { truncateAddress } from '@/utils/helpers/jsHelper';
 import { CommonButton } from '@/components/common/button/Button';
 import { getUserData, logoutUser } from '@/utils/apiCalls/user.apiCalls';
 import { DropDown, DropDownItem, LeftConatiner, RightContainer } from './styled';
+import { resetUserStore, updateUserAction, useUserContext } from '@/store/contexts/userContext';
 import PopOverContent from './PopOverContent';
 import useIsLogged from '@/hooks/useIsLogged';
 import PopOver from '@/components/common/popover/PopOver';
@@ -16,25 +17,20 @@ const Header = () => {
   const [viewPopover, setViewPopover] = useState(false);
   const [logoutPopover, setLogoutPopover] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [userDetails, setUserDetails] = useState<ICurrentUser>({
-    address: 'Account',
-    balance: '0.00',
-    votingPower: 0
-  });
 
   const theme = useTheme();
   const { isLogged, checkLoginStatus } = useIsLogged();
+  const { user: userDetails, dispatch: userDispatch } = useUserContext();
 
   useEffect(() => {
     if (isLogged) {
       const fetchUserDetails = async () => {
-        const user = await getUserData();
-        setUserDetails(user as ICurrentUser);
+        const userDetails = await getUserData();
+        userDispatch(updateUserAction(userDetails as ICurrentUser));
       };
-
       fetchUserDetails();
     }
-  }, [isLogged]);
+  }, [isLogged, userDispatch]);
 
   const handlePopoverClick = (setPopover: React.Dispatch<React.SetStateAction<boolean>>) => (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -50,8 +46,44 @@ const Header = () => {
   const handleLogout = async () => {
     await logoutUser();
     localStorage.clear();
+    userDispatch(resetUserStore());
     checkLoginStatus();
     handleClose();
+  };
+
+  const renderButton = () => {
+    if (isLogged === false) {
+      return (
+        <CommonButton
+          fz="1.125em"
+          pd="14px 31px"
+          aria-describedby={viewPopover ? 'simple-popover' : undefined}
+          onClick={handlePopoverClick(setViewPopover)}
+        >
+          Connect
+        </CommonButton>
+      );
+    } else if (isLogged && userDetails?.address) {
+      return (
+        <CommonButton
+          fz="1.125em"
+          pd="14px 31px"
+          id="demo-positioned-button"
+          aria-controls={logoutPopover ? 'simple-popover' : undefined}
+          aria-haspopup="true"
+          aria-expanded={logoutPopover ? 'true' : undefined}
+          onMouseEnter={handlePopoverClick(setLogoutPopover)}
+        >
+          {truncateAddress(userDetails?.address, 10)}
+        </CommonButton>
+      );
+    } else {
+      return (
+        <CommonButton fz="1.125em" pd="14px 31px">
+          Loading...
+        </CommonButton>
+      );
+    }
   };
 
   return (
@@ -84,71 +116,48 @@ const Header = () => {
           <Box>
             <RightContent theme={theme?.palette} />
           </Box>
-          {!isLogged ? (
-            <Box id="header-pop">
-              <CommonButton
-                fz="1.125em"
-                pd="14px 31px"
-                aria-describedby={viewPopover ? 'simple-popover' : undefined}
-                onClick={handlePopoverClick(setViewPopover)}
-              >
-                Connect
-              </CommonButton>
-              <PopOver
-                open={viewPopover}
-                content={<PopOverContent theme={theme?.palette} setViewPopover={setViewPopover} checkLoginStatus={checkLoginStatus} />}
-                onClose={handleClose}
-                anchorEl={anchorEl}
-              />
-            </Box>
-          ) : (
-            <>
-              <CommonButton
-                fz="1.125em"
-                pd="14px 31px"
-                id="demo-positioned-button"
-                aria-controls={logoutPopover ? 'simple-popover' : undefined}
-                aria-haspopup="true"
-                aria-expanded={logoutPopover ? 'true' : undefined}
-                onMouseEnter={handlePopoverClick(setLogoutPopover)}
-              >
-                {truncateAddress(userDetails?.address, 10) || 'Account'}
-              </CommonButton>
-              <DropDown
-                id="demo-positioned-menu"
-                aria-labelledby="demo-positioned-button"
-                open={logoutPopover}
-                onClose={handleClose}
-                sx={{ left: -20, top: -5 }}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right'
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right'
-                }}
-              >
-                <Box onMouseLeave={handleClose}>
-                  <DropDownItem>Orders</DropDownItem>
-                  <DropDownItem>Assets</DropDownItem>
-                  <DropDownItem className="no-hover">
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                      UTXO <b>{userDetails?.balance}</b>
-                    </Box>
-                  </DropDownItem>
-                  <DropDownItem className="no-hover">
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                      Voting <b>{userDetails?.votingPower}</b>
-                    </Box>
-                  </DropDownItem>
-                  <DropDownItem onClick={handleLogout} className="logout-btn no-hover">
-                    Logout
-                  </DropDownItem>
-                </Box>
-              </DropDown>
-            </>
-          )}
+          <Box id="header-pop">
+            {renderButton()}
+            <PopOver
+              open={viewPopover}
+              content={<PopOverContent theme={theme?.palette} setViewPopover={setViewPopover} checkLoginStatus={checkLoginStatus} />}
+              onClose={handleClose}
+              anchorEl={anchorEl}
+            />
+            <DropDown
+              id="demo-positioned-menu"
+              aria-labelledby="demo-positioned-button"
+              open={logoutPopover}
+              onClose={handleClose}
+              sx={{ left: -20, top: -5 }}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right'
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right'
+              }}
+            >
+              <Box onMouseLeave={handleClose}>
+                <DropDownItem>Orders</DropDownItem>
+                <DropDownItem>Assets</DropDownItem>
+                <DropDownItem className="no-hover">
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                    UTXO <b>{userDetails?.balance}</b>
+                  </Box>
+                </DropDownItem>
+                <DropDownItem className="no-hover">
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                    Voting <b>{userDetails?.votingPower}</b>
+                  </Box>
+                </DropDownItem>
+                <DropDownItem onClick={handleLogout} className="logout-btn no-hover">
+                  Logout
+                </DropDownItem>
+              </Box>
+            </DropDown>
+          </Box>
         </RightContainer>
       </Box>
       {theme?.palette?.mode === 'dark' && window.innerWidth > 756 && (

@@ -7,8 +7,6 @@ import { CommonButton } from '@/components/common/button/Button';
 import { HeaderTypography } from '@/components/common/typography/Typography';
 import { DisplayGrid, MainWrapper, ProposalWrapper, ProposalWrapperFilter, TableWrapper, TableWrapperFilter } from './styled';
 import TableComponent from './DahboardTable';
-import Footer from '@/components/footer/Footer';
-import Header from '@/components/header/Header';
 import CommonSlider from '@/components/common/slider/Slider';
 
 const titles = [
@@ -41,7 +39,6 @@ const DashboardPage = () => {
   };
   return (
     <Box>
-      <Header />
       <Box padding="20px">
         <Box position={'relative'} zIndex={'1'}>
           <DisplayGrid theme={theme}></DisplayGrid>
@@ -154,7 +151,6 @@ const DashboardPage = () => {
           </Box>
         </Box>
       </Box>
-      <Footer />
     </Box>
   );
 };

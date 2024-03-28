@@ -16,6 +16,12 @@ export interface ISignInPayload {
   walletType: string;
 }
 
+export interface IUserState extends ICurrentUser {
+  accessToken: string;
+  refreshToken: string;
+  wallet: string;
+}
+
 export interface ISignInResponse<T> {
   accessToken: string;
   refreshToken: string;

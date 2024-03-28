@@ -3,69 +3,80 @@ export const FormFields = [
     text: 'Upload Image',
     inputLine: '',
     placeholder: '',
-    type: 'upload'
+    type: 'upload',
+    name: 'uploadImage'
   },
   {
     text: 'Proposals Name',
     inputLine: 1,
     placeholder: 'Enter Proposals',
-    type: 'input'
+    type: 'input',
+    name: 'proposalName'
   },
   {
     text: 'Fund Amount ',
     inputLine: 1,
     placeholder: 'Enter Amount',
-    type: 'input'
+    type: 'input',
+    name: 'fundAmount'
   },
   {
     text: 'BTC Wallet ',
     inputLine: 1,
     placeholder: 'Enter Amount',
-    type: 'input'
+    type: 'input',
+    name: 'btcWallet'
   },
   {
     text: 'Target Date',
     inputLine: '',
     placeholder: 'Target Date',
-    type: 'calender'
+    type: 'calender',
+    name: 'targetDate'
   },
   {
     text: 'Github',
     inputLine: 1,
     placeholder: 'Enter Amount',
-    type: 'input'
+    type: 'input',
+    name: 'githubLink'
   },
   {
     text: 'Twitter / X ',
     inputLine: '',
     placeholder: 'Enter Amount',
     type: 'text',
-    value: 'www.github6789'
+    value: 'www.github6789',
+    name: 'twitterLink'
   },
   {
     text: 'Telegram ',
     inputLine: '',
     placeholder: 'Enter Amount',
     type: 'text',
-    value: 'www.github6789'
+    value: 'www.github6789',
+    name: 'telegramLink'
   },
   {
     text: 'Description',
     inputLine: 3,
     placeholder: 'Enter Amount',
-    type: 'input'
+    type: 'input',
+    name: 'description'
   },
   {
     text: 'Additional info',
     inputLine: 3,
     placeholder: 'Enter Amount',
-    type: 'input'
+    type: 'input',
+    name: 'additionalInfo'
   },
   {
     text: 'Upload File',
     inputLine: '',
     placeholder: '',
-    type: 'attach'
+    type: 'attach',
+    name: 'fileUpload'
   }
 ];
 

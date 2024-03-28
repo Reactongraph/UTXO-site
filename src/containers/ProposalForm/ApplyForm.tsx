@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, IconButton } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -139,7 +139,7 @@ const ApplyForm: React.FC = () => {
           <MainWrapper>
             {FormFields?.map((item: { text: string }, index: number) => {
               return (
-                <>
+                <Fragment key={index}>
                   <HeaderTypography
                     fz="1em"
                     marginTop={'20px'}
@@ -157,7 +157,7 @@ const ApplyForm: React.FC = () => {
                     {item?.text}
                   </HeaderTypography>
                   {content(item, index)}
-                </>
+                </Fragment>
               );
             })}
           </MainWrapper>
@@ -179,20 +179,6 @@ const ApplyForm: React.FC = () => {
           </Box>
         </Box>
       </Wrapper>
-      {/* {themeType?.mode === "light" && (
-      <Box
-        position={"absolute"}
-        height={"387.74px"}
-        top="0"
-        zIndex="-1"
-        width="100%"
-        bgcolor={"red"}
-        sx={{
-          background:
-            "linear-gradient(91.18deg, #F0FCFB 49.99%, rgba(201, 255, 250, 0) 98.59%)",
-        }}
-      ></Box>
-    )} */}
     </Box>
   );
 };

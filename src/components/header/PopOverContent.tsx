@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Grid } from '@mui/material';
 import { ConnectStyledItem } from './styled';
 import { HeaderTypography } from '@/components/common/typography/Typography';
+import { UserAction, useUserContext } from '@/store/contexts/userContext';
 import { handleLeatherConnection, handleOkxConnection, handleUnisetConnection } from '@/utils/helpers/walletHelpers';
 
 interface PopOverContentProps {
@@ -15,7 +16,13 @@ interface PopOverItem {
   text: string;
   icon: string;
   type: string;
-  handleOnClick: (type: string, isInstalled: boolean, setViewPopover: (view: boolean) => void, checkLoginStatus: () => void) => void;
+  handleOnClick: (
+    type: string,
+    isInstalled: boolean,
+    setViewPopover: (view: boolean) => void,
+    checkLoginStatus: () => void,
+    userDispatch: React.Dispatch<UserAction>
+  ) => void;
   isInstalled: boolean;
 }
 
@@ -37,6 +44,8 @@ const PopOverContent: React.FC<PopOverContentProps> = ({ theme, setViewPopover, 
   const [unisatInstalled, setUnisatInstalled] = useState(false);
   const [leatherInstalled, setLeatherInstalled] = useState(false);
   const [okxInstalled, setOkxInstalled] = useState(false);
+
+  const { dispatch: userDispatch } = useUserContext();
 
   useEffect(() => {
     setUnisatInstalled(!!window.unisat);
@@ -70,7 +79,7 @@ const PopOverContent: React.FC<PopOverContentProps> = ({ theme, setViewPopover, 
 
   return (
     <Box>
-      <Grid backgroundColor="" padding="37px 24px 20px 32px" width="561px">
+      <Grid padding="37px 24px 20px 32px" width="561px">
         <Grid display="flex" gap="24px" marginBottom="25px">
           <img src="/images/wallet.svg" alt="img" />
           <Grid>
@@ -115,7 +124,7 @@ const PopOverContent: React.FC<PopOverContentProps> = ({ theme, setViewPopover, 
             <ConnectStyledItem
               key={index}
               theme={theme}
-              onClick={() => item.handleOnClick(item.type, item.isInstalled, setViewPopover, checkLoginStatus)}
+              onClick={() => item.handleOnClick(item.type, item.isInstalled, setViewPopover, checkLoginStatus, userDispatch)}
             >
               <img width="47px" src={item.icon} alt="img" />
               <HeaderTypography fc={theme?.primary?.popoverText} fz="1em" fw="500">
